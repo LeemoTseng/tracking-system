@@ -9,7 +9,7 @@
         type="text"
       />
       <div
-        class="bg-blackColor text-white font-medium px-10 py-1 rounded-sm ml-3"
+        class="cursor-pointer bg-blackColor text-white font-medium px-10 py-1 rounded-sm ml-3"
       >
         Search
       </div>
@@ -41,12 +41,10 @@
             <p class="font-medium">ORD <br />CHICAGO ORD, UNITED STATES</p>
           </div>
         </div>
-        <div class="process px-10 flex">
-          <!-- process -->
-          <div
-            *ngFor="let item of processList; let i = index"
-            class="process flex flex-col w-full"
-          >
+        <!-- Process -->
+        <div class="process px-10 flex py-10">
+          @for (item of processList; track $index) {
+          <div class="process flex flex-col w-full">
             <div class="iconAnimation flex justify-start items-center">
               <!-- text-blackColor/20 -->
               <mat-icon
@@ -56,16 +54,23 @@
                 {{ item.icon }}</mat-icon
               >
               <div class="line bg-primary w-full h-[3px]"></div>
-              <!-- <div class="line bg-blackColor/20 w-full h-[3px]"></div> -->
+              <div class="line bg-blackColor/20 h-[3px]"></div>
             </div>
             <p class="text-blackColor/50 font-medium mb-0">{{ item.name }}</p>
             <p class="mt-0">{{ item.time }}</p>
+
+            @if (item.flight) {
+
             <p class="text-blackColor/50 font-medium mb-0">Flight No.</p>
             <p class="mt-0">BR0650</p>
+
             <p class="text-blackColor/50 font-medium mb-0">
               Origin / Destination
             </p>
             <p class="mt-0">TPE / IAH</p>
+
+            } @if(item.image){
+
             <div
               matRipple
               [matRippleColor]="rippleColor"
@@ -73,7 +78,9 @@
             >
               View Images
             </div>
+            }
           </div>
+          }
           <!-- completed -->
           <div class="Completed flex flex-col w-fit">
             <div class="iconAnimation flex items-center">
@@ -85,13 +92,43 @@
             </div>
             <p class="text-blackColor/50 font-medium mb-0">Completed</p>
           </div>
-
-          <!-- <div class="etd"></div>
-          <div class="atd"></div>
-          <div class="eta"></div>
-          <div class="ata"></div>
-          <div class="completed"></div> -->
         </div>
+      </div>
+    </div>
+    <!-- Other Details -->
+    <div class="otherDetails pt-3">
+      <div class="bg-white rounded-md p-10">
+        <div class="detail-menu flex justify-between">
+          <div class="flex gap-x-2 relative">
+            <div class="absolute bottom-[3px] border-b-2 w-full"></div>
+            <p
+              class="cursor-pointer font-semibold hover:text-blackColor/90 py-2 px-3 mr-1 border-b-4 border-primary"
+            >
+              Shipment Details
+            </p>
+            <p
+              class="border-white font-semibold text-blackColor/50 cursor-pointer py-2 px-3 mr-1 border-b-4"
+            >
+              Milestones
+            </p>
+            <p
+              class="border-white font-semibold text-blackColor/50 cursor-pointer py-2 px-3 mr-1 border-b-4"
+            >
+              Files
+            </p>
+          </div>
+        </div>
+        <!-- table: Milestones -->
+        <app-table-template
+          [dataSource]="dataSource"
+          [displayedColumns]="displayedColumns"
+        ></app-table-template>
+        <!-- table: Flight No. -->
+        <app-table-template
+          [dataSource]="dataSource"
+          [displayedColumns]="displayedColumns"
+        >
+        </app-table-template>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+// @use "@angular/material" as mat;
 
 * {
   margin: 0;
@@ -22,12 +23,12 @@
   outline: #3d3d3d;
 }
 .btn-outline {
-  border: 1px solid #3d3d3d;
+  border: 1px solid #a0a0a0;
   border-radius: 5px;
   text-align: center;
   font-size: 16px;
   color: #3d3d3d;
-  padding: 5px 20px;
+  padding: 2px 20px;
   margin: 8px 0;
   cursor: pointer;
   width: 100%;

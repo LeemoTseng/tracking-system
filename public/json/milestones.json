@@ -1,0 +1,77 @@
+{
+  "milestones": [
+    {
+      "order": 1,
+      "milestone": "Booking Creation",
+      "dateandtime": "2024-11-09 11:10",
+      "files": true,
+      "imgUrl": [
+        {
+          "id": 1,
+          "name": "airport",
+          "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg"
+        },
+        {
+          "id": 2,
+          "name": "terminal",
+          "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-2.jpg"
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "milestone": "Cargo Arrive Terminal",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    },
+    {
+      "order": 3,
+      "milestone": "ETD",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    },
+    {
+      "order": 4,
+      "milestone": "ATD",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    },
+    {
+      "order": 5,
+      "milestone": "ETA",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    },
+    {
+      "order": 6,
+      "milestone": "ATA",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    },
+    {
+      "order": 7,
+      "milestone": "Airport Pickup",
+      "dateandtime": "2024-11-09 11:10",
+      "files": true,
+      "imgUrl": [
+        {
+          "id": 3,
+          "name": "pickup",
+          "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-3.jpg"
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "milestone": "Delivered",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    },
+    {
+      "order": 9,
+      "milestone": "POD",
+      "dateandtime": "2024-11-09 11:10",
+      "files": false
+    }
+  ]
+}

@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { TableTemplateComponent } from '../../components/table-template/table-template.component';
+import { milestonesInterface } from '../../all-interface';
+import { HttpClient } from '@angular/common/http';
 
 interface processItems {
   name: string;
@@ -23,14 +27,19 @@ interface processItems {
 
 }
 
+
+
 @Component({
   selector: 'app-shipment-summary',
   standalone: true,
-  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule],
+  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule, MatTableModule, TableTemplateComponent],
   templateUrl: './shipment-summary.component.html',
 
 })
-export class ShipmentSummaryComponent {
+export class ShipmentSummaryComponent implements OnInit {
+
+
+  rippleColor = 'rgba(0,0,0,0.05)';
   processList: processItems[] = [
     {
       name: 'Booking Creation',
@@ -86,7 +95,31 @@ export class ShipmentSummaryComponent {
     },
   ]
 
-  rippleColor = 'rgba(0,0,0,0.05)';
 
+
+  httpClient = inject(HttpClient);
+  milestones: milestonesInterface[] = [];
+
+  ngOnInit(): void {
+    this.getData();
+  }
+
+  getData(): void {
+    this.httpClient.get<{ milestones: milestonesInterface[] }>('json/milestones.json')
+      .subscribe({
+        next: (data) => {
+          this.milestones = data.milestones;
+          // console.log('Data: ', data);
+
+        },
+        error: (err) => { console.error('Error: ', err); },
+      })
+  }
+  dataSource = this.milestones;
+  displayedColumns = ['order', 'milestone', 'dateandtime', 'files'];
+
+
+
+  bgColor = 'rgba(0,0,0,0.05)';
 
 }
