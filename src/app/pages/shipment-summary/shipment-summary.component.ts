@@ -6,26 +6,11 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
 import { TableTemplateComponent } from '../../components/table-template/table-template.component';
 import { milestonesInterface } from '../../all-interface';
-import { HttpClient } from '@angular/common/http';
+import { MainServiceService } from '../../services/main-service.service';
+import { MainInterfaceService } from '../../interfaces/main-interface.service';
+import { processItems } from '../../interfaces/main-interface.service';
 
-interface processItems {
-  name: string;
-  icon: string;
-  flight?: [{
-    flight: string;
-    origin: string;
-    destination: string;
-  }],
-  time?: string;
-  image?: boolean;
-  imgUrlList?: [
-    {
-      imgUrl?: string;
-      imgAlt?: string;
-    }
-  ];
 
-}
 
 
 
@@ -38,6 +23,8 @@ interface processItems {
 })
 export class ShipmentSummaryComponent implements OnInit {
 
+  mainService = inject(MainServiceService);
+  processItems = inject(MainInterfaceService);
 
   rippleColor = 'rgba(0,0,0,0.05)';
   processList: processItems[] = [
@@ -95,31 +82,37 @@ export class ShipmentSummaryComponent implements OnInit {
     },
   ]
 
+  milestonesColumns = ['Order', 'Milestone', 'Date and Time', 'Files'];
+  flightsColumns = ['Order','Flight No.', 'From', 'To', 'ETD','ATD','ETA','ATA'];
+  bgColor = 'rgba(0,0,0,0.05)';
 
 
-  httpClient = inject(HttpClient);
   milestones: milestonesInterface[] = [];
+  flights: any[] = [];
 
   ngOnInit(): void {
     this.getData();
   }
 
   getData(): void {
-    this.httpClient.get<{ milestones: milestonesInterface[] }>('json/milestones.json')
-      .subscribe({
-        next: (data) => {
-          this.milestones = data.milestones;
-          // console.log('Data: ', data);
-
-        },
-        error: (err) => { console.error('Error: ', err); },
-      })
+    this.mainService.getFlightsData().subscribe({
+      next: (res) => { this.flights = res.flights;console.log(this.flights)},
+      error: (err) => { console.log(err) },
+      complete: () => { console.log('complete') }
+    })
+    this.mainService.getMilestoneData().subscribe({
+      next: (res) => {
+        this.milestones = res.milestones;
+        console.log(this.milestones);
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { console.log('complete') }
+    })
   }
-  dataSource = this.milestones;
-  displayedColumns = ['order', 'milestone', 'dateandtime', 'files'];
 
+  test() {
+    console.log(this.milestones);
+  }
 
-
-  bgColor = 'rgba(0,0,0,0.05)';
 
 }

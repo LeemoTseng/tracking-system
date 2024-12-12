@@ -120,16 +120,17 @@
         </div>
         <!-- table: Milestones -->
         <app-table-template
-          [dataSource]="dataSource"
-          [displayedColumns]="displayedColumns"
+          [dataSource]="milestones"
+          [displayedColumns]="milestonesColumns"
         ></app-table-template>
         <!-- table: Flight No. -->
         <app-table-template
-          [dataSource]="dataSource"
-          [displayedColumns]="displayedColumns"
+          [dataSource]="flights"
+          [displayedColumns]="flightsColumns"
         >
         </app-table-template>
       </div>
     </div>
+    <!-- <button (click)="test()">TEST</button> -->
   </div>
 </div>

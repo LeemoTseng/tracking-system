@@ -7,17 +7,12 @@
       [matColumnDef]="column"
     >
       <th mat-header-cell *matHeaderCellDef>
-        <ng-container *ngIf="column !== 'order'; else order">
-          <div>{{ column | titlecase }}</div>
-        </ng-container>
-        <ng-template #order>
-          <div>#</div>
-        </ng-template>
+        <div>{{ column }}</div>
       </th>
 
       <td mat-cell *matCellDef="let item">
-        <ng-container *ngIf="column === 'files'; else defaultContent">
-          <div *ngIf="item.files">
+        <ng-container *ngIf="column === 'Files'; else defaultContent">
+          <div *ngIf="item.Files">
             <div matRipple class="btn-outline max-w-fit">View images</div>
           </div>
         </ng-container>

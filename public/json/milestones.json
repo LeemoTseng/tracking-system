@@ -1,11 +1,11 @@
 {
   "milestones": [
     {
-      "order": 1,
-      "milestone": "Booking Creation",
-      "dateandtime": "2024-11-09 11:10",
-      "files": true,
-      "imgUrl": [
+      "Order": 1,
+      "Milestone": "Booking Creation",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": true,
+      "ImgUrl": [
         {
           "id": 1,
           "name": "airport",
@@ -19,41 +19,41 @@
       ]
     },
     {
-      "order": 2,
-      "milestone": "Cargo Arrive Terminal",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 2,
+      "Milestone": "Cargo Arrive Terminal",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     },
     {
-      "order": 3,
-      "milestone": "ETD",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 3,
+      "Milestone": "ETD",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     },
     {
-      "order": 4,
-      "milestone": "ATD",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 4,
+      "Milestone": "ATD",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     },
     {
-      "order": 5,
-      "milestone": "ETA",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 5,
+      "Milestone": "ETA",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     },
     {
-      "order": 6,
-      "milestone": "ATA",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 6,
+      "Milestone": "ATA",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     },
     {
-      "order": 7,
-      "milestone": "Airport Pickup",
-      "dateandtime": "2024-11-09 11:10",
-      "files": true,
-      "imgUrl": [
+      "Order": 7,
+      "Milestone": "Airport Pickup",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": true,
+      "ImgUrl": [
         {
           "id": 3,
           "name": "pickup",
@@ -62,16 +62,16 @@
       ]
     },
     {
-      "order": 8,
-      "milestone": "Delivered",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 8,
+      "Milestone": "Delivered",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     },
     {
-      "order": 9,
-      "milestone": "POD",
-      "dateandtime": "2024-11-09 11:10",
-      "files": false
+      "Order": 9,
+      "Milestone": "POD",
+      "Date and Time": "2024-11-09 11:10",
+      "Files": false
     }
   ]
 }
