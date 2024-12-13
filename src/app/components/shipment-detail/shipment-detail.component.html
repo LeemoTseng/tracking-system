@@ -1,0 +1,42 @@
+<div class="grid grid-cols-3 gap-5">
+  <div class="col-imgBox w-full">
+    <img
+      class="w-full h-full rounded-md overflow-hidden object-cover"
+      src="https://picsum.photos/id/100/100/100"
+      alt=""
+    />
+  </div>
+  <div class="col">
+    <table>
+      <thead></thead>
+      <tbody>
+        <tr>
+          @for (item of shipmentDetails; track $index) {
+          <th><div class="text-lg">MAWB No.</div></th>
+          <td class="pl-5">
+            <div class="text-lg font-normal text-blackColor/60">
+              {{ item.MAWB_No }}
+              <span class="relative">
+                <mat-icon
+                  (click)="copyText(item.MAWB_No)"
+                  style="width: 24px; height: 24px"
+                  class="text-[18px] p-1 pt-[5pt] text-blackColor/60 hover:text-blackColor/90 cursor-pointer"
+                  >content_copy</mat-icon
+                >
+                @if (isCopied) {
+                <p
+                  class="absolute -top-1/2 -right-16 bg-blackColor/30 text-sm text-white px-2 py-1 w-fit rounded-md"
+                >
+                  Copied!
+                </p>
+                }
+              </span>
+            </div>
+          </td>
+          }
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col">aaa</div>
+</div>

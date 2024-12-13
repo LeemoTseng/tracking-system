@@ -11,7 +11,7 @@
               ? 'border-primary'
               : 'border-white text-blackColor/50'
           "
-          class="cursor-pointer transition-all font-semibold hover:text-blackColor/90 py-2 px-3 mr-1 border-b-4"
+          class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-2 px-3 mr-1 border-b-4"
         >
           {{ item }}
         </p>
@@ -19,6 +19,10 @@
       </div>
     </div>
     <div class="min-h-[600px]">
+      <!-- table: Shipment Details -->
+      @if (selectedMenu === 'Shipment Details') {
+      <app-shipment-detail></app-shipment-detail>
+      }
       <!-- table: Files -->
       @if (selectedMenu === 'Files') {
       <app-table-template

@@ -1,24 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
-import { TableTemplateComponent } from '../../components/table-template/table-template.component';
-import { milestonesInterface } from '../../all-interface';
-import { MainServiceService } from '../../services/main-service.service';
-import { MainInterfaceService } from '../../interfaces/main-interface.service';
 import { processItems } from '../../interfaces/main-interface.service';
-import { MilestonesComponent } from '../../components/milestones/milestones.component';
-
-
-
-
+import { OtherDetailsComponent } from '../../components/other-details/other-details.component';
 
 @Component({
   selector: 'app-shipment-summary',
   standalone: true,
-  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule, MatTableModule,MilestonesComponent],
+  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule, MatTableModule, OtherDetailsComponent],
   templateUrl: './shipment-summary.component.html',
 
 })

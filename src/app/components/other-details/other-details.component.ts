@@ -3,15 +3,15 @@ import { MainInterfaceService } from '../../interfaces/main-interface.service';
 import { MainServiceService } from '../../services/main-service.service';
 import { milestonesInterface } from '../../all-interface';
 import { TableTemplateComponent } from '../table-template/table-template.component';
+import { ShipmentDetailComponent } from '../shipment-detail/shipment-detail.component';
 
 @Component({
-  selector: 'app-milestones',
+  selector: 'app-other-details',
   standalone: true,
-  imports: [TableTemplateComponent,],
-  templateUrl: './milestones.component.html',
-  styleUrl: './milestones.component.scss'
+  imports: [TableTemplateComponent,ShipmentDetailComponent],
+  templateUrl: './other-details.component.html',
 })
-export class MilestonesComponent {
+export class OtherDetailsComponent {
 
   menu = ['Shipment Details', 'Milestones', 'Files']
   selectedMenu = 'Shipment Details';
@@ -53,7 +53,7 @@ export class MilestonesComponent {
     const column = ['Order', 'Flight No.', 'From', 'To', 'ETD', 'ATD', 'ETA', 'ATA']
     this.flightsColumns = column;
     this.mainService.getFlightsData().subscribe({
-      next: (res) => { this.flights = res.flights },
+      next: (res) => { this.flights = res.flights},
       error: (err) => { console.log(err) },
       complete: () => { }
     })
