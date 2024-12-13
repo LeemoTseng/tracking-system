@@ -96,41 +96,7 @@
       </div>
     </div>
     <!-- Other Details -->
-    <div class="otherDetails pt-3">
-      <div class="bg-white rounded-md p-10">
-        <div class="detail-menu flex justify-between">
-          <div class="flex gap-x-2 relative">
-            <div class="absolute bottom-[3px] border-b-2 w-full"></div>
-            <p
-              class="cursor-pointer font-semibold hover:text-blackColor/90 py-2 px-3 mr-1 border-b-4 border-primary"
-            >
-              Shipment Details
-            </p>
-            <p
-              class="border-white font-semibold text-blackColor/50 cursor-pointer py-2 px-3 mr-1 border-b-4"
-            >
-              Milestones
-            </p>
-            <p
-              class="border-white font-semibold text-blackColor/50 cursor-pointer py-2 px-3 mr-1 border-b-4"
-            >
-              Files
-            </p>
-          </div>
-        </div>
-        <!-- table: Milestones -->
-        <app-table-template
-          [dataSource]="milestones"
-          [displayedColumns]="milestonesColumns"
-        ></app-table-template>
-        <!-- table: Flight No. -->
-        <app-table-template
-          [dataSource]="flights"
-          [displayedColumns]="flightsColumns"
-        >
-        </app-table-template>
-      </div>
-    </div>
+    <app-milestones></app-milestones>
     <!-- <button (click)="test()">TEST</button> -->
   </div>
 </div>

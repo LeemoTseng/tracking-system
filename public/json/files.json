@@ -1,0 +1,60 @@
+{
+  "Documents": [
+    {
+      "Id": 1,
+      "Type": "PACKING",
+      "Name": "hawb document",
+      "Download": true
+    },
+    {
+      "Id": 2,
+      "Type": "INVOICE",
+      "Name": "",
+      "Download": false
+    },
+    {
+      "Id": 3,
+      "Type": "HAWB",
+      "Name": "",
+      "Download": false
+    },
+    {
+      "Id": 4,
+      "Type": "POD",
+      "Name": "hawb document",
+      "Download": true
+    },
+    {
+      "Id": 5,
+      "Type": "OTHER",
+      "Name": "hawb document",
+      "Download": true
+    }
+  ],
+  "Images": [
+    {
+      "Id": 1,
+      "Type": "POD",
+      "Name": "pod fdfs, fdsfsdf, ...",
+      "Download": "View"
+    },
+    {
+      "Id": 2,
+      "Type": "Delivered",
+      "Name": "Delivered.png",
+      "Download": "View"
+    },
+    {
+      "Id": 3,
+      "Type": "Airport Pickup",
+      "Name": "",
+      "Download": "View"
+    },
+    {
+      "Id": 4,
+      "Type": "Cargo Arrive Terminal",
+      "Name": "",
+      "Download": "View"
+    }
+  ]
+}

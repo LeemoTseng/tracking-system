@@ -9,6 +9,7 @@ import { milestonesInterface } from '../../all-interface';
 import { MainServiceService } from '../../services/main-service.service';
 import { MainInterfaceService } from '../../interfaces/main-interface.service';
 import { processItems } from '../../interfaces/main-interface.service';
+import { MilestonesComponent } from '../../components/milestones/milestones.component';
 
 
 
@@ -17,14 +18,11 @@ import { processItems } from '../../interfaces/main-interface.service';
 @Component({
   selector: 'app-shipment-summary',
   standalone: true,
-  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule, MatTableModule, TableTemplateComponent],
+  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule, MatTableModule,MilestonesComponent],
   templateUrl: './shipment-summary.component.html',
 
 })
-export class ShipmentSummaryComponent implements OnInit {
-
-  mainService = inject(MainServiceService);
-  processItems = inject(MainInterfaceService);
+export class ShipmentSummaryComponent  {
 
   rippleColor = 'rgba(0,0,0,0.05)';
   processList: processItems[] = [
@@ -81,38 +79,7 @@ export class ShipmentSummaryComponent implements OnInit {
 
     },
   ]
-
-  milestonesColumns = ['Order', 'Milestone', 'Date and Time', 'Files'];
-  flightsColumns = ['Order','Flight No.', 'From', 'To', 'ETD','ATD','ETA','ATA'];
   bgColor = 'rgba(0,0,0,0.05)';
-
-
-  milestones: milestonesInterface[] = [];
-  flights: any[] = [];
-
-  ngOnInit(): void {
-    this.getData();
-  }
-
-  getData(): void {
-    this.mainService.getFlightsData().subscribe({
-      next: (res) => { this.flights = res.flights;console.log(this.flights)},
-      error: (err) => { console.log(err) },
-      complete: () => { console.log('complete') }
-    })
-    this.mainService.getMilestoneData().subscribe({
-      next: (res) => {
-        this.milestones = res.milestones;
-        console.log(this.milestones);
-      },
-      error: (err) => { console.log(err) },
-      complete: () => { console.log('complete') }
-    })
-  }
-
-  test() {
-    console.log(this.milestones);
-  }
 
 
 }

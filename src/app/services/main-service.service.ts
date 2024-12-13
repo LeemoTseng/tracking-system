@@ -8,17 +8,22 @@ import { Observable } from 'rxjs';
 })
 export class MainServiceService {
   constructor() { }
-  private milestoneApiUrl = `json/milestones.json`
-  private flightApiUrl = `json/flights.json`
-  private apiKey = `${environment.apiKey}`
+
+  milestoneApiUrl = environment.milestoneApiUrl;
+  flightApiUrl = environment.flightApiUrl;
+  fileApiUrl = environment.fileApiUrl;
 
   http = inject(HttpClient)
 
   getMilestoneData():Observable<any>{
-    return this.http.get(this.milestoneApiUrl+this.apiKey)
+    return this.http.get(this.milestoneApiUrl)
   }
   getFlightsData():Observable<any>{
-    return this.http.get(this.flightApiUrl+this.apiKey)
+    return this.http.get(this.flightApiUrl)
+  }
+
+  getFilesData():Observable<any>{
+    return this.http.get(this.fileApiUrl)
   }
 
 }
