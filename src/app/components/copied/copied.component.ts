@@ -1,36 +1,25 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { ClipboardService } from '../../services/clipboard.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-copied',
   standalone: true,
-  imports: [MatIconModule],
-  template: `
-    <mat-icon>
-    (click)="copyText(item.MAWB_No)"
-    style="width: 24px; height: 24px"
-    class="text-[18px] p-1 pt-[5pt] text-blackColor/60 hover:text-blackColor/90 cursor-pointer"
-    >content_copy</mat-icon>
-    @if (isCopied) {
-    <p
-      class="absolute -top-1/2 -right-16 bg-blackColor/30 text-sm text-white px-2 py-1 w-fit rounded-md"
-    >
-      Copied!
-    </p>
-    }`,
+  imports: [MatIconModule,CommonModule],
+  templateUrl: './copied.component.html',
 })
 export class CopiedComponent {
+  isCopied = false;
+
+  constructor(private clipboardService: ClipboardService) {}
 
   copyText(value: string) {
-    navigator.clipboard.writeText(value).then(() => {
-      console.log(value);
+    this.clipboardService.copyText(value, () => {
+      this.isCopied = true;
     });
-    this.isCopied = true;
     setTimeout(() => {
       this.isCopied = false;
     }, 600);
   }
-
-  isCopied = false;
 }
-

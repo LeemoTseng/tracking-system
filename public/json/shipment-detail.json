@@ -1,28 +1,80 @@
-
+{
+  "General_Info": [
     {
-      "MAWB_No": "016-23794094",
-      "HAWB_No": "016-23794094",
-      "Ship_Date": "2024-11-09 11:10",
-      "Tading_Type": "EXW",
-      "Payment": "Collect",
-      "Package_Info": {
-        "PKG": "1 PLT",
-        "GW": "288.0 KGS",
-        "VW": "35.0 KGS",
-        "CW": "288.0 KGS"
-      },
-      "Route_Info": {
-        "Origin": "TPE - TAIPEI, TAIWAN",
-        "Destination": "IAH - HOUSTON, UNITED STATES"
-      },
-      "Shipper_Info": {
-        "Name": "NYTAPS TAIWAN CORP.",
-        "Address": "36, BEN GONG RD., GANGSHAN DIST., KAOHSIUNG CITY 80658, TAIWAN (R.O.C.)",
-        "Fax": "07-333-3687"
-      },
-      "Consignee_Info": {
-        "Name": "NYTAPS TAIWAN CORP.",
-        "Address": "36, BEN GONG RD., GANGSHAN DIST., KAOHSIUNG CITY 80658, TAIWAN (R.O.C.)",
-        "Fax": "07-333-3687"
-      }
+      "key": "MAWB No.",
+      "value": "016-23794094"
+    },
+    {
+      "key": "HAWB No.",
+      "value": "016-23794002"
+    },
+    {
+      "key": "Ship Date",
+      "value": "2024-11-09 11:10"
+    },
+    {
+      "key": "Trading Type",
+      "value": "EXW"
+    },
+    {
+      "key": "Payment",
+      "value": "Collect"
     }
+  ],
+  "Package_Info": [
+    {
+      "key": "PKG",
+      "value": "1 PLT"
+    },
+    {
+      "key": "GW",
+      "value": "288.0 KGS"
+    },
+    {
+      "key": "VW",
+      "value": "35.0 KGS"
+    },
+    {
+      "key": "CW",
+      "value": "288.0 KGS"
+    }
+  ],
+  "Route_Info": [
+    {
+      "key": "Origin",
+      "value": "TPE - TAIPEI, TAIWAN"
+    },
+    {
+      "key": "Destination",
+      "value": "IAH - HOUSTON, UNITED STATES"
+    }
+  ],
+  "Shipper_Info": [
+    {
+      "key": "Name",
+      "value": "NYTAPS TAIWAN CORP."
+    },
+    {
+      "key": "Address",
+      "value": "36, BEN GONG RD., GANGSHAN DIST., KAOHSIUNG CITY 80658, TAIWAN (R.O.C.)"
+    },
+    {
+      "key": "Fax",
+      "value": "07-333-3687"
+    }
+  ],
+  "Consignee_Info": [
+    {
+      "key": "Name",
+      "value": "NYTAPS TAIWAN CORP."
+    },
+    {
+      "key": "Address",
+      "value": "36, BEN GONG RD., GANGSHAN DIST., KAOHSIUNG CITY 80658, TAIWAN (R.O.C.)"
+    },
+    {
+      "key": "Fax",
+      "value": "07-333-3687"
+    }
+  ]
+}

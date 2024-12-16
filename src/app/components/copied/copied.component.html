@@ -1,0 +1,14 @@
+<mat-icon
+  (click)="copyText('Some text to copy')"
+  style="width: 24px; height: 24px"
+  class="text-[18px] p-1 pt-[5pt] text-blackColor/60 hover:text-blackColor/90 cursor-pointer"
+>
+  content_copy
+</mat-icon>
+
+<p
+  *ngIf="isCopied"
+  class="absolute -top-1/2 -right-16 bg-blackColor/30 text-sm text-white px-2 py-1 w-fit rounded-md"
+>
+  Copied!
+</p>
