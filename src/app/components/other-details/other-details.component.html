@@ -1,8 +1,7 @@
 <div class="otherDetails pt-3 pb-[50px]">
   <div class="bg-white rounded-md p-10">
-    <div class="detail-menu flex justify-between">
+    <div class="detail-menu flex justify-between mb-5 border-b-2">
       <div class="flex gap-x-2 relative">
-        <div class="absolute bottom-[3px] border-b-2 w-full"></div>
         @for (item of menu; track $index) {
         <p
           (click)="menuSelected(item, $index)"
@@ -11,7 +10,7 @@
               ? 'border-primary'
               : 'border-white text-blackColor/50'
           "
-          class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-2 px-3 mr-1 border-b-4"
+          class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-b-4"
         >
           {{ item }}
         </p>

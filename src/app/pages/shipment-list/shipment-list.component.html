@@ -1,0 +1,72 @@
+<app-header></app-header>
+<div class="w-full h-full bg-blackColor/5">
+  <div class="container mx-auto max-w-screen-xl p-3">
+    <!-- greetings -->
+    <div class="greeting py-3">
+      <p class="font-semibold text-3xl text-blackColor">Hello User,</p>
+      <p class="text-blackColor">View all of your shipment list.</p>
+    </div>
+    <!-- frame -->
+    <div class="frame bg-white rounded-md p-10">
+      <!-- process-menu -->
+      <div class="process-menu flex justify-between mb-5 border-b-2">
+        <div class="flex gap-x-2 relative">
+          @for (item of menu; track $index) {
+          <p
+            (click)="menuSelected(item, $index)"
+            [class]="
+              selectedMenu === item
+                ? 'border-primary'
+                : 'border-white text-blackColor/50'
+            "
+            class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-b-4"
+          >
+            {{ item }}
+          </p>
+          }
+        </div>
+      </div>
+      <!-- search -->
+      <div class="search relative flex items-stretch h-full w-1/2 py-10">
+        <div
+          (click)="focusSearch()"
+          [class]="
+            isFocused ? 'border-2 border-blackColor' : 'border-blackColor/20'
+          "
+          class="searchContent border w-full rounded-md flex justify-between"
+        >
+          <input
+            class="focus:outline-none rounded-md bg-white p-0 py-2 pl-8 border-none h-full box-border leading-none"
+            placeholder="Enter tracking number"
+            id="search"
+            type="text"
+          />
+          <input
+            type="date"
+            class="focus:outline-none rounded-e-md bg-white px-2 py-2 border-0 border-l-2 h-full box-border leading-none"
+          />
+          <mat-icon
+            class="text-blackColor/60 absolute left-1 top-1/2 -translate-y-1/2"
+            >search</mat-icon
+          >
+          <select
+            name=""
+            id=""
+            class="focus:outline-none rounded-e-md p-0 py-2 h-full box-border leading-none border-0 border-l-2"
+          >
+            <option value="" class="text-blackColor text-center">All</option>
+            <option value="" class="text-blackColor text-center">ETD</option>
+            <option value="" class="text-blackColor text-center">ETA</option>
+          </select>
+        </div>
+        <div
+          class="cursor-pointer bg-blackColor text-white font-medium px-10 py-2 rounded-md ml-3 border-transparent"
+        >
+          Search
+        </div>
+      </div>
+      <!-- shipment-list -->
+      <app-all-shipment-list></app-all-shipment-list>
+    </div>
+  </div>
+</div>
