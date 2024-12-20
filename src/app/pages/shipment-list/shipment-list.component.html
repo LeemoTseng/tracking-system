@@ -27,7 +27,7 @@
         </div>
       </div>
       <!-- search -->
-      <div class="search relative flex items-stretch h-full w-1/2 py-10">
+      <div class="search relative flex items-stretch h-full w-1/2 pt-5 pb-1">
         <div
           (click)="focusSearch()"
           [class]="
@@ -46,7 +46,7 @@
             class="focus:outline-none rounded-e-md bg-white px-2 py-2 border-0 border-l-2 h-full box-border leading-none"
           />
           <mat-icon
-            class="text-blackColor/60 absolute left-1 top-1/2 -translate-y-1/2"
+            class="text-blackColor/60 absolute left-1 top-2/3 -translate-y-1/2"
             >search</mat-icon
           >
           <select
@@ -64,6 +64,14 @@
         >
           Search
         </div>
+      </div>
+      <div class="searchContent">
+        <p class="text-sm text-blackColor/60">
+          Search from
+          <span class="font-bold">Aug 08, 2024 - Aug 08, 2024</span>. Including
+          “<span class="font-bold">THI2240231</span>”, Sort by
+          <span class="font-bold">new to old</span>.
+        </p>
       </div>
       <!-- shipment-list -->
       <app-all-shipment-list></app-all-shipment-list>
