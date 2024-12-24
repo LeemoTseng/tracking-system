@@ -1,0 +1,151 @@
+{
+    "status": [
+        {
+            "number": 1,
+            "MAWB_No": "123456789",
+            "HAWB_No": "HA123456789",
+            "processes": [
+                {
+                    "status": "Booked",
+                    "dateAndTime": "2024-12-20T10:00:00"
+                },
+                {
+                    "status": "ETD",
+                    "dateAndTime": "2024-12-30T10:00:00"
+                },
+                {
+                    "status": "ATD",
+                    "dateAndTime": "2024-01-01T10:00:00"
+                },
+                {
+                    "status": "ETA",
+                    "dateAndTime": "2024-01-02T10:00:00"
+                },
+                {
+                    "status": "ATA",
+                    "dateAndTime": "2024-01-03T10:00:00"
+                }
+            ]
+        },
+        {
+            "number": 2,
+            "MAWB_No": "123456789",
+            "HAWB_No": "123456789",
+            "processes": [
+                {
+                    "status": "Booked",
+                    "dateAndTime": "2024-12-20T10:00:00"
+                },
+                {
+                    "status": "ETD",
+                    "dateAndTime": "2024-12-21T10:00:00"
+                },
+                {
+                    "status": "ATD",
+                    "dateAndTime": "2024-01-01T10:00:00",
+                    "img": [
+                        {
+                            "id": 1,
+                            "name": "airport",
+                            "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "name": "terminal",
+                            "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-2.jpg"
+                        }
+                    ]
+                },
+                {
+                    "status": "ETA",
+                    "dateAndTime": "2024-01-02T10:00:00"
+                },
+                {
+                    "status": "ATA",
+                    "dateAndTime": "2024-01-03T10:00:00"
+                }
+            ]
+        },
+        {
+            "number": 3,
+            "MAWB_No": "123456789",
+            "HAWB_No": "123456789",
+            "processes": [
+                {
+                    "status": "Booked",
+                    "dateAndTime": "2024-12-22T10:00:00"
+                },
+                {
+                    "status": "ETD",
+                    "dateAndTime": "2024-12-23T10:00:00"
+                },
+                {
+                    "status": "ATD",
+                    "dateAndTime": "2024-12-24T10:00:00"
+                },
+                {
+                    "status": "ETA",
+                    "dateAndTime": "2024-01-01T10:00:00"
+                },
+                {
+                    "status": "ATA",
+                    "dateAndTime": "2024-01-02T10:00:00"
+                }
+            ]
+        },
+        {
+            "number": 4,
+            "MAWB_No": "123456789",
+            "HAWB_No": "123456789",
+            "processes": [
+                {
+                    "status": "Booked",
+                    "dateAndTime": "2024-12-21T10:00:00"
+                },
+                {
+                    "status": "ETD",
+                    "dateAndTime": "2024-12-22T10:00:00"
+                },
+                {
+                    "status": "ATD",
+                    "dateAndTime": "2024-12-23T10:00:00"
+                },
+                {
+                    "status": "ETA",
+                    "dateAndTime": "2024-12-24T10:00:00"
+                },
+                {
+                    "status": "ATA",
+                    "dateAndTime": "2024-01-02T10:00:00"
+                }
+            ]
+        },
+        {
+            "number": 5,
+            "MAWB_No": "123456789",
+            "HAWB_No": "123456789",
+            "processes": [
+                {
+                    "status": "Booked",
+                    "dateAndTime": "2024-12-20T10:00:00"
+                },
+                {
+                    "status": "ETD",
+                    "dateAndTime": "2024-12-21T10:00:00"
+                },
+                {
+                    "status": "ATD",
+                    "dateAndTime": "2024-12-22T10:00:00"
+                },
+                {
+                    "status": "ETA",
+                    "dateAndTime": "2024-12-23T10:00:00"
+                },
+                {
+                    "status": "ATA",
+                    "dateAndTime": "2024-12-24T10:00:00"
+                }
+            ]
+        }
+    ]
+}

@@ -6,7 +6,7 @@ import { AllShipmentListComponent } from "../../components/all-shipment-list/all
 @Component({
   selector: 'app-shipment-list',
   standalone: true,
-  imports: [HeaderComponent, MatIcon, AllShipmentListComponent,AllShipmentListComponent],
+  imports: [HeaderComponent, MatIcon, AllShipmentListComponent, AllShipmentListComponent],
   templateUrl: './shipment-list.component.html',
   styles: [`
     .search input,
@@ -29,14 +29,18 @@ export class ShipmentListComponent {
     } else {
     }
   }
-  focusSearch():void{
+  focusSearch(): void {
     this.isFocused = true;
     console.log(this.isFocused);
   }
 
-  // if clicked outside the search box
+  // if clicked outside the search box, unfocus
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
+    if (!this.isFocused) {
+      return; // Skip if not focused
+    }
     const target = event.target as HTMLElement;
     if (!target.closest('.searchContent')) {
       this.isFocused = false;

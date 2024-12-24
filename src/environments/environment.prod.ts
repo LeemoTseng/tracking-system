@@ -3,5 +3,6 @@ export const environment = {
   milestoneApiUrl: `json/milestones.json`,
   flightApiUrl: `json/flights.json`,
   fileApiUrl: `json/files.json`,
-  shipmentDetailsApiUrl:`json/shipment-detail.json`
+  shipmentDetailsApiUrl:`json/shipment-detail.json`,
+  AllShipmentListUrl:`json/all-shipment-list.json`
 };

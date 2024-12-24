@@ -1,28 +1,323 @@
-<table mat-table [dataSource]="dataSource">
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef>No.</th>
-    <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-  </ng-container>
+<div class="list">
+  <mat-icon class="">travel</mat-icon>
+  <table class="w-full table-fixed border-b border-blackColor/30">
+    <thead class="">
+      <tr class="w-full bg-[#f5f5f5]">
+        <td width="5%" align="center"></td>
+        <td width="10%" align="left" class="py-3 px-1">
+          <p class="text-blackColor font-semibold">MAWB No.</p>
+        </td>
+        <td width="10%" align="left" class="py-3 px-1">
+          <p class="text-blackColor font-semibold">HAWB No.</p>
+        </td>
+        <td width="65%" align="left" class="py-3 px-1">
+          <p class="text-blackColor font-semibold">Milestones</p>
+        </td>
+        <td width="10%" align="left" class="py-3 px-1">
+          <p class="text-blackColor font-semibold"></p>
+        </td>
+      </tr>
+    </thead>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-  </ng-container>
+    <tbody class="">
+      @for (item of status; track $index) {
+      <tr class="border-b border-blackColor/20">
+        <td class="py-3 px-1">{{ item.number }}</td>
+        <td class="py-3 px-1">
+          <p>{{ item.MAWB_No }}</p>
+        </td>
+        <td class="py-3 px-1">
+          <p>{{ item.HAWB_No }}</p>
+        </td>
+        <td class="py-3 px-1" align="left">
+          <div class="frame w-full">
+            <div class="process">
+              <div class="text flex flex-col items-left">
+                <div class="status flex justify-between py-3 pt-5">
+                  <!-- ------ -->
+                  <!-- Booked -->
+                  <!-- ------ -->
+                  <div class="booked">
+                    <div class="processLine flex items-center relative pb-3">
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="point absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
+                      @if(flightTo(item)==='Booked'){
+                      <p class="flightIcon absolute bg-white z-10 rounded-full">
+                        <span class="material-symbols-outlined text-primary">
+                          travel
+                        </span>
+                      </p>
+                      }
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="line absolute w-[130%] h-[2px]"
+                      ></div>
+                    </div>
+                    <p class="font-medium text-primary">Booked</p>
+                    <p class="text-[12px] text-blackColor/60">
+                      {{ item.processes[0].formattedDate }}
+                    </p>
+                  </div>
+                  <!-- ------ -->
+                  <!-- ETD -->
+                  <!-- ------ -->
+                  <div class="ETD">
+                    <div class="processLine flex items-center relative pb-3">
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ETD'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="point absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
+                      @if(flightTo(item)==='ETD'){
+                      <p class="flightIcon absolute bg-white z-10 rounded-full">
+                        <span class="material-symbols-outlined text-primary">
+                          travel
+                        </span>
+                      </p>
+                      }
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef>Weight</th>
-    <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-  </ng-container>
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ETD'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="line absolute w-[130%] h-[2px]"
+                      ></div>
+                    </div>
+                    <p
+                      [class]="
+                        flightTo(item) === 'Booked'
+                          ? 'text-gray-300'
+                          : 'text-primary'
+                      "
+                      class="font-medium"
+                    >
+                      ETD
+                    </p>
+                    <p class="text-[12px] text-blackColor/60">
+                      {{ item.processes[1].formattedDate }}
+                    </p>
+                  </div>
+                  <!-- ------ -->
+                  <!-- ATD -->
+                  <!-- ------ -->
 
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef>Symbol</th>
-    <td mat-cell *matCellDef="let element">ddd{{ element.symbol }}</td>
-  </ng-container>
+                  <div class="ATD">
+                    <div class="processLine flex items-center relative pb-3">
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ETD'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="point absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
+                      @if(flightTo(item)==='ATD'){
+                      <p class="flightIcon absolute bg-white z-10 rounded-full">
+                        <span class="material-symbols-outlined text-primary">
+                          travel
+                        </span>
+                      </p>
+                      }
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ETD' ||
+                          flightTo(item) === 'ATD'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="line absolute w-[130%] h-[2px]"
+                      ></div>
+                    </div>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+                    <p
+                      [class]="
+                        flightTo(item) === 'Booked' || flightTo(item) === 'ETD'
+                          ? 'text-gray-300'
+                          : 'text-primary'
+                      "
+                      class="font-medium"
+                    >
+                      ATD
+                    </p>
+                    <p class="text-[12px] text-blackColor/60">
+                      {{ item.processes[2].formattedDate }}
+                    </p>
+                  </div>
+                  <!-- ------ -->
+                  <!-- ETA -->
+                  <!-- ------ -->
+                  <div class="ETA">
+                    <div class="processLine flex items-center relative pb-3">
+                      <div
+                        [class]="
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ETD' ||
+                          flightTo(item) === 'ATD'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="point absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
+                      @if(flightTo(item)==='ETA'){
+                      <p class="flightIcon absolute bg-white z-10 rounded-full">
+                        <span class="material-symbols-outlined text-primary">
+                          travel
+                        </span>
+                      </p>
+                      }
+
+                      <div
+                        [class]="
+                          flightTo(item) === 'ETD' ||
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ATD' ||
+                          flightTo(item) === 'ETA'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="line absolute w-[130%] h-[2px]"
+                      ></div>
+                    </div>
+                    <p
+                      [class]="
+                        flightTo(item) === 'Booked' ||
+                        flightTo(item) === 'ETD' ||
+                        flightTo(item) === 'ATD'
+                          ? 'text-gray-300'
+                          : 'text-primary'
+                      "
+                      class="font-medium"
+                    >
+                      ETA
+                    </p>
+                    <p class="text-[12px] text-blackColor/60">
+                      {{ item.processes[3].formattedDate }}
+                    </p>
+                  </div>
+                  <!-- ------ -->
+                  <!-- ATA -->
+                  <!-- ------ -->
+                  <div class="ATA">
+                    <div class="processLine flex items-center relative pb-3">
+                      <div
+                        [class]="
+                          flightTo(item) === 'ETD' ||
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ATD' ||
+                          flightTo(item) === 'ETA'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="point absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
+                      <!-- @if(flightTo(item)==='ATA'){
+                      <p class="flightIcon absolute bg-white z-10 rounded-full">
+                        <span class="material-symbols-outlined text-primary">
+                          travel
+                        </span>
+                      </p>
+                      } -->
+
+                      <div
+                        [class]="
+                          flightTo(item) === 'ETD' ||
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ATD' ||
+                          flightTo(item) === 'ETA'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="line absolute w-[130%] h-[2px]"
+                      ></div>
+                    </div>
+                    <p
+                      [class]="
+                        flightTo(item) === 'ETD' ||
+                        flightTo(item) === 'Booked' ||
+                        flightTo(item) === 'ATD' ||
+                        flightTo(item) === 'ETA'
+                          ? 'text-gray-300'
+                          : 'text-primary'
+                      "
+                      class="font-medium"
+                    >
+                      ATA
+                    </p>
+                    <p class="text-[12px] text-blackColor/60">
+                      {{ item.processes[4].formattedDate }}
+                    </p>
+                  </div>
+                  <!-- ------ -->
+                  <!-- Completed -->
+                  <!-- ------ -->
+                  <div class="completed">
+                    <div class="processLine flex items-center relative pb-3">
+                      <div
+                        [class]="
+                          flightTo(item) === 'ETD' ||
+                          flightTo(item) === 'Booked' ||
+                          flightTo(item) === 'ATD' ||
+                          flightTo(item) === 'ETA'
+                            ? 'bg-gray-300'
+                            : 'bg-primary'
+                        "
+                        class="point absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
+                      @if(flightTo(item)==='ATA'){
+                      <p class="flightIcon absolute bg-white z-10 rounded-full">
+                        <span class="material-symbols-outlined text-primary">
+                          travel
+                        </span>
+                      </p>
+                      }
+                    </div>
+                    <p
+                      [class]="
+                        flightTo(item) === 'ETD' ||
+                        flightTo(item) === 'Booked' ||
+                        flightTo(item) === 'ATD' ||
+                        flightTo(item) === 'ETA'
+                          ? 'text-gray-300'
+                          : 'text-primary'
+                      "
+                      class="font-medium relative right-7"
+                    >
+                      Completed
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="py-3 px-1" align="center">
+          <p
+            class="cursor-pointer text-nowrap transition-all py-1 px-2 border border-blackColor/60 rounded-md text-blackColor/90 hover:bg-blackColor/5 text-base"
+          >
+            View Details
+          </p>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

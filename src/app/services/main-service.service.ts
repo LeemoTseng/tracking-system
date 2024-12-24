@@ -13,6 +13,7 @@ export class MainServiceService {
   flightApiUrl = environment.flightApiUrl;
   fileApiUrl = environment.fileApiUrl;
   shipmentDetailsApiUrl = environment.shipmentDetailsApiUrl;
+  allShipmentListApiUrl = environment.AllShipmentListUrl;
 
   http = inject(HttpClient)
 
@@ -29,6 +30,10 @@ export class MainServiceService {
 
   getShipmentDetailsData():Observable<any>{
     return this.http.get(this.shipmentDetailsApiUrl)
+  }
+
+  getAllShipmentListData():Observable<any>{
+    return this.http.get(this.allShipmentListApiUrl)
   }
 
 }
