@@ -7,25 +7,18 @@ import { MatRippleModule } from '@angular/material/core';
 import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 
 @Component({
   selector: 'app-shipment-list',
   standalone: true,
-  imports: [HeaderComponent, MatIcon, AllShipmentListComponent, AllShipmentListComponent, MatRippleModule, MatTooltipModule, MatMenuModule, MatButtonModule],
+  imports: [HeaderComponent, MatIcon, AllShipmentListComponent, AllShipmentListComponent, MatRippleModule, MatTooltipModule, MatMenuModule, MatButtonModule, SearchBarComponent],
   templateUrl: './shipment-list.component.html',
   styles: [`
     .search input,
 .search select {
   box-sizing: border-box;
 }
-#cdk-overlay-0{
-  background-color: #ffffff;
- 
-}
-#mat-menu-panel-0{
-  background-color: #ffffff;
-}
-
 
 
 
@@ -38,7 +31,6 @@ export class ShipmentListComponent {
 
   menuItems = ['All Cargos', 'On-Going', 'Completed'];
  selectedMenu = 'All Cargos';
-  isFocused = false;
 
   scrollY = 0;
   isShow = false;
@@ -51,24 +43,8 @@ export class ShipmentListComponent {
     } else {
     }
   }
-  focusSearch(): void {
-    this.isFocused = true;
-    console.log(this.isFocused);
-  }
 
-  // if clicked outside the search box, unfocus
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    if (!this.isFocused) {
-      return; // Skip if not focused
-    }
-    const target = event.target as HTMLElement;
-    if (!target.closest('.searchContent')) {
-      this.isFocused = false;
-      console.log(this.isFocused);
-    }
-  }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {

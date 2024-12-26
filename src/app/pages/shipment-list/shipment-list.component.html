@@ -26,81 +26,8 @@
           }
         </div>
       </div>
-      <!-- search -->
-
-      <div class="searchGroup w-full flex items-center justify-between pt-5">
-        <div class="search relative flex items-stretch h-full w-1/2 pb-1">
-          <div
-            (click)="focusSearch()"
-            [class]="
-              isFocused ? 'border-2 border-blackColor' : 'border-blackColor/20'
-            "
-            class="searchContent border w-full rounded-md flex justify-between"
-          >
-            <input
-              class="focus:outline-none rounded-md bg-white p-0 py-2 pl-8 border-none h-full box-border leading-none"
-              placeholder="Enter tracking number"
-              id="search"
-              type="text"
-            />
-            <input
-              type="date"
-              class="focus:outline-none rounded-e-md bg-white px-2 py-2 border-0 border-l-2 h-full box-border leading-none"
-            />
-            <mat-icon
-              class="text-blackColor/60 absolute left-1 top-2/3 -translate-y-1/2"
-              >search</mat-icon
-            >
-            <p
-              [matMenuTriggerFor]="select"
-              class="focus:outline-none rounded-e-md p-0 py-2 h-full box-border leading-none border-0 border-l-2"
-            >
-              All
-            </p>
-            <mat-menu #select="matMenu">
-              <option mat-menu-item>All</option>
-              <option mat-menu-item>ETD</option>
-              <option mat-menu-item>ETA</option>
-            </mat-menu>
-          </div>
-          <div
-            class="cursor-pointer bg-blackColor text-white font-medium px-10 py-2 rounded-md ml-3 border-transparent"
-          >
-            Search
-          </div>
-        </div>
-
-        <!-- btn group -->
-        <div class="btnGroup flex items-center gap-5">
-          <div
-            matRipple
-            [matRippleColor]="rippleColor"
-            mat-button
-            [matMenuTriggerFor]="menu"
-            class="btn-outline cursor-pointer text-nowrap flex items-center gap-2"
-            style="width: fit-content"
-          >
-            <mat-icon>sort</mat-icon>
-            <p class="cursor-pointer">Order</p>
-          </div>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>Ascending by date</button>
-            <button mat-menu-item>Decending by date</button>
-          </mat-menu>
-          <div
-            mat-raised-button
-            matTooltipPosition="above"
-            matTooltip="Export all items as CSV"
-            matRipple
-            [matRippleColor]="rippleColor"
-            class="btn-outline cursor-pointer text-nowrap flex items-center gap-2"
-            style="width: fit-content"
-          >
-            <mat-icon>download</mat-icon>
-            <p class="cursor-pointer">Export</p>
-          </div>
-        </div>
-      </div>
+      <!-- mutiple search bar -->
+      <app-search-bar></app-search-bar>
 
       <!-- shipment-list -->
       <div class="pt-4">
