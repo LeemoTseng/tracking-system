@@ -62,17 +62,17 @@
                   <!-- ------ -->
                   <!-- Booked -->
                   <!-- ------ -->
-                  <div class="booked">
+                  <div class="booked w-full">
                     <div class="processLine flex items-center relative pb-3">
                       <div
                         [class]="
-                          flightTo(item) === 'Booked'
+                          lastStatus(item.processes) === 'Booked'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
                         class="point absolute min-w-[15px] h-[15px] rounded-full"
                       ></div>
-                      @if(flightTo(item)==='Booked'){
+                      @if(lastStatus(item.processes) === 'Booked'){
                       <p class="flightIcon absolute bg-white z-10 rounded-full">
                         <span class="material-symbols-outlined text-primary">
                           travel
@@ -81,11 +81,11 @@
                       }
                       <div
                         [class]="
-                          flightTo(item) === 'Booked'
+                          lastStatus(item.processes) === 'Booked'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
-                        class="line absolute w-[130%] h-[2px]"
+                        class="line absolute w-[110%] h-[2px]"
                       ></div>
                     </div>
                     <p class="font-medium text-primary">Booked</p>
@@ -96,18 +96,18 @@
                   <!-- ------ -->
                   <!-- ETD -->
                   <!-- ------ -->
-                  <div class="ETD">
+                  <div class="ETD w-full">
                     <div class="processLine flex items-center relative pb-3">
                       <div
                         [class]="
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ETD'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
                         class="point absolute min-w-[15px] h-[15px] rounded-full"
                       ></div>
-                      @if(flightTo(item)==='ETD'){
+                      @if(lastStatus(item.processes) === 'ETD'){
                       <p class="flightIcon absolute bg-white z-10 rounded-full">
                         <span class="material-symbols-outlined text-primary">
                           travel
@@ -117,17 +117,18 @@
 
                       <div
                         [class]="
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ETD'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
-                        class="line absolute w-[130%] h-[2px]"
+                        class="line absolute w-[110%] h-[2px]"
                       ></div>
                     </div>
                     <p
                       [class]="
-                        flightTo(item) === 'Booked'
+                        lastStatus(item.processes) === 'Booked' ||
+                        lastStatus(item.processes) === 'ETD'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "
@@ -143,18 +144,19 @@
                   <!-- ATD -->
                   <!-- ------ -->
 
-                  <div class="ATD">
+                  <div class="ATD w-full">
                     <div class="processLine flex items-center relative pb-3">
                       <div
                         [class]="
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ETD'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD' ||
+                          lastStatus(item.processes) === 'ATD'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
                         class="point absolute min-w-[15px] h-[15px] rounded-full"
                       ></div>
-                      @if(flightTo(item)==='ATD'){
+                      @if(lastStatus(item.processes) === 'ATD'){
                       <p class="flightIcon absolute bg-white z-10 rounded-full">
                         <span class="material-symbols-outlined text-primary">
                           travel
@@ -163,19 +165,21 @@
                       }
                       <div
                         [class]="
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ETD' ||
-                          flightTo(item) === 'ATD'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD' ||
+                          lastStatus(item.processes) === 'ATD'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
-                        class="line absolute w-[130%] h-[2px]"
+                        class="line absolute w-[110%] h-[2px]"
                       ></div>
                     </div>
 
                     <p
                       [class]="
-                        flightTo(item) === 'Booked' || flightTo(item) === 'ETD'
+                        lastStatus(item.processes) === 'Booked' ||
+                        lastStatus(item.processes) === 'ETD' ||
+                        lastStatus(item.processes) === 'ATD'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "
@@ -190,19 +194,20 @@
                   <!-- ------ -->
                   <!-- ETA -->
                   <!-- ------ -->
-                  <div class="ETA">
+                  <div class="ETA w-full">
                     <div class="processLine flex items-center relative pb-3">
                       <div
                         [class]="
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ETD' ||
-                          flightTo(item) === 'ATD'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD' ||
+                          lastStatus(item.processes) === 'ATD' ||
+                          lastStatus(item.processes) === 'ETA'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
                         class="point absolute min-w-[15px] h-[15px] rounded-full"
                       ></div>
-                      @if(flightTo(item)==='ETA'){
+                      @if(lastStatus(item.processes) === 'ETA'){
                       <p class="flightIcon absolute bg-white z-10 rounded-full">
                         <span class="material-symbols-outlined text-primary">
                           travel
@@ -212,21 +217,22 @@
 
                       <div
                         [class]="
-                          flightTo(item) === 'ETD' ||
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ATD' ||
-                          flightTo(item) === 'ETA'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD' ||
+                          lastStatus(item.processes) === 'ATD' ||
+                          lastStatus(item.processes) === 'ETA'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
-                        class="line absolute w-[130%] h-[2px]"
+                        class="line absolute w-[110%] h-[2px]"
                       ></div>
                     </div>
                     <p
                       [class]="
-                        flightTo(item) === 'Booked' ||
-                        flightTo(item) === 'ETD' ||
-                        flightTo(item) === 'ATD'
+                        lastStatus(item.processes) === 'Booked' ||
+                        lastStatus(item.processes) === 'ETD' ||
+                        lastStatus(item.processes) === 'ATD' ||
+                        lastStatus(item.processes) === 'ETA'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "
@@ -241,14 +247,14 @@
                   <!-- ------ -->
                   <!-- ATA -->
                   <!-- ------ -->
-                  <div class="ATA">
+                  <div class="ATA w-full">
                     <div class="processLine flex items-center relative pb-3">
                       <div
                         [class]="
-                          flightTo(item) === 'ETD' ||
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ATD' ||
-                          flightTo(item) === 'ETA'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD' ||
+                          lastStatus(item.processes) === 'ATD' ||
+                          lastStatus(item.processes) === 'ETA'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
@@ -264,22 +270,22 @@
 
                       <div
                         [class]="
-                          flightTo(item) === 'ETD' ||
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ATD' ||
-                          flightTo(item) === 'ETA'
+                          lastStatus(item.processes) === 'Booked' ||
+                          lastStatus(item.processes) === 'ETD' ||
+                          lastStatus(item.processes) === 'ATD' ||
+                          lastStatus(item.processes) === 'ETA'
                             ? 'bg-gray-300'
                             : 'bg-primary'
                         "
-                        class="line absolute w-[130%] h-[2px]"
+                        class="line absolute w-[110%] h-[2px]"
                       ></div>
                     </div>
                     <p
                       [class]="
-                        flightTo(item) === 'ETD' ||
-                        flightTo(item) === 'Booked' ||
-                        flightTo(item) === 'ATD' ||
-                        flightTo(item) === 'ETA'
+                        lastStatus(item.processes) === 'Booked' ||
+                        lastStatus(item.processes) === 'ETD' ||
+                        lastStatus(item.processes) === 'ATD' ||
+                        lastStatus(item.processes) === 'ETA'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "
@@ -296,31 +302,23 @@
                   <!-- ------ -->
                   <div class="completed">
                     <div class="processLine flex items-center relative pb-3">
-                      <div
-                        [class]="
-                          flightTo(item) === 'ETD' ||
-                          flightTo(item) === 'Booked' ||
-                          flightTo(item) === 'ATD' ||
-                          flightTo(item) === 'ETA'
-                            ? 'bg-gray-300'
-                            : 'bg-primary'
-                        "
-                        class="point absolute min-w-[15px] h-[15px] rounded-full"
-                      ></div>
-                      @if(flightTo(item)==='ATA'){
+                      @if(lastStatus(item.processes) === 'ATA'){
                       <p class="flightIcon absolute bg-white z-10 rounded-full">
                         <span class="material-symbols-outlined text-primary">
                           travel
                         </span>
                       </p>
                       }
+                      <div
+                        class="point bg-gray-300 absolute min-w-[15px] h-[15px] rounded-full"
+                      ></div>
                     </div>
                     <p
                       [class]="
-                        flightTo(item) === 'ETD' ||
-                        flightTo(item) === 'Booked' ||
-                        flightTo(item) === 'ATD' ||
-                        flightTo(item) === 'ETA'
+                        lastStatus(item.processes) === 'Booked' ||
+                        lastStatus(item.processes) === 'ETD' ||
+                        lastStatus(item.processes) === 'ATD' ||
+                        lastStatus(item.processes) === 'ETA'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "

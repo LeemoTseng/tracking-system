@@ -1,4 +1,4 @@
-import { Component, inject, Inject, OnInit } from '@angular/core';
+import { Component, inject, Inject, Input, input, OnInit, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MainServiceService } from '../../services/main-service.service';
@@ -6,6 +6,7 @@ import { MainInterfaceService } from '../../interfaces/main-interface.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { MatRippleModule } from '@angular/material/core';
 import { PageEvent } from '@angular/material/paginator';
+import { last } from 'rxjs';
 
 
 
@@ -19,15 +20,20 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class AllShipmentListComponent implements OnInit {
 
+  @Input() sendedSelectedMenu: string = '';
+
   pagedItems: any[] = [];
   currentPage: number = 0;
   itemsPerPage: number = 5;
   totalItems: number = 0;
 
-
   ngOnInit(): void {
-    this.getStatusData();
-    // console.log('status', this.status);
+    this.getAllCargosData();
+    // console.log('ChildSelectedMenu:', this.sendedSelectedMenu);
+  }
+
+  test() {
+    // console.log('ChildSelectedMenu:', this.sendedSelectedMenu);
   }
 
   statusService = inject(MainServiceService);
@@ -36,7 +42,7 @@ export class AllShipmentListComponent implements OnInit {
   status: any[] = [];
   // statusProcesses: statusInterface[] = [];
 
-  getStatusData() {
+  getAllCargosData() {
     this.statusService.getAllShipmentListData().subscribe({
       next: (res) => {
         if (res && res.status) {
@@ -47,15 +53,16 @@ export class AllShipmentListComponent implements OnInit {
               processes: item.processes.map((process: any) => ({
                 ...process,
                 formattedDate: this.formatDate(process.dateAndTime),
-              })),
+                isPassed: this.passedStatus(process.dateAndTime),
+              }
+              )),
             }
           })
+          console.log('item:', this.status)
+
           this.totalItems = this.status.length; // Use the total number of items for pagination
           this.updatePagedItems(); // Initialize first page
-          // console.log('status', this.status);
         }
-
-
       },
       error: (err) => { console.log(err) },
       complete: () => { }
@@ -63,31 +70,78 @@ export class AllShipmentListComponent implements OnInit {
   }
 
 
-  flightTo(item: any): string {
+  passedStatus(item: any): any {
     const nowDate = new Date();
-    let closestStatus: string = '';
-    let maxDiff = -Infinity;
-
-    item.processes.forEach((process: { status: string; dateAndTime: string }) => {
-      const processDate = new Date(process.dateAndTime);
+    if (item) {
+      const processDate = new Date(item);
       const diff = processDate.getTime() - nowDate.getTime();
-
-      if (diff <= 0 && diff > maxDiff) {
-        maxDiff = diff;
-        closestStatus = process.status;
+      if (diff <= 0) {
+        return true;
+      } else {
+        return false;
       }
-    });
-
-    if (closestStatus) {
-      return closestStatus;
     } else {
-      console.log('not found', item);
-      return 'Not Available';
+      return false;
     }
   }
 
+lastStatus(item: any): any {
+  if (!Array.isArray(item)) {
+    console.error('lastStatus: item is not an array:', item);
+    return 'Invalid Data';
+  }
+
+  // 從後向前搜尋
+  for (let i = item.length - 1; i >= 0; i--) {
+    const process = item[i];
+    if (process.isPassed === true) {
+      return process.status; // 找到最後一個 true 的項目，返回 status
+    }
+  }
+
+  return 'Unknown'; // 如果沒有找到符合條件的項目
+}
+
+
+
+
+  // flightTo(item: any): string {
+  //   const nowDate = new Date();
+  //   let closestPastStatus: string = ''; // 最近的過去狀態
+  //   let maxPastDiff = -Infinity; // 最大的過去差值
+
+  //   // 遍歷 process 的有效日期
+  //   item.processes.forEach((process: { status: string; dateAndTime: string }) => {
+  //     if (process.dateAndTime) {
+  //       const processDate = new Date(process.dateAndTime);
+  //       const diff = processDate.getTime() - nowDate.getTime();
+
+  //       if (diff <= 0) {
+  //         // 更新最近的過去狀態
+  //         if (diff > maxPastDiff) {
+  //           maxPastDiff = diff;
+  //           closestPastStatus = process.status;
+  //         }
+  //       }
+  //     }
+  //   });
+
+  //   // 如果所有日期都在過去，返回最近的過去狀態
+  //   return closestPastStatus || 'ATA';
+  // }
+
+
+
+
   formatDate(dateString: string): string {
+    if (!dateString) {
+      return '-'; // Fallback for empty dates
+    }
+
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return '-'; // Fallback for invalid dates
+    }
 
     const options: Intl.DateTimeFormatOptions = {
       month: 'short',
@@ -97,9 +151,9 @@ export class AllShipmentListComponent implements OnInit {
       minute: '2-digit',
       hour12: false,
     };
-
     return new Intl.DateTimeFormat('en-US', options).format(date);
   }
+
 
 
   onPageChange(event: any): void {
@@ -114,7 +168,8 @@ export class AllShipmentListComponent implements OnInit {
     const end = start + this.itemsPerPage;
     // console.log(`Slicing from ${start} to ${end}`); // Debug slicing indices
     this.pagedItems = this.status.slice(start, end);
-    // console.log('Paged items after update:', this.pagedItems); // Debug updated paged items
+    console.log('Paged items after update:', this.pagedItems); // Debug updated paged items
+
   }
 
 }
