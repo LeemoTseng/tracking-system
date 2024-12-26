@@ -1,0 +1,19 @@
+<div class="bg-white">
+  <mat-paginator
+    [length]="length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+
+  <!--
+  <div class="demo-data absolute top-1/3">
+    <div>
+       Output event: {{ (pageEvent | json) || "No events dispatched yet" }}
+    </div>
+    <div>getNumberOfPages: {{ paginator.getNumberOfPages() }}</div> 
+    </div>
+  </div>
+  -->
+</div>

@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
 
   findUrl(currentUrl:string){
     const matchedMenu = this.menuList.find(menu => menu.routerLink === currentUrl);
-    console.log('matchedMenu', matchedMenu);
+    // console.log('matchedMenu', matchedMenu);
     this.selectedMenu = matchedMenu ? matchedMenu.name : '';
   }
 

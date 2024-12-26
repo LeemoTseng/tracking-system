@@ -8,22 +8,29 @@ export class MainInterfaceService {
 }
 
 export interface processItems {
-  name: string;
+  status: string;
   icon: string;
-  flight?: [{
+  dateAndTime: string;
+  formattedDate?: string;
+  flight?: {
     flight: string;
     origin: string;
     destination: string;
-  }],
-  time?: string;
+  };
   image?: boolean;
-  imgUrlList?: [
-    {
-      imgUrl?: string;
-      imgAlt?: string;
-    }
-  ];
+  imgUrl?: {
+    url: string;
+    alt: string;
+  }[];
+}
 
+export interface ShipmentStatus {
+  shipmentId: string;
+  processes: processItems[];
+}
+
+export interface ApiResponse {
+  status: ShipmentStatus[];
 }
 
 export interface statusInterface {

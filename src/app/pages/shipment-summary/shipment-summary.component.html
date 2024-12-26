@@ -1,23 +1,7 @@
 <app-header></app-header>
 <div class="bg-blackColor/5">
   <div class="container mx-auto max-w-screen-xl p-3">
-    <div class="search relative flex items-center w-[400px] py-10">
-      <input
-        class="focus:outline-blackColor p-1 pl-8 w-full"
-        placeholder="Enter tracking number"
-        id="search"
-        type="text"
-      />
-      <div
-        class="cursor-pointer bg-blackColor text-white font-medium px-10 py-1 rounded-sm ml-3"
-      >
-        Search
-      </div>
-      <mat-icon
-        class="text-blackColor/60 absolute left-1 top-1/2 -translate-y-1/2"
-        >search</mat-icon
-      >
-    </div>
+    <!-- search bar -->
     <div class="trackingDetails">
       <div class="bg-white rounded-md">
         <!-- mainInfo -->
@@ -46,18 +30,26 @@
           @for (item of processList; track $index) {
           <div class="process flex flex-col w-full">
             <div class="iconAnimation flex justify-start items-center">
-              <!-- text-blackColor/20 -->
               <mat-icon
-                class="material-symbols-outlined text-primary text-[45px]"
+                [class]="
+                  isCompleted(item.status) ? 'text-primary' : 'text-gray-300'
+                "
+                class="material-symbols-outlined text-[45px]"
                 style="height: 50px; width: 60px"
               >
                 {{ item.icon }}</mat-icon
               >
-              <div class="line bg-primary w-full h-[3px]"></div>
+
+              <div
+                [class]="
+                  isCompleted(item.status) ? 'bg-primary' : 'bg-gray-300'
+                "
+                class="line w-full h-[3px]"
+              ></div>
               <div class="line bg-blackColor/20 h-[3px]"></div>
             </div>
-            <p class="text-blackColor/50 font-medium mb-0">{{ item.name }}</p>
-            <p class="mt-0">{{ item.time }}</p>
+            <p class="text-blackColor/50 font-medium mb-0">{{ item.status }}</p>
+            <p class="mt-0">{{ item.formattedDate }}</p>
 
             @if (item.flight) {
 
@@ -85,7 +77,10 @@
           <div class="Completed flex flex-col w-fit">
             <div class="iconAnimation flex items-center">
               <mat-icon
-                class="text-primary text-[45px]"
+                [class]="
+                  isCompleted(nowStatus) ? 'text-primary' : 'text-gray-300'
+                "
+                class="text-[45px]"
                 style="height: 50px; width: 50px"
                 >task_alt</mat-icon
               >

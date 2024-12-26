@@ -1,0 +1,60 @@
+{
+  "status": [
+    {
+      "shipmentId": "SHIP001",
+      "processes": [
+        {
+          "status": "Booking Creation",
+          "icon": "inventory",
+          "dateAndTime": "2021-07-01 12:00"
+        },
+        {
+          "status": "ETD",
+          "icon": "package_2",
+          "flight": {
+            "flight": "BRO650",
+            "origin": "TPE",
+            "destination": "IAH"
+          },
+          "dateAndTime": "2024-12-24 12:00",
+          "image": false,
+          "imgUrl": [
+            {
+              "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg",
+              "alt": "airport"
+            }
+          ]
+        },
+        {
+          "status": "ATD",
+          "icon": "box",
+          "dateAndTime": "2024-12-24 12:00",
+          "image": true
+        },
+        {
+          "status": "ETA",
+          "icon": "flight_land",
+          "flight": {
+            "flight": "BRO650",
+            "origin": "TPE",
+            "destination": "IAH"
+          },
+          "dateAndTime": "2024-12-29 12:00",
+          "image": false,
+          "imgUrl": [
+            {
+              "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg",
+              "alt": "airport"
+            }
+          ]
+        },
+        {
+          "status": "ATA",
+          "icon": "event_available",
+          "dateAndTime": "2024-12-29 12:00",
+          "image": true
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MainServiceService } from '../../services/main-service.service';
 import { MainInterfaceService } from '../../interfaces/main-interface.service';
-import { statusInterface } from '../../all-interface';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { MatRippleModule } from '@angular/material/core';
+import { PageEvent } from '@angular/material/paginator';
 
 
 
@@ -11,17 +13,22 @@ import { statusInterface } from '../../all-interface';
 @Component({
   selector: 'app-all-shipment-list',
   standalone: true,
-  imports: [MatTableModule, MatIconModule],
+  imports: [MatTableModule, MatIconModule, MatRippleModule, PaginationComponent],
   templateUrl: './all-shipment-list.component.html',
 
 })
 export class AllShipmentListComponent implements OnInit {
 
+  pagedItems: any[] = [];
+  currentPage: number = 0;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+
+
   ngOnInit(): void {
     this.getStatusData();
     // console.log('status', this.status);
   }
-
 
   statusService = inject(MainServiceService);
   statusInterface = inject(MainInterfaceService);
@@ -43,11 +50,9 @@ export class AllShipmentListComponent implements OnInit {
               })),
             }
           })
-          this.status.forEach((item) => {
-            const statusNow = this.flightTo(item);
-            // console.log('Current status:', statusNow);
-          });
-          console.log('status', this.status);
+          this.totalItems = this.status.length; // Use the total number of items for pagination
+          this.updatePagedItems(); // Initialize first page
+          // console.log('status', this.status);
         }
 
 
@@ -97,5 +102,19 @@ export class AllShipmentListComponent implements OnInit {
   }
 
 
+  onPageChange(event: any): void {
+    // console.log('Page event:', event);
+    this.currentPage = event.pageIndex;
+    this.itemsPerPage = event.pageSize;
+    this.updatePagedItems();
+  }
+
+  updatePagedItems(): void {
+    const start = this.currentPage * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    // console.log(`Slicing from ${start} to ${end}`); // Debug slicing indices
+    this.pagedItems = this.status.slice(start, end);
+    // console.log('Paged items after update:', this.pagedItems); // Debug updated paged items
+  }
 
 }

@@ -6,9 +6,10 @@
   content_copy
 </mat-icon>
 
+@if (isCopied) {
 <p
-  *ngIf="isCopied"
-  class="absolute -top-1/2 -right-16 bg-blackColor/30 text-sm text-white px-2 py-1 w-fit rounded-md"
+  class="absolute -top-1/2 -right-16 bg-blackColor text-sm text-white px-2 py-1 w-fit rounded-md"
 >
   Copied!
 </p>
+}
