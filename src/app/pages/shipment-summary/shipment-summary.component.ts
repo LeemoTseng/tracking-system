@@ -7,11 +7,15 @@ import { MatTableModule } from '@angular/material/table';
 import { ApiResponse, MainInterfaceService, processItems } from '../../interfaces/main-interface.service';
 import { OtherDetailsComponent } from '../../components/other-details/other-details.component';
 import { MainServiceService } from '../../services/main-service.service';
+import { LoginComponent } from '../login/login.component';
+import { LoginPopupComponent } from '../../components/login-popup/login-popup.component';
 
 @Component({
   selector: 'app-shipment-summary',
   standalone: true,
-  imports: [HeaderComponent, MatIconModule, CommonModule, MatRippleModule, MatTableModule, OtherDetailsComponent],
+  imports: [HeaderComponent, MatIconModule, CommonModule,
+    MatRippleModule, MatTableModule, OtherDetailsComponent,
+    LoginPopupComponent, LoginComponent],
   templateUrl: './shipment-summary.component.html',
 
 })
