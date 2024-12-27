@@ -47,7 +47,9 @@
     <tbody>
       @for (item of pagedItems; track $index) {
       <tr class="border-b border-blackColor/20">
-        <td class="py-3 px-1 text-gray-400 text-sm">{{ item.number }}</td>
+        <td class="py-3 px-1 text-gray-400 text-sm">
+          {{ currentPage * itemsPerPage + $index + 1 }}
+        </td>
         <td class="py-3 px-1">
           <p class="breack-words break-all">{{ item.MAWB_No }}</p>
         </td>
@@ -127,8 +129,7 @@
                     </div>
                     <p
                       [class]="
-                        lastStatus(item.processes) === 'Booked' ||
-                        lastStatus(item.processes) === 'ETD'
+                        lastStatus(item.processes) === 'Booked'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "
@@ -178,8 +179,7 @@
                     <p
                       [class]="
                         lastStatus(item.processes) === 'Booked' ||
-                        lastStatus(item.processes) === 'ETD' ||
-                        lastStatus(item.processes) === 'ATD'
+                        lastStatus(item.processes) === 'ETD'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "
@@ -231,8 +231,7 @@
                       [class]="
                         lastStatus(item.processes) === 'Booked' ||
                         lastStatus(item.processes) === 'ETD' ||
-                        lastStatus(item.processes) === 'ATD' ||
-                        lastStatus(item.processes) === 'ETA'
+                        lastStatus(item.processes) === 'ATD'
                           ? 'text-gray-300'
                           : 'text-primary'
                       "

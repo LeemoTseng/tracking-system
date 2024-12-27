@@ -4,7 +4,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AllShipmentListComponent } from "../../components/all-shipment-list/all-shipment-list.component";
 import { MatRippleModule } from '@angular/material/core';
-import { PaginationComponent } from "../../components/pagination/pagination.component";
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
