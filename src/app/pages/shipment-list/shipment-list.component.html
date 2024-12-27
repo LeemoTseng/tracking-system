@@ -14,16 +14,24 @@
           @for (item of menuItems; track $index) {
           <p
             (click)="menuSelected(item, $index)"
-            [class]="
-              selectedMenu === item
-                ? 'border-primary'
-                : 'border-white text-blackColor/50'
-            "
-            class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-b-4"
+            [class]="selectedMenu === item ? '' : 'text-blackColor/50'"
+            class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-transparent border-b-4"
           >
             {{ item }}
           </p>
           }
+          <div
+            [class]="
+              selectedMenu === '' || selectedMenu === 'All Cargos'
+                ? 'absolute border-b-4 border-primary'
+                : selectedMenu === 'On-Going'
+                ? 'absolute border-b-4 border-primary translate-x-[120px]'
+                : selectedMenu === 'Completed'
+                ? 'absolute border-b-4  border-primary translate-x-[250px]'
+                : 'absolute border-b-4'
+            "
+            class="transition-transform duration-200 pt-[42px] w-[120px]"
+          ></div>
         </div>
       </div>
       <!-- mutiple search bar -->
