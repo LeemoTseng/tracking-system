@@ -33,6 +33,11 @@ export class ShipmentListComponent {
   scrollY = 0;
   isShow = false;
 
+  ngOnInit(): void {
+    this.isShow = false;
+
+  }
+
 
   menuSelected(menuItems: string, $index: number): void {
     this.selectedMenu = menuItems;

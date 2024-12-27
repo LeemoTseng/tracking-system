@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
+    
     this.findUrl(this.router.url);
     // console.log('this.router.url', this.router.url);
       this.router.events
@@ -23,7 +24,10 @@ export class HeaderComponent implements OnInit {
       .subscribe((event: NavigationEnd) => {
         this.findUrl(event.urlAfterRedirects);
       });
+
   }
+
+
 
   menuList: any[] = [
     {

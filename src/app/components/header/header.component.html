@@ -14,14 +14,24 @@
           [routerLink]="item.routerLink"
           [class]="
             selectedMenu === item.name
-              ? 'border-primary text-blackColor'
-              : 'border-transparent text-blackColor/70 '
+              ? ' text-blackColor '
+              : ' text-blackColor/70 '
           "
-          class="cursor-pointer font-medium hover:text-blackColor/90 py-2 px-3 mr-1 border-b-4"
+          class="cursor-pointer font-medium hover:text-blackColor/90 px-3 mr-1"
         >
           {{ item.name }}
         </li>
+        <div
+          [class]="
+            selectedMenu === 'Shipment List'
+              ? 'translate-x-[190px] w-[120px]'
+              : 'translate-x-[0px] w-[160px]'
+          "
+          class="absolute transform-all duration-1000 transition-all border-primary border-b-4 py-4"
+        ></div>
+
         }
+
         <li
           class="login flex items-center cursor-pointer hover:text-blackColor/90"
         >

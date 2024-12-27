@@ -40,8 +40,12 @@
 
       <div
         (click)="scrollToTop()"
-        [class]="isShow ? 'opacity-100 translate-y-[200px]' : 'opacity-0'"
-        class="upToTop z-20 cursor-pointer transition-all duration-500 fixed bottom-[250px] right-1/2 -translate-x-1/2 drop-shadow-xl bg-primary text-white h-[60px] w-[60px] p-[18px] rounded-full hover:scale-[1.2]"
+        [class]="
+          isShow
+            ? 'opacity-100 translate-y-[200px] bg-primary text-white'
+            : 'opacity-0'
+        "
+        class="upToTop z-20 cursor-pointer transition-all duration-500 fixed bottom-[250px] right-1/2 -translate-x-1/2 drop-shadow-xl h-[60px] w-[60px] p-[18px] rounded-full hover:scale-[1.2]"
       >
         <mat-icon>arrow_upward</mat-icon>
       </div>
