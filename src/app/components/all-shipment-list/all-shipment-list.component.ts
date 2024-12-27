@@ -5,8 +5,9 @@ import { MainServiceService } from '../../services/main-service.service';
 import { MainInterfaceService } from '../../interfaces/main-interface.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { MatRippleModule } from '@angular/material/core';
-import { PageEvent } from '@angular/material/paginator';
-import { last } from 'rxjs';
+import { LoadingComponent } from '../loading/loading.component';
+// import { PageEvent } from '@angular/material/paginator';
+// import { last } from 'rxjs';
 
 
 
@@ -14,27 +15,28 @@ import { last } from 'rxjs';
 @Component({
   selector: 'app-all-shipment-list',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, MatRippleModule, PaginationComponent],
+  imports: [MatTableModule, MatIconModule, MatRippleModule, PaginationComponent, LoadingComponent, LoadingComponent],
   templateUrl: './all-shipment-list.component.html',
 
 })
 export class AllShipmentListComponent implements OnInit {
 
-
-
   @Input() sendedSelectedMenu: string = '';
   ngOnChanges(changes: SimpleChanges): void {
     // console.log('changes:', changes['sendedSelectedMenu'].currentValue);
     if (changes['sendedSelectedMenu'].currentValue === 'All Cargos') {
+      this.onLoading();
       this.getAllCargosData();
     }
     if (changes['sendedSelectedMenu'].currentValue === 'On-Going') {
+      this.onLoading();
       this.getOnGoingData();
     }
     if (changes['sendedSelectedMenu'].currentValue === 'Completed') {
+      this.onLoading();
       this.getCompletedData();
     }
-      // Perform any additional actions when sendedSelectedMenu changes
+    // Perform any additional actions when sendedSelectedMenu changes
   }
 
   pagedItems: any[] = [];
@@ -45,10 +47,15 @@ export class AllShipmentListComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCargosData();
     // console.log('ChildSelectedMenu:', this.sendedSelectedMenu);
+
   }
 
-  test() {
-    // console.log('ChildSelectedMenu:', this.sendedSelectedMenu);
+  isLoading = true;
+  onLoading(): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 500);
   }
 
   statusService = inject(MainServiceService);
@@ -84,7 +91,7 @@ export class AllShipmentListComponent implements OnInit {
   }
 
   getOnGoingData() {
-      this.statusService.getAllShipmentListData().subscribe({
+    this.statusService.getAllShipmentListData().subscribe({
       next: (res) => {
         if (res && res.status) {
           this.status = res.status;
@@ -100,7 +107,7 @@ export class AllShipmentListComponent implements OnInit {
             }
           })
           this.status = this.status.filter((item) => {
-            return this.lastStatus(item.processes) !== 'ATA' ;
+            return this.lastStatus(item.processes) !== 'ATA';
           })
           console.log('onGoingItem:', this.status)
           this.totalItems = this.status.length; // Use the total number of items for pagination
@@ -113,7 +120,7 @@ export class AllShipmentListComponent implements OnInit {
   }
 
   getCompletedData() {
-          this.statusService.getAllShipmentListData().subscribe({
+    this.statusService.getAllShipmentListData().subscribe({
       next: (res) => {
         if (res && res.status) {
           this.status = res.status;
@@ -129,7 +136,7 @@ export class AllShipmentListComponent implements OnInit {
             }
           })
           this.status = this.status.filter((item) => {
-            return this.lastStatus(item.processes) === 'ATA' ;
+            return this.lastStatus(item.processes) === 'ATA';
           })
           console.log('onGoingItem:', this.status)
           this.totalItems = this.status.length; // Use the total number of items for pagination

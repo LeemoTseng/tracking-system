@@ -1,4 +1,10 @@
 <app-header></app-header>
+@if (isLoading){
+<app-loading
+  class="fixed overflow-hidden bg-white/60 w-full h-full z-20"
+></app-loading>
+}
+
 <div class="w-full h-fit bg-blackColor/5">
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- greetings -->
@@ -39,6 +45,7 @@
 
       <!-- shipment-list -->
       <div class="pt-4">
+        <!-- <app-loading></app-loading> -->
         <app-all-shipment-list
           [sendedSelectedMenu]="selectedMenu"
         ></app-all-shipment-list>

@@ -7,11 +7,12 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-shipment-list',
   standalone: true,
-  imports: [HeaderComponent, MatIcon, AllShipmentListComponent, AllShipmentListComponent, MatRippleModule, MatTooltipModule, MatMenuModule, MatButtonModule, SearchBarComponent],
+  imports: [HeaderComponent, MatIcon, AllShipmentListComponent, AllShipmentListComponent, MatRippleModule, MatTooltipModule, MatMenuModule, MatButtonModule, SearchBarComponent, LoadingComponent ],
   templateUrl: './shipment-list.component.html',
   styles: [`
     .search input,
@@ -31,10 +32,18 @@ export class ShipmentListComponent {
 
   scrollY = 0;
   isShow = false;
+  isLoading = true;
 
   ngOnInit(): void {
     this.isShow = false;
+    this.onLoading();
+  }
 
+  onLoading(): void {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
   }
 
 
