@@ -5,16 +5,24 @@
         @for (item of menu; track $index) {
         <p
           (click)="menuSelected(item, $index)"
-          [class]="
-            selectedMenu === item
-              ? 'border-primary'
-              : 'border-white text-blackColor/50'
-          "
-          class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-b-4"
+          [class]="selectedMenu === item ? '' : ' text-blackColor/50'"
+          class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0"
         >
           {{ item }}
         </p>
         }
+        <div
+          [class]="
+            selectedMenu === 'Shipment Details'
+              ? 'border-primary w-[180px]'
+              : selectedMenu === 'Files'
+              ? 'border-primary  translate-x-[320px] w-[70px]'
+              : selectedMenu === 'Milestones'
+              ? 'border-primary translate-x-[185px] w-[125px]'
+              : 'border-white'
+          "
+          class="absolute border-b-4 pt-[38px] transition-all"
+        ></div>
       </div>
     </div>
     <div class="min-h-[600px]">
