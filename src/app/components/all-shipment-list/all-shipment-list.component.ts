@@ -69,6 +69,11 @@ export class AllShipmentListComponent implements OnInit {
     })
   }
 
+  getOnGoingData(){
+    this.sendedSelectedMenu = 'On Going';
+    
+  }
+
 
   passedStatus(item: any): any {
     const nowDate = new Date();
