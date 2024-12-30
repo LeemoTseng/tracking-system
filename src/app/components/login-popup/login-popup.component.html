@@ -1,3 +1,48 @@
-<div class="h-[100vh] w-[100vw] scroll-auto"></div>
+<div
+  class="popUp frame flex flex-col border bg-white p-10 rounded-md border-red-500"
+>
+  <div (click)="closePopup()" class="close">
+    <mat-icon class="cursor-pointer text-blackColor/50 absolute top-3 right-3"
+      >close</mat-icon
+    >
+  </div>
+  <p class="text-2xl font-semibold">Air Cargo Tracking System</p>
+  <p class="text-blackColor/50">Welcome back to our air tracking system</p>
+  <div class="inputBox pt-5">
+    <label class="text-sm font-semibold" for="account">Account</label>
+    <input
+      class="input p-2 text-sm"
+      placeholder="Enter your account"
+      type="text"
+    />
+  </div>
+  <div class="inputBox pt-2">
+    <label class="text-sm font-semibold" for="password">Password</label>
+    <input type="text" class="input" placeholder="Enter your password" />
+  </div>
+  <div class="pt-10 flex justify-between items-center">
+    <div class="remember">
+      <input type="checkbox" id="remember" />
+      <label class="pl-2 cursor-pointer" for="remember">Remember me</label>
+    </div>
+    <select
+      name=""
+      id=""
+      class="border rounded-sm py-1 px-5 focus:border-blackColor focus:outline-none"
+    >
+      <option value="chinese">中文</option>
+      <option value="eng">English</option>
+    </select>
+  </div>
 
-<div class="frame"></div>
+  <!-- login btn -->
+  <div
+    routerLink="/shipment-summary"
+    matRipple
+    [matRippleColor]="rippleColor"
+    class="btn"
+    style="margin-top: 30px"
+  >
+    Login
+  </div>
+</div>
