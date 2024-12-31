@@ -21,5 +21,6 @@ import { LoginPopupComponent } from '../../components/login-popup/login-popup.co
 
 export class LoginComponent {
 rippleColor = 'rgba(225,225,225,0.2)';
+isPopupOpen:boolean = false;
 
 }

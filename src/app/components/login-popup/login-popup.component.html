@@ -1,22 +1,46 @@
 <div class="popUp frame flex flex-col bg-white p-10 rounded-md">
+  @if(isPopupOpen){
   <div class="close">
     <mat-icon class="cursor-pointer text-blackColor/50 absolute top-3 right-3"
       >close</mat-icon
     >
   </div>
+  }
   <p class="text-2xl font-semibold">Air Cargo Tracking System</p>
   <p class="text-blackColor/50">Welcome back to our air tracking system</p>
+  <!-- account -->
   <div class="inputBox pt-5">
-    <label class="text-sm font-semibold" for="account">Account</label>
+    <label for="account" class="text-sm font-semibold" for="account"
+      >Account</label
+    >
+
     <input
+      (focus)="onValidateAccount(account)"
+      [(ngModel)]="account"
+      [style]="errorStyle"
+      id="account"
       class="input p-2 text-sm"
       placeholder="Enter your account"
       type="text"
     />
   </div>
+  <!-- password -->
   <div class="inputBox pt-2">
-    <label class="text-sm font-semibold" for="password">Password</label>
-    <input type="text" class="input" placeholder="Enter your password" />
+    <label for="password" class="text-sm font-semibold" for="password"
+      >Password</label
+    >
+    @if (errorStyle !== '') {
+    <p class="inline pl-5 text-sm text-red-400">Please enter your password</p>
+    }
+    <input
+      (input)="onValidatePassword(password)"
+      [(ngModel)]="password"
+      [style]="errorStyle"
+      id="password"
+      type="text"
+      class="input"
+      placeholder="Enter your password"
+    />
   </div>
   <div class="pt-10 flex justify-between items-center">
     <div class="remember">
@@ -32,6 +56,8 @@
       <option value="eng">English</option>
     </select>
   </div>
+  <p>email: {{ account }}</p>
+  <p>password: {{ password }}</p>
 
   <!-- login btn -->
   <!-- routerLink="/shipment-summary" -->
