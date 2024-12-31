@@ -80,6 +80,7 @@ export class AllShipmentListComponent implements OnInit {
               )),
             }
           })
+          this.currentPage = 0;
           // console.log('item:', this.status)
           this.totalItems = this.status.length; // Use the total number of items for pagination
           this.updatePagedItems(); // Initialize first page
@@ -106,6 +107,7 @@ export class AllShipmentListComponent implements OnInit {
               )),
             }
           })
+          this.currentPage = 0;
           this.status = this.status.filter((item) => {
             return this.lastStatus(item.processes) !== 'ATA';
           })
@@ -133,12 +135,14 @@ export class AllShipmentListComponent implements OnInit {
                 isPassed: this.passedStatus(process.dateAndTime),
               }
               )),
+
             }
           })
+          this.currentPage = 0;
           this.status = this.status.filter((item) => {
             return this.lastStatus(item.processes) === 'ATA';
           })
-          console.log('onGoingItem:', this.status)
+          // console.log('onGoingItem:', this.status)
           this.totalItems = this.status.length; // Use the total number of items for pagination
           this.updatePagedItems(); // Initialize first page
         }
@@ -205,7 +209,11 @@ export class AllShipmentListComponent implements OnInit {
 
   onPageChange(event: any): void {
     // console.log('Page event:', event);
-    this.currentPage = event.pageIndex;
+    if (event.pageSize !== this.itemsPerPage) {
+      this.currentPage = 0; // 重置到第一頁
+    } else {
+      this.currentPage = event.pageIndex;
+    }
     this.itemsPerPage = event.pageSize;
     this.updatePagedItems();
   }
@@ -215,8 +223,6 @@ export class AllShipmentListComponent implements OnInit {
     const end = start + this.itemsPerPage;
     // console.log(`Slicing from ${start} to ${end}`); // Debug slicing indices
     this.pagedItems = this.status.slice(start, end);
-
-
   }
 
 }

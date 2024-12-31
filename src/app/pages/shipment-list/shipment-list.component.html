@@ -1,7 +1,10 @@
-<app-header></app-header>
-@if (isLoading){
+<app-header (isLoginChanged)="loginSituation($event)"></app-header>
+
+@if (!isLogin) {
+<div class="alpha absolute z-[15] w-[100vw] h-[100vh] bg-blackColor/50"></div>
+} @if (isLoading){
 <app-loading
-  class="fixed overflow-hidden bg-white/60 w-full h-full z-20"
+  class="fixed overflow-hidden bg-white/60 w-fit h-fit -z-10"
 ></app-loading>
 }
 

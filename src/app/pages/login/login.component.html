@@ -22,47 +22,7 @@
       </div>
     </div>
     <div class="dividingLine bg-blackColor/30 w-[1px] h-[300px] mx-10"></div>
-    <div class="account w-1/2 p-10">
-      <p class="text-2xl font-semibold">Login to your account</p>
-      <p class="text-blackColor/50">Welcome back to our air tracking system</p>
-
-      <div class="inputBox pt-5">
-        <label class="text-sm font-semibold" for="account">Account</label>
-        <input
-          class="input p-2 text-sm"
-          placeholder="Enter your account"
-          type="text"
-        />
-      </div>
-      <div class="inputBox pt-2">
-        <label class="text-sm font-semibold" for="password">Password</label>
-        <input type="text" class="input" placeholder="Enter your password" />
-      </div>
-      <div class="pt-10 flex justify-between items-center">
-        <div class="remember">
-          <input type="checkbox" id="remember" />
-          <label class="pl-2 cursor-pointer" for="remember">Remember me</label>
-        </div>
-        <select
-          name=""
-          id=""
-          class="border rounded-sm py-1 px-5 focus:border-blackColor focus:outline-none"
-        >
-          <option value="chinese">中文</option>
-          <option value="eng">English</option>
-        </select>
-      </div>
-
-      <!-- login -->
-      <div
-        routerLink="/shipment-summary"
-        matRipple
-        [matRippleColor]="rippleColor"
-        class="btn"
-      >
-        Login
-      </div>
-    </div>
+    <app-login-popup class="w-[500px]"></app-login-popup>
   </div>
 </div>
 

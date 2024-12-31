@@ -1,21 +1,19 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
-import { ApiResponse, MainInterfaceService, processItems } from '../../interfaces/main-interface.service';
+import { MainInterfaceService, processItems } from '../../interfaces/main-interface.service';
 import { OtherDetailsComponent } from '../../components/other-details/other-details.component';
 import { MainServiceService } from '../../services/main-service.service';
-import { LoginComponent } from '../login/login.component';
-import { LoginPopupComponent } from '../../components/login-popup/login-popup.component';
 
 @Component({
   selector: 'app-shipment-summary',
   standalone: true,
   imports: [HeaderComponent, MatIconModule, CommonModule,
     MatRippleModule, MatTableModule, OtherDetailsComponent,
-    LoginPopupComponent, LoginComponent],
+  ],
   templateUrl: './shipment-summary.component.html',
 
 })
@@ -25,6 +23,13 @@ export class ShipmentSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProcessData();
+  }
+
+  // Header -> this component
+  isLogin: boolean = false;
+  loginSituation(isLogin: boolean) {
+    this.isLogin = isLogin;
+    console.log('Summary isLogin:', this.isLogin);
   }
 
   processService = inject(MainServiceService);
@@ -55,30 +60,6 @@ export class ShipmentSummaryComponent implements OnInit {
     })
 
   }
-
-  // flightTo(item: any): string {
-  //   const nowDate = new Date();
-  //   let closestStatus: string = '';
-  //   let maxDiff = -Infinity;
-
-  //   item.processes.forEach((process: { status: string, dateAndTime: string }) => {
-  //     const processDate = new Date(process.dateAndTime);
-  //     const diff = nowDate.getTime() - processDate.getTime();
-
-  //     if (diff <= 0 && diff > maxDiff) {
-  //       maxDiff = diff;
-  //       closestStatus = process.status;
-  //     }
-  //   });
-
-  //   if (closestStatus) {
-  //     return closestStatus;
-  //   } else {
-  //     console.log('not found', item);
-  //     return 'Not Available';
-  //   }
-
-  // }
 
   getClosestStatus(): string {
     const nowDate = new Date();
@@ -131,6 +112,7 @@ export class ShipmentSummaryComponent implements OnInit {
 
     return false;
   }
+
 
 
 

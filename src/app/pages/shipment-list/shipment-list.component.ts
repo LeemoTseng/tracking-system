@@ -45,7 +45,13 @@ export class ShipmentListComponent {
       this.isLoading = false;
     }, 1000);
   }
-
+  
+  // Header -> this component
+  isLogin: boolean = false;
+  loginSituation(isLogin: boolean) {
+    this.isLogin = isLogin;
+    console.log('Summary isLogin:', this.isLogin);
+  }
 
   menuSelected(menuItems: string, $index: number): void {
     this.selectedMenu = menuItems;

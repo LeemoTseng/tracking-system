@@ -1,7 +1,5 @@
-<div
-  class="popUp frame flex flex-col border bg-white p-10 rounded-md border-red-500"
->
-  <div (click)="closePopup()" class="close">
+<div class="popUp frame flex flex-col bg-white p-10 rounded-md">
+  <div class="close">
     <mat-icon class="cursor-pointer text-blackColor/50 absolute top-3 right-3"
       >close</mat-icon
     >
@@ -36,13 +34,14 @@
   </div>
 
   <!-- login btn -->
+  <!-- routerLink="/shipment-summary" -->
   <div
-    routerLink="/shipment-summary"
+    class="btn cursor-pointer"
+    (click)="loginToggle()"
     matRipple
     [matRippleColor]="rippleColor"
-    class="btn"
     style="margin-top: 30px"
   >
-    Login
+    <div class="cursor-pointer">Login</div>
   </div>
 </div>

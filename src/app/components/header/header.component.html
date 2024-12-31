@@ -1,3 +1,11 @@
+@if(!isLogin){
+<app-login-popup
+  (loginChangedFromPop)="loginChangedOnHeader($event)"
+  class="fixed z-20 drop-shadow-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+>
+</app-login-popup>
+}
+
 <div class="header bg-white px-2">
   <div class="menu pt-5 flex items-end mx-auto max-w-screen-xl justify-between">
     <div routerLink="/login" class="logo cursor-pointer flex pb-2 items-center">
@@ -14,8 +22,8 @@
           [routerLink]="item.routerLink"
           [class]="
             selectedMenu === item.name
-              ? ' text-blackColor '
-              : ' text-blackColor/70 '
+              ? 'text-blackColor'
+              : 'text-blackColor/70'
           "
           class="cursor-pointer font-medium hover:text-blackColor/90 px-3 mr-1"
         >

@@ -1,7 +1,8 @@
-<div class="absolute z-10">
-  <app-login-popup></app-login-popup>
-</div>
-<app-header></app-header>
+<app-header (isLoginChanged)="loginSituation($event)"></app-header>
+
+@if (!isLogin) {
+<div class="alpha absolute z-10 w-[100vw] h-[100vh] bg-blackColor/50"></div>
+}
 <div class="bg-blackColor/5">
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- search -->
