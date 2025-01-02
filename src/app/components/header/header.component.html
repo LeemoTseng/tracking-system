@@ -1,10 +1,21 @@
-@if(!isLogin){
+@if(selectedMenu =='Shipment List' && !isLogin){
 <app-login-popup
-  (loginChangedFromPop)="loginChangedOnHeader($event)"
+  (sendOpenPopup)="getOpenPopup(isOpenPopup)"
   class="fixed z-20 drop-shadow-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 >
+  <mat-icon
+    close
+    class="cursor-pointer text-blackColor/50 absolute top-3 right-3"
+    >close</mat-icon
+  >
 </app-login-popup>
-}
+
+@if (isOpenPopup) {
+<div
+  (click)="getOpenPopup(isOpenPopup)"
+  class="alpha absolute z-[15] w-full h-full bg-blackColor/50"
+></div>
+} }
 
 <div class="header bg-white px-2">
   <div class="menu pt-5 flex items-end mx-auto max-w-screen-xl justify-between">
@@ -35,20 +46,51 @@
               ? 'translate-x-[190px] w-[120px]'
               : 'translate-x-[0px] w-[160px]'
           "
-          class="absolute transform-all duration-1000 transition-all border-primary border-b-4 py-4"
+          class="absolute transform-all duration-300 transition-all border-primary border-b-4 py-4"
         ></div>
         }
 
         <li
-          class="login -translate-y-1 flex items-center cursor-pointer hover:text-blackColor/90"
+          (click)="showLogout()"
+          (mouseleave)="toggleLogout = false"
+          class="login cursor-pointer -translate-y-1 flex items-center"
         >
-          <mat-icon class="text-blackColor/80 cursor-pointer"
+          <mat-icon
+            class="text-blackColor/80"
+            [class]="isLogin ? '' : 'cursor-pointer'"
             >account_circle</mat-icon
           >
-          <p class="pl-1 cursor-pointer">Login</p>
+          @if (isLogin) {
+          <p class="pl-1 cursor-pointer hover:text-blackColor/90">
+            {{ username }}
+          </p>
+          <!-- Log out -->
+          @if (toggleLogout) {
+          <div
+            (click)="logout()"
+            class="absolute top-8 -right-5 border bg-white text-nowrap p-1"
+          >
+            <p
+              class="cursor-pointer hover:bg-blackColor/5 px-4 py-0 text-center m-0 text-sm"
+            >
+              Logout
+            </p>
+          </div>
+
+          } }
+          <!-- Login btn -->
+          @else{
+          <p
+            (click)="openPopup()"
+            class="pl-1 cursor-pointer hover:text-blackColor/90"
+          >
+            Login
+          </p>
+
+          }
         </li>
         <li
-          class="login -translate-y-1 flex items-center cursor-pointer hover:text-blackColor/90"
+          class="-translate-y-1 flex items-center cursor-pointer hover:text-blackColor/90"
         >
           <mat-icon class="text-blackColor/80 cursor-pointer"
             >language</mat-icon

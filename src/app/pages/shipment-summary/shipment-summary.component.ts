@@ -97,7 +97,6 @@ export class ShipmentSummaryComponent implements OnInit {
     return new Intl.DateTimeFormat('en-US', options).format(date);
   }
 
-
   isCompleted(status: string): boolean {
     const nowDate = new Date();
     const statuses = this.processList.map((item) => item.status);
@@ -111,6 +110,29 @@ export class ShipmentSummaryComponent implements OnInit {
     }
 
     return false;
+  }
+
+
+  username: string = '';
+  // Login status
+  checkLoginStatus(): void {
+    const isLoggedIn = this.getCookie('isLoggedIn');
+    const username = this.getCookie('username');
+    if (isLoggedIn === 'true' && username) {
+      this.isLogin = true;
+      this.username = username;
+    } else {
+      // this.router.navigate(['/login']); 
+    }
+  }
+  // Get Cookie
+  getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop()?.split(';').shift() || null;
+    }
+    return null;
   }
 
 

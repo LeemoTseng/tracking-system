@@ -1,24 +1,30 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, inject, Input, OnInit, output, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { LoginPopupComponent } from '../login-popup/login-popup.component';
 
+
+
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, RouterLink, LoginPopupComponent],
+  imports: [MatIconModule, RouterLink, LoginPopupComponent, MatIconModule],
   templateUrl: './header.component.html',
 
 })
 export class HeaderComponent implements OnInit {
 
-  // Router
+  // constructor
   constructor(private router: Router) { }
 
+  // initialization
   ngOnInit(): void {
+    this.checkLoginStatus();
+    //  Find the URL of the current page
     this.findUrl(this.router.url);
-    // console.log('this.router.url', this.router.url);
+
+    // Listen to the URL change event
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
@@ -26,46 +32,91 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  // Header -> loginPopup
-  isLogin: boolean = false;
 
-  // loginPopup -> Header
-  loginChangedOnHeader(isLogin: boolean) {
-    this.isLogin = isLogin;
-    console.log('loginChangedOnHeader:', this.isLogin);
-  
-    // Header -> other Components
-    this.loginSituation(this.isLogin);
+  // Login status from popup -> Header
+  // Login status from Header -> Other Components
+  loginStatus = output<boolean>();
+
+  sendLoginStatus(isLogin: boolean) {
+    this.loginStatus.emit(isLogin);
   }
 
-  // Header -> other Components
-  @Output() isLoginChanged = new EventEmitter<boolean>();
-  loginSituation(isLogin: boolean) {
-    this.isLogin = isLogin;
-    this.isLoginChanged.emit(this.isLogin); 
-    console.log('Header isLogin:', this.isLogin)
+  // Login status : 
+  isLogin: boolean = false; // is the user logged in
+  username: string = ''; // username
 
+  // Check login status from cookie
+  checkLoginStatus(): void {
+    const isLoggedIn = this.getCookie('isLoggedIn');
+    const username = this.getCookie('username');
+
+    if (isLoggedIn === 'true' && username) {
+      this.isLogin = true;
+      this.username = username;
+      // if the user is logged in, send the login status to the popup and other components
+    } else {
+      this.isOpenPopup = true;
+      // this.router.navigate(['/login']); 
+    }
+  }
+  // Get Cookie
+  getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop()?.split(';').shift() || null;
+    }
+    return null;
   }
 
+  // menu list
   menuList: any[] = [
-    {
-      name: 'Shipment Summary',
-      routerLink: '/shipment-summary'
-    }, {
-      name: 'Shipment List',
-      routerLink: '/shipment-list'
-    },
-  ]
+    { name: 'Shipment Summary', routerLink: '/shipment-summary' },
+    { name: 'Shipment List', routerLink: '/shipment-list' },
+  ];
+  selectedMenu: string = "";
 
-  selectedMenu: string = ""
+  // selected item
   selectMenu(item: string) {
-    this.selectedMenu = item
+    this.selectedMenu = item;
   }
 
+  // Find the URL of the current page
   findUrl(currentUrl: string) {
     const matchedMenu = this.menuList.find(menu => menu.routerLink === currentUrl);
-    // console.log('matchedMenu', matchedMenu);
     this.selectedMenu = matchedMenu ? matchedMenu.name : '';
+  }
+
+  // get close the popup
+  isOpenPopup: boolean = false;
+  getOpenPopup(v: boolean) {
+    this.isOpenPopup = v;
+    console.log('getOpenPopup', v);
+  }
+
+  // open the popup
+  openPopup() {
+    this.selectedMenu ='Shipment List' 
+    this.isLogin = false;
+  }
+
+
+  // logout function
+  logout() {
+    this.isLogin = false;
+    document.cookie = 'isLoggedIn=false';
+    document.cookie = 'username=';
+    alert('Logout successful!');
+    this.router.navigate(['/login']);
+    // window.location.reload();
+  }
+  toggleLogout: boolean = false;
+  showLogout() {
+    this.toggleLogout = !this.toggleLogout;
+    console.log(this.toggleLogout);
+  }
+  hideLogout() {
+    this.toggleLogout = false;
   }
 
 }

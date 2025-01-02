@@ -1,11 +1,12 @@
+@if (isOpenPopup) {
 <div class="popUp frame flex flex-col bg-white p-10 rounded-md">
-  @if(isPopupOpen){
-  <div class="close">
-    <mat-icon class="cursor-pointer text-blackColor/50 absolute top-3 right-3"
+  <div (click)="togglePopup()" class="close">
+    <ng-content></ng-content>
+    <!-- <mat-icon class="cursor-pointer text-blackColor/50 absolute top-3 right-3"
       >close</mat-icon
-    >
+    > -->
   </div>
-  }
+
   <p class="text-2xl font-semibold">Air Cargo Tracking System</p>
   <p class="text-blackColor/50">Welcome back to our air tracking system</p>
   <!-- account -->
@@ -13,12 +14,11 @@
     <label for="account" class="text-sm font-semibold" for="account"
       >Account</label
     >
-
     <input
-      (focus)="onValidateAccount(account)"
       [(ngModel)]="account"
-      [style]="errorStyle"
       id="account"
+      [style]="isError ? 'border: 1px solid red' : ''"
+      (input)="isError = false"
       class="input p-2 text-sm"
       placeholder="Enter your account"
       type="text"
@@ -29,19 +29,21 @@
     <label for="password" class="text-sm font-semibold" for="password"
       >Password</label
     >
-    @if (errorStyle !== '') {
-    <p class="inline pl-5 text-sm text-red-400">Please enter your password</p>
-    }
     <input
-      (input)="onValidatePassword(password)"
       [(ngModel)]="password"
-      [style]="errorStyle"
+      [style]="isError ? 'border: 1px solid red' : ''"
+      (input)="isError = false"
       id="password"
-      type="text"
+      type="password"
       class="input"
       placeholder="Enter your password"
     />
+    @if (isError) {
+    <p class="absolute text-sm text-red-500">Invalid account or password.</p>
+    }
   </div>
+
+  <!-- remember -->
   <div class="pt-10 flex justify-between items-center">
     <div class="remember">
       <input type="checkbox" id="remember" />
@@ -56,14 +58,12 @@
       <option value="eng">English</option>
     </select>
   </div>
-  <p>email: {{ account }}</p>
-  <p>password: {{ password }}</p>
 
   <!-- login btn -->
   <!-- routerLink="/shipment-summary" -->
   <div
     class="btn cursor-pointer"
-    (click)="loginToggle()"
+    (click)="submitLogin()"
     matRipple
     [matRippleColor]="rippleColor"
     style="margin-top: 30px"
@@ -71,3 +71,4 @@
     <div class="cursor-pointer">Login</div>
   </div>
 </div>
+}

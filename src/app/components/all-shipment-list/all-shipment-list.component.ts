@@ -23,18 +23,25 @@ export class AllShipmentListComponent implements OnInit {
 
   @Input() sendedSelectedMenu: string = '';
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('changes:', changes['sendedSelectedMenu'].currentValue);
-    if (changes['sendedSelectedMenu'].currentValue === 'All Cargos') {
-      this.onLoading();
-      this.getAllCargosData();
+    this.checkLoginStatus();
+    if (this.isLogin) {
+      // console.log('changes:', changes['sendedSelectedMenu'].currentValue);
+      if (changes['sendedSelectedMenu'].currentValue === 'All Cargos') {
+        this.onLoading();
+        this.getAllCargosData();
+      }
+      if (changes['sendedSelectedMenu'].currentValue === 'On-Going') {
+        this.onLoading();
+        this.getOnGoingData();
+      }
+      if (changes['sendedSelectedMenu'].currentValue === 'Completed') {
+        this.onLoading();
+        this.getCompletedData();
+      }
     }
-    if (changes['sendedSelectedMenu'].currentValue === 'On-Going') {
-      this.onLoading();
-      this.getOnGoingData();
-    }
-    if (changes['sendedSelectedMenu'].currentValue === 'Completed') {
-      this.onLoading();
-      this.getCompletedData();
+    else {
+      this.isLoading = false;
+
     }
     // Perform any additional actions when sendedSelectedMenu changes
   }
@@ -47,7 +54,6 @@ export class AllShipmentListComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCargosData();
     // console.log('ChildSelectedMenu:', this.sendedSelectedMenu);
-
   }
 
   isLoading = true;
@@ -224,5 +230,34 @@ export class AllShipmentListComponent implements OnInit {
     // console.log(`Slicing from ${start} to ${end}`); // Debug slicing indices
     this.pagedItems = this.status.slice(start, end);
   }
+
+  // Login status : 
+  isLogin: boolean = false; // is the user logged in
+  username: string = 'User'; // username
+
+  // Check login status from cookie
+  checkLoginStatus(): void {
+    const isLoggedIn = this.getCookie('isLoggedIn');
+    const username = this.getCookie('username');
+
+    if (isLoggedIn === 'true' && username) {
+      this.isLogin = true;
+      // if the user is logged in, send the login status to the popup and other components
+      console.log(`username, ${username}`);
+    } else {
+      // this.isOpenPopup = true;
+      // this.router.navigate(['/login']); 
+    }
+  }
+  // Get Cookie
+  getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop()?.split(';').shift() || null;
+    }
+    return null;
+  }
+
 
 }

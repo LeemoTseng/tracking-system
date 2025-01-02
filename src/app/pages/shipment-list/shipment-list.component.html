@@ -1,18 +1,21 @@
-<app-header (isLoginChanged)="loginSituation($event)"></app-header>
+<app-header></app-header>
 
-@if (!isLogin) {
-<div class="alpha absolute z-[15] w-[100vw] h-[100vh] bg-blackColor/50"></div>
-} @if (isLoading){
+@if (isLoading){
 <app-loading
   class="fixed overflow-hidden bg-white/60 w-fit h-fit -z-10"
 ></app-loading>
 }
 
-<div class="w-full h-fit bg-blackColor/5">
+<div
+  [class]="isLogin ? 'h-fit' : 'h-screen overflow-auto'"
+  class="w-full bg-blackColor/5"
+>
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- greetings -->
     <div class="greeting py-3">
-      <p class="font-semibold text-3xl text-blackColor">Hello User,</p>
+      <p class="font-semibold text-3xl text-blackColor">
+        Hello {{ username }},
+      </p>
       <p class="text-blackColor">View all of your shipment list.</p>
     </div>
     <!-- frame -->

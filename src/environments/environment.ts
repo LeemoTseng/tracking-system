@@ -5,6 +5,8 @@ export const environment = {
   fileApiUrl: `json/files.json`,
   shipmentDetailsApiUrl:`json/shipment-detail.json`,
   AllShipmentListUrl:`json/all-shipment-list.json`,
-  ShipmentSummaryUrl:`json/shipment-summary.json`
+  ShipmentSummaryUrl:`json/shipment-summary.json`,
+  userUrl:`json/user.json`,
+
 
 };
