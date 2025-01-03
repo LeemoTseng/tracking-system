@@ -1,117 +1,43 @@
 <app-header></app-header>
-
-<!-- @if (!isLogin) {
-<div class="alpha absolute z-10 w-[100vw] h-[100vh] bg-blackColor/50"></div>
+<!-- @if (isLoading){
+<app-loading
+  class="fixed overflow-hidden bg-white/60 w-fit h-fit -z-10"
+></app-loading>
 } -->
-<div class="bg-blackColor/5">
+<div class="bg-blackColor/5 h-full">
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- search -->
-    <div class="search relative flex items-center w-[400px] py-10">
-      <input
-        class="focus:outline-blackColor p-1 pl-8 w-full"
-        placeholder="Enter tracking number"
-        id="search"
-        type="text"
-      />
-      <div
-        class="cursor-pointer bg-blackColor text-white font-medium px-10 py-1 rounded-sm ml-3"
-      >
-        Search
-      </div>
-      <mat-icon
-        class="text-blackColor/60 absolute left-1 top-1/2 -translate-y-1/2"
-        >search</mat-icon
-      >
-    </div>
-    <div class="trackingDetails">
-      <div class="bg-white rounded-md">
-        <!-- mainInfo -->
-        <div
-          class="mainInfo flex gap-x-2 justify-between py-10 px-10 border-b-[1px] border-blackColor/20"
-        >
-          <div id="HAWBno">
-            <p class="text-blackColor/50 font-medium">HAWB No.</p>
-            <p class="text-3xl font-semibold">THI012403610</p>
-          </div>
-          <div id="HAWBno">
-            <p class="text-blackColor/50 font-medium">MAWB No.</p>
-            <p class="text-3xl font-semibold">659-50810270</p>
-          </div>
-          <div id="origin">
-            <p class="text-blackColor/50 font-medium">Origin</p>
-            <p class="font-medium">TPE <br />TAIPEI, TAIWAN</p>
-          </div>
-          <div id="destination">
-            <p class="text-blackColor/50 font-medium">Destination</p>
-            <p class="font-medium">ORD <br />CHICAGO ORD, UNITED STATES</p>
-          </div>
-        </div>
-        <!-- Process -->
-        <div class="process px-10 flex py-10">
-          @for (item of processList; track $index) {
-          <div class="process flex flex-col w-full">
-            <div class="iconAnimation flex justify-start items-center">
-              <mat-icon
-                [class]="
-                  isCompleted(item.status) ? 'text-primary' : 'text-gray-300'
-                "
-                class="material-symbols-outlined text-[45px]"
-                style="height: 50px; width: 60px"
-              >
-                {{ item.icon }}</mat-icon
-              >
-
-              <div
-                [class]="
-                  isCompleted(item.status) ? 'bg-primary' : 'bg-gray-300'
-                "
-                class="line w-full h-[3px]"
-              ></div>
-              <div class="line bg-blackColor/20 h-[3px]"></div>
-            </div>
-            <p class="text-blackColor/50 font-medium mb-0">{{ item.status }}</p>
-            <p class="mt-0">{{ item.formattedDate }}</p>
-
-            @if (item.flight) {
-
-            <p class="text-blackColor/50 font-medium mb-0">Flight No.</p>
-            <p class="mt-0">BR0650</p>
-
-            <p class="text-blackColor/50 font-medium mb-0">
-              Origin / Destination
-            </p>
-            <p class="mt-0">TPE / IAH</p>
-
-            } @if(item.image){
-
-            <div
-              matRipple
-              [matRippleColor]="rippleColor"
-              class="btn-outline transition-all max-w-fit"
-            >
-              View Images
-            </div>
-            }
-          </div>
-          }
-          <!-- completed -->
-          <div class="Completed flex flex-col w-fit">
-            <div class="iconAnimation flex items-center">
-              <mat-icon
-                [class]="
-                  isCompleted(nowStatus) ? 'text-primary' : 'text-gray-300'
-                "
-                class="text-[45px]"
-                style="height: 50px; width: 50px"
-                >task_alt</mat-icon
-              >
-            </div>
-            <p class="text-blackColor/50 font-medium mb-0">Completed</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Other Details -->
+    <app-search-tracking-num
+      (alertMessageOutput)="getAlertMessageOutput($event)"
+      (isValidTrackingNumberOutput)="getIsValidTrackingNumberOutput($event)"
+    ></app-search-tracking-num>
+    <!-- trackingDetails -->
+    @if (isValidTrackingNumber) {
+    <!-- [sendDetails]="searchResult" -->
+    <app-tracking-details [details]="searchResult"></app-tracking-details>
     <app-other-details></app-other-details>
+    }@else {
+    <div class="h-full">
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center"
+      >
+        <span
+          class="cursor-default hover:rotate-180 hover:text-blue-400 hover:transition-all duration-[2.5s] material-symbols-outlined text-blackColor/50 text-[60px]"
+        >
+          package_2
+        </span>
+        @if (alertMessage !== '') {
+        <p
+          class="text-blackColor/50 text-xl font-semibold ml-3"
+          [innerHTML]="alertMessage"
+        ></p>
+        } @else {
+        <p class="text-blackColor/50 text-xl font-semibold ml-3">
+          Please enter a tracking number.
+        </p>
+        }
+      </div>
+    </div>
+    }
   </div>
 </div>

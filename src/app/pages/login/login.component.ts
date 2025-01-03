@@ -1,28 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginPopupComponent } from '../../components/login-popup/login-popup.component';
+import { FormsModule } from '@angular/forms';
+import { SearchTrackingNumComponent } from '../../components/search-tracking-num/search-tracking-num.component';
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule,MatRippleModule,FooterComponent, RouterLink, LoginPopupComponent],
+  imports: [MatButtonModule,
+    MatIconModule, MatRippleModule,
+    FooterComponent, RouterLink,
+    LoginPopupComponent, FormsModule,],
   templateUrl: './login.component.html',
 
 })
 
 export class LoginComponent {
-rippleColor = 'rgba(225,225,225,0.2)';
-isPopup:boolean = false;
+  rippleColor = 'rgba(225,225,225,0.2)';
+  isPopup: boolean = false;
+  trackingNumber: string = '';
+  router = inject(Router)
+  isValid: boolean = true;
+  alertMessage: string = '';
 
-ngOnInit() {
-  this.checkLoginStatus();
-}
+  ngOnInit() {
+    this.checkLoginStatus();
+  }
 
   // Login status : 
   isLogin: boolean = false; // is the user logged in
@@ -52,6 +61,31 @@ ngOnInit() {
     return null;
   }
 
+  // Route to shipment summary page
+  routeToSummary() {
+    if (this.isValid) {
+      document.cookie = `trackingNumber=${this.trackingNumber}`;
+      this.router.navigate(['/shipment-summary']);
+      // window.location.reload();
+    } else {
+      this.isValid = false;
+      this.alertMessage = 'Tracking number must be a number';
+    }
+
+
+  }
+  checkValid(e: any) {
+    if (e.target.value === '') {
+      this.isValid = false;
+      this.alertMessage = 'the tracking number cannot be empty';
+    } else if (this.trackingNumber !== Number(this.trackingNumber).toString()) {
+      this.isValid = false;
+      this.alertMessage = 'Tracking number must be a number';
+    } else {
+      this.isValid = true;
+      this.alertMessage = '';
+    }
+  }
 
 
 }

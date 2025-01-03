@@ -1,60 +1,85 @@
 {
-  "status": [
-    {
-      "shipmentId": "SHIP001",
-      "processes": [
-        {
-          "status": "Booking Creation",
-          "icon": "inventory",
-          "dateAndTime": "2021-07-01 12:00"
+  "shipment": {
+    "id": "SHIP001",
+    "generalInfo": {
+      "MAWB": "016-23794094",
+      "HAWB": "016-23794002",
+      "shipDate": "2024-11-09 11:10",
+      "tradingType": "EXW",
+      "payment": "Collect"
+    },
+    "packageInfo": {
+      "PKG": "1 PLT",
+      "GW": "288.0 KGS",
+      "VW": "35.0 KGS",
+      "CW": "288.0 KGS"
+    },
+    "routeInfo": {
+      "origin": "TPE - TAIPEI, TAIWAN",
+      "destination": "IAH - HOUSTON, UNITED STATES"
+    },
+    "shipperInfo": {
+      "name": "NYTAPS TAIWAN CORP.",
+      "address": "36, BEN GONG RD., GANGSHAN DIST., KAOHSIUNG CITY 80658, TAIWAN (R.O.C.)",
+      "fax": "07-333-3687"
+    },
+    "consigneeInfo": {
+      "name": "NYTAPS TAIWAN CORP.",
+      "address": "36, BEN GONG RD., GANGSHAN DIST., KAOHSIUNG CITY 80658, TAIWAN (R.O.C.)",
+      "fax": "07-333-3687"
+    },
+    "status": [
+      {
+        "status": "Booking Creation",
+        "icon": "inventory",
+        "dateAndTime": "2021-07-01 12:00"
+      },
+      {
+        "status": "ETD",
+        "icon": "package_2",
+        "flight": {
+          "flight": "BRO650",
+          "origin": "TPE",
+          "destination": "IAH"
         },
-        {
-          "status": "ETD",
-          "icon": "package_2",
-          "flight": {
-            "flight": "BRO650",
-            "origin": "TPE",
-            "destination": "IAH"
-          },
-          "dateAndTime": "2024-12-24 12:00",
-          "image": false,
-          "imgUrl": [
-            {
-              "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg",
-              "alt": "airport"
-            }
-          ]
+        "dateAndTime": "2024-12-24 12:00",
+        "image": false,
+        "imgUrl": [
+          {
+            "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg",
+            "alt": "airport"
+          }
+        ]
+      },
+      {
+        "status": "ATD",
+        "icon": "box",
+        "dateAndTime": "2024-12-24 12:00",
+        "image": true
+      },
+      {
+        "status": "ETA",
+        "icon": "flight_land",
+        "flight": {
+          "flight": "BRO650",
+          "origin": "TPE",
+          "destination": "IAH"
         },
-        {
-          "status": "ATD",
-          "icon": "box",
-          "dateAndTime": "2024-12-24 12:00",
-          "image": true
-        },
-        {
-          "status": "ETA",
-          "icon": "flight_land",
-          "flight": {
-            "flight": "BRO650",
-            "origin": "TPE",
-            "destination": "IAH"
-          },
-          "dateAndTime": "2024-12-29 12:00",
-          "image": false,
-          "imgUrl": [
-            {
-              "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg",
-              "alt": "airport"
-            }
-          ]
-        },
-        {
-          "status": "ATA",
-          "icon": "event_available",
-          "dateAndTime": "2024-12-29 12:00",
-          "image": true
-        }
-      ]
-    }
-  ]
+        "dateAndTime": "2024-12-29 12:00",
+        "image": false,
+        "imgUrl": [
+          {
+            "url": "https://www.airport-technology.com/wp-content/uploads/sites/3/2020/07/airport-technology-1.jpg",
+            "alt": "airport"
+          }
+        ]
+      },
+      {
+        "status": "ATA",
+        "icon": "event_available",
+        "dateAndTime": "2025-12-29 12:00",
+        "image": true
+      }
+    ]
+  }
 }

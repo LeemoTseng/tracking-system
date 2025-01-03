@@ -1,0 +1,89 @@
+<!-- <button (click)="test()">測試測試</button> -->
+<!-- loading -->
+@if (isLoading){
+<app-loading
+  class="fixed overflow-hidden bg-white/60 w-[100vw] h-[100vh] z-10"
+></app-loading>
+}
+<div class="trackingDetails">
+  <div class="bg-white rounded-md">
+    <!-- mainInfo -->
+    <div
+      class="mainInfo flex gap-x-2 justify-between py-10 px-10 border-b-[1px] border-blackColor/20"
+    >
+      <div id="HAWBno">
+        <p class="text-blackColor/50 font-medium">HAWB No.</p>
+        <p class="text-3xl font-semibold">THI012403610</p>
+      </div>
+      <div id="HAWBno">
+        <p class="text-blackColor/50 font-medium">MAWB No.</p>
+        <p class="text-3xl font-semibold">659-50810270</p>
+      </div>
+      <div id="origin">
+        <p class="text-blackColor/50 font-medium">Origin</p>
+        <p class="font-medium">TPE <br />TAIPEI, TAIWAN</p>
+      </div>
+      <div id="destination">
+        <p class="text-blackColor/50 font-medium">Destination</p>
+        <p class="font-medium">ORD <br />CHICAGO ORD, UNITED STATES</p>
+      </div>
+    </div>
+    <!-- Process -->
+    <div class="process px-10 flex py-10">
+      @for (item of processList; track $index) {
+      <div class="process flex flex-col w-full">
+        <div class="iconAnimation flex justify-start items-center">
+          <mat-icon
+            [class]="
+              isCompleted(item.status) ? 'text-primary' : 'text-gray-300'
+            "
+            class="material-symbols-outlined text-[45px]"
+            style="height: 50px; width: 60px"
+          >
+            {{ item.icon }}</mat-icon
+          >
+
+          <div
+            [class]="isCompleted(item.status) ? 'bg-primary' : 'bg-gray-300'"
+            class="line w-full h-[3px]"
+          ></div>
+          <div class="line bg-blackColor/20 h-[3px]"></div>
+        </div>
+        <p class="text-blackColor/50 font-medium mb-0">{{ item.status }}</p>
+        <p class="mt-0">{{ item.formattedDate }}</p>
+
+        @if (item.flight) {
+
+        <p class="text-blackColor/50 font-medium mb-0">Flight No.</p>
+        <p class="mt-0">BR0650</p>
+
+        <p class="text-blackColor/50 font-medium mb-0">Origin / Destination</p>
+        <p class="mt-0">TPE / IAH</p>
+
+        } @if(item.image){
+
+        <div
+          matRipple
+          [matRippleColor]="rippleColor"
+          class="btn-outline transition-all max-w-fit"
+        >
+          View Images
+        </div>
+        }
+      </div>
+      }
+      <!-- completed -->
+      <div class="Completed flex flex-col w-fit">
+        <div class="iconAnimation flex items-center">
+          <mat-icon
+            [class]="isCompleted(nowStatus) ? 'text-primary' : 'text-gray-300'"
+            class="text-[45px]"
+            style="height: 50px; width: 50px"
+            >task_alt</mat-icon
+          >
+        </div>
+        <p class="text-blackColor/50 font-medium mb-0">Completed</p>
+      </div>
+    </div>
+  </div>
+</div>

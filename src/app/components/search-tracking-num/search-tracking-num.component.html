@@ -1,0 +1,19 @@
+<div class="search relative flex items-center w-[400px] py-10">
+  <input
+    (keydown.enter)="onSearch(trackingNumber)"
+    [(ngModel)]="trackingNumber"
+    class="focus:outline-blackColor p-1 pl-8 w-full"
+    placeholder="Enter tracking number"
+    id="search"
+    type="text"
+  />
+  <div
+    (click)="onSearch(trackingNumber)"
+    class="cursor-pointer bg-blackColor text-white font-medium px-10 py-1 rounded-sm ml-3"
+  >
+    Search
+  </div>
+  <mat-icon class="text-blackColor/60 absolute left-1 top-1/2 -translate-y-1/2"
+    >search</mat-icon
+  >
+</div>
