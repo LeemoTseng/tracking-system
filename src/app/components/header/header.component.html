@@ -50,9 +50,9 @@
         ></div>
         }
 
+        <!-- (mouseleave)="toggleLogout = false" -->
         <li
           (click)="showLogout()"
-          (mouseleave)="toggleLogout = false"
           class="login cursor-pointer -translate-y-1 flex items-center"
         >
           <mat-icon
@@ -68,10 +68,10 @@
           @if (toggleLogout) {
           <div
             (click)="logout()"
-            class="absolute top-8 -right-5 border bg-white text-nowrap p-1"
+            class="absolute top-10 rounded-md -right-5 border bg-white text-nowrap p-[2px]"
           >
             <p
-              class="cursor-pointer hover:bg-blackColor/5 px-4 py-0 text-center m-0 text-sm"
+              class="cursor-pointer hover:bg-blackColor/5 px-4 py-1 text-center m-0"
             >
               Logout
             </p>

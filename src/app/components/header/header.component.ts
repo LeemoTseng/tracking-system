@@ -115,8 +115,14 @@ export class HeaderComponent implements OnInit {
     this.toggleLogout = !this.toggleLogout;
     console.log(this.toggleLogout);
   }
-  hideLogout() {
-    this.toggleLogout = false;
+  // Click outside the logout menu to close it
+  @HostListener('document:click', ['$event'])
+  closeLogoutMenu(event: MouseEvent) {
+    const clickedElement = event.target as HTMLElement;
+    if (!clickedElement.closest('.login')) {
+      this.toggleLogout = false; 
+    }
   }
+
 
 }

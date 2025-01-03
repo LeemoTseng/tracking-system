@@ -72,11 +72,13 @@ export class LoginPopupComponent implements OnInit {
       this.loginStatusEmit.emit(this.isLogin);
       console.log('Login successful!');
       // Close the popup
-      this.togglePopup();
-      if (this.location.path() !== '/login') {
+      // this.togglePopup();
+      if (this.location.path() === '/login') {
         this.router.navigate(['/shipment-list']);
-      window.location.reload();
-
+        
+      } else {
+        this.router.navigate(['/shipment-list']);
+        window.location.reload();
 
       }
       // Store login state in Cookie
