@@ -20,6 +20,7 @@
             >search</mat-icon
           >
           <input
+            [(ngModel)]="trackingNumber"
             class="w-full focus:outline-none focus:ring-transparent text-blackColor py-1"
             type="text"
             placeholder="Tracking number"
@@ -72,12 +73,6 @@
             class="diver absolute -top-[3px] right-0 bg-[#b9b9b9] h-[40px] w-[1px]"
           ></div>
         </div>
-        <!-- Process -->
-        <!-- <select class="ml-5 focus:outline-none text-center" name="" id="">
-          <option value="All" selected>All</option>
-          <option value="ETD">ETD</option>
-          <option value="ETA">ETA</option>
-        </select> -->
 
         <div
           mat-button
@@ -87,7 +82,7 @@
         >
           <p class="cursor-pointer mx-auto">All</p>
 
-          <mat-menu #processMenu="matMenu">
+          <mat-menu [(ngModel)]="selectItem" #processMenu="matMenu">
             <button mat-menu-item>All</button>
             <button mat-menu-item>ETD</button>
             <button mat-menu-item>ETA</button>

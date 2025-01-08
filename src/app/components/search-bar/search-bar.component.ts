@@ -16,25 +16,33 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './search-bar.component.scss'
 })
 export class SearchBarComponent {
-  rippleColor = 'rgba(0,0,0,0.05)';
 
+  rippleColor = 'rgba(0,0,0,0.05)';
   value = 'Clear me';
+  trackingNumber = '';
+  startDate = '';
+  endDate = '';
+  selectItem = '';
+
+  onSelect(e: Event | undefined) {
+    console.log(e);
+  }
+
 
   onFocus(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
-    inputElement.showPicker?.(); 
-    inputElement.focus(); 
+    inputElement.showPicker?.();
+    inputElement.focus();
   }
-  
-  startDate = '';
-  endDate = '';
+
+
 
   // if clicked outside the search box, unfocus
   isFocused = false;
 
   focusSearch(): void {
     this.isFocused = true;
-    console.log(this.isFocused);
+    // console.log(this.isFocused);
   }
 
   @HostListener('document:click', ['$event'])
@@ -45,7 +53,7 @@ export class SearchBarComponent {
     const target = event.target as HTMLElement;
     if (!target.closest('.searchContent')) {
       this.isFocused = false;
-      console.log(this.isFocused);
+      // console.log(this.isFocused);
     }
   }
 

@@ -28,8 +28,8 @@
           class="absolute cursor-pointer right-2 top-1/2 -translate-y-1/2 fill-current text-blackColor"
           >arrow_circle_right</mat-icon
         >
+        <p class="absolute top-10 text-sm text-red-500">{{ alertMessage }}</p>
       </div>
-      <p class="text-sm text-red-500">{{ alertMessage }}</p>
     </div>
     <div class="dividingLine bg-blackColor/30 w-[1px] h-[300px] mx-10"></div>
     @if (!isLogin) {<app-login-popup
