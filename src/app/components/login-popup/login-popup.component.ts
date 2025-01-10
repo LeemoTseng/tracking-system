@@ -21,6 +21,7 @@ export class LoginPopupComponent implements OnInit {
 
   @Input() isPopup: boolean = false;
   @Input() isLogin: boolean = false;
+
   loginStatusEmit = output<boolean>();
   openPopup = output<boolean>();
 
@@ -69,23 +70,25 @@ export class LoginPopupComponent implements OnInit {
 
     if (validUser) {
       this.isLogin = true;
-      this.loginStatusEmit.emit(this.isLogin);
+      this.sendIsLogin(this.isLogin);
       console.log('Login successful!');
       // Close the popup
       // this.togglePopup();
-      if (this.location.path() === '/login') {
-        this.router.navigate(['/shipment-list']);
-        
+
+      if (this.location.path() === '/login' || 
+      this.location.path() === '') {
+        this.router.navigate(['/shipment-list/all-shipment']);
+        // window.location.reload();
       } else {
-        this.router.navigate(['/shipment-list']);
+        this.router.navigate(['/shipment-list/all-shipment']);
         window.location.reload();
 
       }
       // Store login state in Cookie
       document.cookie = `isLoggedIn=true; path=/; max-age=3600`; // Cookie 有效期為 1 小時
       document.cookie = `username=${this.account}; path=/; max-age=3600`;
+      this.router.navigate(['/shipment-list/all-shipment']); // Redirect to shipment list page
 
-      this.router.navigate(['/shipment-list']); // Redirect to shipment list page
     } else {
       console.log('Invalid account or password.');
       this.isError = true;
@@ -95,17 +98,22 @@ export class LoginPopupComponent implements OnInit {
   isOpenPopup: boolean = true;
   togglePopup() {
     const currentRoute = this.router.url;
-    if (currentRoute === '/shipment-list'){
+    if (currentRoute === '/shipment-list/all-shipment' 
+      || currentRoute === '/shipment-list/details'
+    ) {
       // 導向登入頁
       this.router.navigate(['/shipment-summary']);
     } else{
       window.location.reload();
     }
-
     this.isOpenPopup = !this.isOpenPopup;
     this.openPopup.emit(this.isOpenPopup);
-    console.log('sendOpenPopup', this.isOpenPopup);
+    // console.log('sendOpenPopup', this.isOpenPopup);
   }
   
+  sendIsLogin(isLogin: boolean) {
+    this.loginStatusEmit.emit(isLogin);
+    // console.log('sendIsLogin', isLogin);
+  }
 
 }

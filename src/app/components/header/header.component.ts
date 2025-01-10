@@ -18,18 +18,26 @@ export class HeaderComponent implements OnInit {
   // constructor
   constructor(private router: Router) { }
 
+  // menu list
+  menuList: any[] = [
+    { name: 'Shipment Summary', routerLink: '/shipment-summary' },
+    { name: 'Shipment List', routerLink: '/shipment-list/all-shipment' },
+  ];
+  selectedMenu: string = "";
+
   // initialization
   ngOnInit(): void {
     this.checkLoginStatus();
     //  Find the URL of the current page
     this.findUrl(this.router.url);
+    // console.log('this.router.url',this.router.url);
 
     // Listen to the URL change event
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.findUrl(event.urlAfterRedirects);
-      });
+    // this.router.events
+    //   .pipe(filter(event => event instanceof NavigationEnd))
+    //   .subscribe((event: NavigationEnd) => {
+    //     this.findUrl(event.urlAfterRedirects);
+    //   });
   }
 
 
@@ -39,11 +47,19 @@ export class HeaderComponent implements OnInit {
 
   sendLoginStatus(isLogin: boolean) {
     this.loginStatus.emit(isLogin);
+    // console.log('sendLoginStatus', isLogin);
   }
 
   // Login status : 
   isLogin: boolean = false; // is the user logged in
   username: string = ''; // username
+
+  // Get login status from popup
+  getIsLoginFromPopup(isLogin: boolean) {
+    this.isLogin = isLogin;
+    this.sendLoginStatus(isLogin);
+    // console.log('getIsLoginFromPopup', isLogin);
+  }
 
   // Check login status from cookie
   checkLoginStatus(): void {
@@ -69,13 +85,6 @@ export class HeaderComponent implements OnInit {
     return null;
   }
 
-  // menu list
-  menuList: any[] = [
-    { name: 'Shipment Summary', routerLink: '/shipment-summary' },
-    { name: 'Shipment List', routerLink: '/shipment-list' },
-  ];
-  selectedMenu: string = "";
-
   // selected item
   selectMenu(item: string) {
     this.selectedMenu = item;
@@ -83,7 +92,9 @@ export class HeaderComponent implements OnInit {
 
   // Find the URL of the current page
   findUrl(currentUrl: string) {
-    const matchedMenu = this.menuList.find(menu => menu.routerLink === currentUrl);
+    const matchedMenu = this.menuList.find
+      (menu => menu.routerLink === currentUrl
+        || menu.routerLink === currentUrl.includes(menu.routerLink));
     this.selectedMenu = matchedMenu ? matchedMenu.name : '';
   }
 
@@ -96,7 +107,7 @@ export class HeaderComponent implements OnInit {
 
   // open the popup
   openPopup() {
-    this.selectedMenu ='Shipment List' 
+    this.selectedMenu = 'Shipment List'
     this.isLogin = false;
   }
 
@@ -104,8 +115,12 @@ export class HeaderComponent implements OnInit {
   // logout function
   logout() {
     this.isLogin = false;
-    document.cookie = 'isLoggedIn=false';
-    document.cookie = 'username=';
+  // 清除所有相關 Cookie，確保包括不同的 Path
+  document.cookie = "isLoggedIn=; path=/; max-age=0";
+  document.cookie = "isLoggedIn=; path=/shipment-list; max-age=0";
+  document.cookie = "username=; path=/; max-age=0";
+  document.cookie = "username=; path=/shipment-list; max-age=0";
+  document.cookie = "trackingNumber=; path=/; max-age=0";
     alert('Logout successful!');
     this.router.navigate(['/login']);
     // window.location.reload();
@@ -120,7 +135,7 @@ export class HeaderComponent implements OnInit {
   closeLogoutMenu(event: MouseEvent) {
     const clickedElement = event.target as HTMLElement;
     if (!clickedElement.closest('.login')) {
-      this.toggleLogout = false; 
+      this.toggleLogout = false;
     }
   }
 

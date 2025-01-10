@@ -64,7 +64,7 @@ export class LoginComponent {
   // Route to shipment summary page
   routeToSummary() {
     if (this.isValid) {
-      document.cookie = `trackingNumber=${this.trackingNumber}`;
+      this.saveTrackingNumberToSession(this.trackingNumber);
       this.router.navigate(['/shipment-summary']);
       // window.location.reload();
     } else {
@@ -87,5 +87,8 @@ export class LoginComponent {
     }
   }
 
-
+  // Session Storage Methods
+  saveTrackingNumberToSession(value: string): void {
+    sessionStorage.setItem('trackingNumber', value); // 儲存到 Session Storage
+  }
 }

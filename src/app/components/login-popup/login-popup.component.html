@@ -1,4 +1,4 @@
-@if (isOpenPopup) {
+@if (isOpenPopup && !isLogin) {
 <div class="popUp frame flex flex-col bg-white p-10 rounded-md">
   <div (click)="togglePopup()" class="close">
     <ng-content></ng-content>

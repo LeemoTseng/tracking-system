@@ -1,4 +1,4 @@
-<div class="container mx-auto max-w-screen-xl p-5">
+<div class="container mx-auto max-w-screen-xl p-5 h-fit">
   <div class="logo flex">
     <img class="object-contain w-[100px]" src="t3ex-logo.svg" alt="logo" />
     <div class="greeting pt-3 pl-3">
@@ -31,7 +31,7 @@
         <p class="absolute top-10 text-sm text-red-500">{{ alertMessage }}</p>
       </div>
     </div>
-    <div class="dividingLine bg-blackColor/30 w-[1px] h-[300px] mx-10"></div>
+    <div class="dividingLine bg-blackColor/30 w-[1px] h-[400px] mx-10"></div>
     @if (!isLogin) {<app-login-popup
       [isPopup]="isPopup"
       class="w-[500px]"
@@ -43,7 +43,7 @@
 
       <!-- style="width: fit-content" -->
       <div
-        [routerLink]="['/shipment-list']"
+        [routerLink]="['/shipment-list/all-shipment']"
         class="cursor-pointer w-fit py-2 px-5 bg-black/70 text-white rounded-md"
         matRipple
         [matRippleColor]="rippleColor"
@@ -56,4 +56,4 @@
   </div>
 </div>
 
-<app-footer></app-footer>
+<app-footer class="fixed bottom-0 w-full"></app-footer>

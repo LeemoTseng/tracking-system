@@ -1,11 +1,10 @@
-<app-header></app-header>
+<app-header (loginStatus)="getIsLoginFromHeader($event)"></app-header>
 
-@if (isLoading){
+<!-- @if (isLoading){
 <app-loading
   class="fixed overflow-hidden bg-white/60 w-fit h-fit -z-10"
 ></app-loading>
-}
-
+} -->
 <div
   [class]="isLogin ? 'h-fit' : 'h-screen overflow-auto'"
   class="w-full bg-blackColor/5"
@@ -20,53 +19,16 @@
     </div>
     <!-- frame -->
     <div class="frame bg-white rounded-md p-10 pb-[100px] mb-[100px]">
-      <!-- process-menu -->
-      <div class="process-menu flex justify-between mb-5 border-b-2">
-        <div class="flex gap-x-2 relative">
-          @for (item of menuItems; track $index) {
-          <p
-            (click)="menuSelected(item, $index)"
-            [class]="selectedMenu === item ? '' : 'text-blackColor/50'"
-            class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-transparent border-b-4"
-          >
-            {{ item }}
-          </p>
-          }
-          <div
-            [class]="
-              selectedMenu === '' || selectedMenu === 'All Cargos'
-                ? 'absolute border-b-4 border-primary'
-                : selectedMenu === 'On-Going'
-                ? 'absolute border-b-4 border-primary translate-x-[120px]'
-                : selectedMenu === 'Completed'
-                ? 'absolute border-b-4  border-primary translate-x-[250px]'
-                : 'absolute border-b-4'
-            "
-            class="transition-transform duration-200 pt-[42px] w-[120px]"
-          ></div>
-        </div>
-      </div>
-      <!-- mutiple search bar -->
-      <app-search-bar></app-search-bar>
-
-      <!-- shipment-list -->
-      <div class="pt-4">
-        <!-- <app-loading></app-loading> -->
-        <app-all-shipment-list
-          [sendedSelectedMenu]="selectedMenu"
-        ></app-all-shipment-list>
-      </div>
-
+      <router-outlet></router-outlet>
       <!-- upToTop -->
-
       <div
         (click)="scrollToTop()"
         [class]="
           isShow
-            ? 'opacity-100 translate-y-[200px] bg-primary text-white'
-            : 'opacity-0'
+            ? 'opacity-100 translate-y-[200px] bg-primary text-white cursor-pointer'
+            : 'opacity-0 cursor-default'
         "
-        class="upToTop z-20 cursor-pointer transition-all duration-200 fixed bottom-[250px] right-1/2 -translate-x-1/2 drop-shadow-xl h-[60px] w-[60px] p-[18px] rounded-full hover:scale-[1.2]"
+        class="upToTop z-10 transition-all duration-200 fixed bottom-[250px] right-1/2 -translate-x-1/2 drop-shadow-xl h-[60px] w-[60px] p-[18px] rounded-full hover:scale-[1.2]"
       >
         <mat-icon>arrow_upward</mat-icon>
       </div>

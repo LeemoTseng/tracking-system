@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { SearchTrackingNumComponent } from '../../components/search-tracking-num/search-tracking-num.component';
+import { FooterComponent } from "../../components/footer/footer.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-shipment-summary',
@@ -17,12 +19,13 @@ import { SearchTrackingNumComponent } from '../../components/search-tracking-num
   imports: [HeaderComponent, MatIconModule, CommonModule,
     MatRippleModule, MatTableModule, OtherDetailsComponent,
     TrackingDetailsComponent, FormsModule, CommonModule,
-SearchTrackingNumComponent, 
-  ],
+    SearchTrackingNumComponent, FooterComponent, FooterComponent, RouterOutlet],
   templateUrl: './shipment-summary.component.html',
   animations:[]
 })
 export class ShipmentSummaryComponent  {
+
+  trackingNumber:string = '';
 
   rippleColor = 'rgba(0,0,0,0.05)';
   isValidTrackingNumber:boolean = false;
@@ -39,6 +42,7 @@ export class ShipmentSummaryComponent  {
 
   ngOnInit():void{
      this.onLoading();
+     this.getTrackingNumberFromSession();
   }
 
   // Header -> this component
@@ -48,7 +52,7 @@ export class ShipmentSummaryComponent  {
     // console.log('Summary isLogin:', this.isLogin);
   }
   username: string = '';
-  // Login status
+  // Check login status from cookie
   checkLoginStatus(): void {
     const isLoggedIn = this.getCookie('isLoggedIn');
     const username = this.getCookie('username');
@@ -56,6 +60,7 @@ export class ShipmentSummaryComponent  {
       this.isLogin = true;
       this.username = username;
     } else {
+      // this.isLogin = false;
       // this.router.navigate(['/login']); 
     }
   }
@@ -78,6 +83,14 @@ export class ShipmentSummaryComponent  {
   getAlertMessageOutput(v: string) {
     this.alertMessage = v;
     // console.log('alertMessage received in parent:', this.alertMessage);
+  }
+
+  getTrackingNumberFromSession(): void {
+    const storedTrackingNumber = sessionStorage.getItem('trackingNumber');
+    if (storedTrackingNumber) {
+      this.trackingNumber = storedTrackingNumber; // 從 Session Storage 中讀取
+      console.log('trackingNumber:', this.trackingNumber);
+    }
   }
 
 }

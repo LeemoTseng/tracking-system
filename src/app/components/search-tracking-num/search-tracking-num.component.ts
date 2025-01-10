@@ -12,123 +12,89 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class SearchTrackingNumComponent implements OnInit {
 
-  // search tracking number
   trackingNumber: string = '';
   alertMessage: string = '';
   http = inject(HttpClient);
-  searchResult: any = []; // input to tracking-details
+  searchResult: any = [];
 
   isValidTrackingNumber: boolean = false;
   isValidTrackingNumberOutput = output<boolean>();
   searchResultOutput = output<any[]>();
-
   alertMessageOutput = output<string>();
+
   sendAlertMessage() {
     this.alertMessageOutput.emit(this.alertMessage);
-    console.log('sendAlertMessage:', this.alertMessage);
   }
 
-
-  //OnInit
+  // OnInit
   ngOnInit(): void {
-    this.getCookie('trackingNumber');
+    this.getTrackingNumberFromSession();
     if (this.trackingNumber) {
       this.onSearch(this.trackingNumber);
     }
-    // this.clearCookie('trackingNumber');
-
-
   }
 
-
-
-
-  // search button
-
-
+  // Search button
   onSearch(e: string) {
     this.cleanSearchResult();
     this.sendSearchResult();
 
     if (this.trackingNumber === '' || this.trackingNumber !== Number(this.trackingNumber).toString()) {
-      this.alertMessage = `No matching result. <br />
-          Please try again!`;
+      this.alertMessage = `No matching result. <br /> Please try again!`;
       this.sendAlertMessage();
       this.isValidTrackingNumber = false;
-      this.sendTrackingNumber();
-      this.sendSearchResult();
+      // this.sendTrackingNumber();
+      // this.sendSearchResult();
     } else {
-      this.saveCookie('trackingNumber', this.trackingNumber);
+      this.saveTrackingNumberToSession(this.trackingNumber); // 儲存到 Session Storage
       const apiUrl = 'json/shipment-summary.json';
       this.http.get(apiUrl).subscribe({
         next: (res: any) => {
-          this.searchResult = res.shipment
-          // console.log('searchResult:', this.searchResult);
+          this.searchResult = res.shipment;
           this.isValidTrackingNumber = true;
           this.sendAlertMessage();
           this.sendTrackingNumber();
           this.sendSearchResult();
         },
         error: (err) => {
-          // console.log('err',err);
           this.isValidTrackingNumber = false;
-          this.alertMessage = `No matching result. <br />
-          Please try again!`;
+          this.alertMessage = `No matching result. <br /> Please try again!`;
           this.sendAlertMessage();
           this.sendTrackingNumber();
           this.sendSearchResult();
-
         },
-        complete: () => { }
-      })
-
+        complete: () => {}
+      });
     }
+  }
+
+  // Session Storage Methods
+  saveTrackingNumberToSession(value: string): void {
+    sessionStorage.setItem('trackingNumber', value); // 儲存到 Session Storage
+  }
+
+  getTrackingNumberFromSession(): void {
+    const storedTrackingNumber = sessionStorage.getItem('trackingNumber');
+    if (storedTrackingNumber) {
+      this.trackingNumber = storedTrackingNumber; // 從 Session Storage 中讀取
+    }
+  }
+
+  clearTrackingNumberFromSession(): void {
+    sessionStorage.removeItem('trackingNumber'); // 清除 Session Storage
+    this.trackingNumber = '';
   }
 
   sendTrackingNumber() {
     this.isValidTrackingNumberOutput.emit(this.isValidTrackingNumber);
-    console.log('sendTrackingNumber:', this.isValidTrackingNumber);
   }
+
   sendSearchResult() {
     this.searchResultOutput.emit(this.searchResult);
-    console.log('sendSearchResult:', this.searchResult);
-
   }
 
   cleanSearchResult() {
     this.searchResult = [];
     this.searchResultOutput.emit(this.searchResult);
-    console.log('cleanSearchResult:', this.searchResult);
   }
-
-  // sendAlertMessage() {
-  //   this.alertMessageOutput.emit(this.alertMessage);
-  //   console.log('sendAlertMessage:', this.alertMessage);
-  // }
-
-  // Get Cookie
-  getCookie(cookieName: string): string | null {
-    // console.log(document.cookie);
-    const cookies = document.cookie.split(';');
-    for (const cookie of cookies) {
-      const [name, value] = cookie.trim().split('=');
-      if (name === cookieName) {
-        this.trackingNumber = value;
-        return value;
-      }
-    }
-    return null;
-  }
-
-  clearCookie(cookieName: string): void {
-    document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-    console.log(`Cookie "${cookieName}" has been cleared.`);
-  }
-
-  saveCookie(cookieName: string, cookieValue: string): void {
-  document.cookie = `${cookieName}=${cookieValue}; path=/;`;
-  // console.log(`Cookie "${cookieName}" has been saved.`);
-
-}
-
 }

@@ -1,5 +1,5 @@
 import { Component, HostListener, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { CommonModule } from '@angular/common';
+import { SelectedShipmentDetailsComponent } from '../../components/selected-shipment-details/selected-shipment-details.component';
 
 @Component({
   selector: 'app-shipment-list',
@@ -22,10 +23,8 @@ import { CommonModule } from '@angular/common';
     MatTooltipModule, 
     MatMenuModule, 
     MatButtonModule, 
-    SearchBarComponent, 
-    LoadingComponent,
-    CommonModule
-  ],
+    CommonModule,
+  RouterOutlet  ],
   templateUrl: './shipment-list.component.html',
   styles: [`
     .search input,
@@ -40,9 +39,6 @@ export class ShipmentListComponent {
   rippleColor = 'rgba(0,0,0,0.05)';
   tooltipClass = 'opacity-10';
 
-  menuItems = ['All Cargos', 'On-Going', 'Completed'];
-  selectedMenu: string = 'All Cargos';
-
   scrollY = 0;
   isShow = false;
   isLoading = true;
@@ -51,8 +47,8 @@ export class ShipmentListComponent {
   username: string = '';
 
   ngOnInit(): void {
-    this.isShow = false;
     this.checkLoginStatus();
+    this.isShow = false;
     this.onLoading();
   }
 
@@ -84,9 +80,12 @@ export class ShipmentListComponent {
     }, 1000);
   }
 
-  menuSelected(menuItems: string, $index: number): void {
-    this.selectedMenu = menuItems;
+  // Get login status from header
+  getIsLoginFromHeader(isLogin: boolean) {
+    this.isLogin = isLogin;
   }
+
+
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {

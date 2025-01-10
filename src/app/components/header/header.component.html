@@ -1,5 +1,7 @@
 @if(selectedMenu =='Shipment List' && !isLogin){
+<!-- (loginStatusEmit)="getIsLoginFromPopup($event)" -->
 <app-login-popup
+  (loginStatusEmit)="getIsLoginFromPopup($event)"
   (sendOpenPopup)="getOpenPopup(isOpenPopup)"
   class="fixed z-20 drop-shadow-md top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
 >
@@ -29,8 +31,8 @@
       <ul class="flex gap-5">
         @for (item of menuList; track $index) {
         <li
-          (click)="selectMenu(item.name)"
           [routerLink]="item.routerLink"
+          (click)="selectMenu(item.name)"
           [class]="
             selectedMenu === item.name
               ? 'text-blackColor'
