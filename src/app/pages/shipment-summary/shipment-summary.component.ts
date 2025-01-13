@@ -7,11 +7,11 @@ import { MatTableModule } from '@angular/material/table';
 import { OtherDetailsComponent } from '../../components/other-details/other-details.component';
 import { TrackingDetailsComponent } from '../../components/tracking-details/tracking-details.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { LoadingComponent } from '../../components/loading/loading.component';
 import { SearchTrackingNumComponent } from '../../components/search-tracking-num/search-tracking-num.component';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { RouterOutlet } from '@angular/router';
+import { MainInterfaceService, processItems } from '../../interfaces/main-interface.service';
+import { MainServiceService } from '../../services/main-service.service';
 
 @Component({
   selector: 'app-shipment-summary',
@@ -21,17 +21,42 @@ import { RouterOutlet } from '@angular/router';
     TrackingDetailsComponent, FormsModule, CommonModule,
     SearchTrackingNumComponent, FooterComponent, FooterComponent, RouterOutlet],
   templateUrl: './shipment-summary.component.html',
-  animations:[]
 })
-export class ShipmentSummaryComponent  {
+export class ShipmentSummaryComponent {
 
-  trackingNumber:string = '';
+  trackingNumber: string = '';
 
   rippleColor = 'rgba(0,0,0,0.05)';
-  isValidTrackingNumber:boolean = false;
+  isValidTrackingNumber: boolean = false;
   isLoading = true;
-  searchResult:any = [];
-  alertMessage:string = '';
+  searchResult: any = [];
+  alertMessage: string = '';
+
+  // get data
+
+  processService = inject(MainServiceService);
+  processInterface = inject(MainInterfaceService);
+
+  bgColor = 'rgba(0,0,0,0.05)';
+
+  processList: processItems[] = [];
+  nowStatus: string = 'Booking Creation';
+
+  // get generalInfo() { return this.details?.generalInfo || {}; }
+  // get packageInfo() { return this.details?.packageInfo || {}; }
+  // get routeInfo() { return this.details?.routeInfo || {}; }
+  // get shipperInfo() { return this.details?.shipperInfo || {}; }
+  // get statusList() { return this.details?.status || []; }
+  // get consigneeInfo() { return this.details?.consigneeInfo || {}; }
+test(){
+  // console.log('this.processList',this.processList);
+  // console.log('this.isShipmentCompleted',this.isShipmentCompleted);
+}
+
+  //Send Data
+  isShipmentCompleted: boolean = false;
+
+
   // loading
   onLoading(): void {
     this.isLoading = true;
@@ -40,9 +65,11 @@ export class ShipmentSummaryComponent  {
     }, 1000);
   }
 
-  ngOnInit():void{
-     this.onLoading();
-     this.getTrackingNumberFromSession();
+  ngOnInit(): void {
+    this.onLoading();
+    this.getTrackingNumberFromSession();
+    this.getProcessData();
+
   }
 
   // Header -> this component
@@ -74,7 +101,7 @@ export class ShipmentSummaryComponent  {
     return null;
   }
 
-  getIsValidTrackingNumberOutput(v:boolean){
+  getIsValidTrackingNumberOutput(v: boolean) {
     this.isValidTrackingNumber = v;
     // console.log('isValidTrackingNumber:', this.isValidTrackingNumber);
   }
@@ -93,4 +120,90 @@ export class ShipmentSummaryComponent  {
     }
   }
 
+  // input data to child component - tracking-details
+  details = { generalInfo: {}, packageInfo: {}, routeInfo: {}, shipperInfo: {}, status: [], consigneeInfo: {} };
+
+  // Get data
+
+  getProcessData() {
+    this.processService.getShipmentSummaryData().subscribe({
+      next: (res) => {
+        // console.log('res', res);
+        const shipmentData = res.shipment;
+        this.details = {
+          generalInfo: shipmentData.generalInfo,
+          packageInfo: shipmentData.packageInfo,
+          routeInfo: shipmentData.routeInfo,
+          shipperInfo: shipmentData.shipperInfo,
+          status: shipmentData.status,
+          consigneeInfo: shipmentData.consigneeInfo
+        };
+
+        this.processList = shipmentData.status;
+        this.processList = this.processList.map((item: any) => {
+          return {
+            ...item,
+            formattedDate: this.formatDate(item.dateAndTime),
+          };
+        });
+        this.nowStatus = this.getClosestStatus();
+        console.log('processList:', this.processList);
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    });
+  }
+
+
+  getClosestStatus(): string {
+    const nowDate = new Date();
+    let closestStatus = '';
+    let minDiff = Infinity;
+
+    this.processList.forEach((process) => {
+      const processDate = new Date(process.dateAndTime);
+      const diff = processDate.getTime() - nowDate.getTime();
+
+      if (diff > 0 && diff < minDiff) {
+        minDiff = diff;
+        closestStatus = process.status;
+      }
+    });
+
+    if (!closestStatus) {
+      closestStatus = this.processList[this.processList.length - 1]?.status || 'Not Available';
+    }
+    return closestStatus;
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+
+    const options: Intl.DateTimeFormatOptions = {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    };
+
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  }
+
+  checkIfCompleted(status: string): boolean {
+    const nowDate = new Date();
+    const statuses = this.processList.map((item) => item.status);
+    const currentIndex = statuses.indexOf(this.nowStatus);
+    const itemIndex = statuses.indexOf(status);
+
+    const process = this.processList[itemIndex];
+    if (process) {
+      const processDate = new Date(process.dateAndTime);
+      this.isShipmentCompleted = itemIndex < currentIndex || processDate < nowDate;
+      return this.isShipmentCompleted;
+    }
+    this.isShipmentCompleted = false;
+    return false;
+  }
 }

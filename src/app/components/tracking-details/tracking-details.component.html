@@ -1,10 +1,10 @@
-<!-- <button (click)="test()">測試測試</button> -->
 <!-- loading -->
 @if (isLoading){
 <app-loading
   class="fixed overflow-hidden bg-white/60 w-[100vw] h-[100vh] z-10"
 ></app-loading>
 }
+<button (click)="test()">測試測試</button>
 <div class="trackingDetails">
   <div class="bg-white rounded-md">
     <!-- mainInfo -->
@@ -17,7 +17,7 @@
       </div>
       <div id="HAWBno">
         <p class="text-blackColor/50 font-medium">MAWB No.</p>
-        <p class="text-3xl font-semibold">659-50810270</p>
+        <p class="text-3xl font-semibold">{{ processList }}</p>
       </div>
       <div id="origin">
         <p class="text-blackColor/50 font-medium">Origin</p>
@@ -34,9 +34,7 @@
       <div class="process flex flex-col w-full">
         <div class="iconAnimation flex justify-start items-center">
           <mat-icon
-            [class]="
-              isCompleted(item.status) ? 'text-primary' : 'text-gray-300'
-            "
+            [class]="isCompleted ? 'text-primary' : 'text-gray-300'"
             class="material-symbols-outlined text-[45px]"
             style="height: 50px; width: 60px"
           >
@@ -44,7 +42,7 @@
           >
 
           <div
-            [class]="isCompleted(item.status) ? 'bg-primary' : 'bg-gray-300'"
+            [class]="isCompleted ? 'bg-primary' : 'bg-gray-300'"
             class="line w-full h-[3px]"
           ></div>
           <div class="line bg-blackColor/20 h-[3px]"></div>
@@ -76,7 +74,7 @@
       <div class="Completed flex flex-col w-fit">
         <div class="iconAnimation flex items-center">
           <mat-icon
-            [class]="isCompleted(nowStatus) ? 'text-primary' : 'text-gray-300'"
+            [class]="isCompleted ? 'text-primary' : 'text-gray-300'"
             class="text-[45px]"
             style="height: 50px; width: 50px"
             >task_alt</mat-icon

@@ -1,313 +1,337 @@
-<!-- process-menu -->
-<div class="process-menu flex justify-between mb-5 border-b-2">
-  <div class="flex gap-x-2 relative">
-    @for (item of menuItems; track $index) {
-    <p
-      (click)="menuSelected(item, $index)"
-      [class]="selectedMenu === item ? '' : 'text-blackColor/50'"
-      class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-transparent border-b-4"
-    >
-      {{ item }}
-    </p>
-    }
-    <div
-      [class]="
-        selectedMenu === '' || selectedMenu === 'All Cargos'
-          ? 'absolute border-b-4 border-primary'
-          : selectedMenu === 'On-Going'
-          ? 'absolute border-b-4 border-primary translate-x-[120px]'
-          : selectedMenu === 'Completed'
-          ? 'absolute border-b-4  border-primary translate-x-[250px]'
-          : 'absolute border-b-4'
-      "
-      class="transition-transform duration-200 pt-[42px] w-[120px]"
-    ></div>
-  </div>
+<div class="greeting py-3">
+  <p class="font-semibold text-3xl text-blackColor">Hello {{ username }},</p>
+  <p class="text-blackColor">View all of your shipment list.</p>
 </div>
-<!-- mutiple search bar -->
-<app-search-bar></app-search-bar>
+<!-- process-menu -->
+<div class="frame bg-white rounded-md p-10 pb-[100px] mb-[100px]">
+  <div class="process-menu flex justify-between mb-5 border-b-2">
+    <div class="flex gap-x-2 relative">
+      @for (item of menuItems; track $index) {
+      <p
+        (click)="menuSelected(item, $index)"
+        [class]="selectedMenu === item ? '' : 'text-blackColor/50'"
+        class="cursor-pointer text-xl transition-all font-semibold hover:text-blackColor/90 py-0 pb-3 px-3 mr-1 m-0 border-transparent border-b-4"
+      >
+        {{ item }}
+      </p>
+      }
+      <div
+        [class]="
+          selectedMenu === '' || selectedMenu === 'All Cargos'
+            ? 'absolute border-b-4 border-primary'
+            : selectedMenu === 'On-Going'
+            ? 'absolute border-b-4 border-primary translate-x-[120px]'
+            : selectedMenu === 'Completed'
+            ? 'absolute border-b-4  border-primary translate-x-[250px]'
+            : 'absolute border-b-4'
+        "
+        class="transition-transform duration-200 pt-[42px] w-[120px]"
+      ></div>
+    </div>
+  </div>
 
-<!-- shipment-list -->
-<div class="pt-4">
-  <!-- <app-loading></app-loading> -->
-  <!-- <app-all-shipment-list
+  <!-- mutiple search bar -->
+  <app-search-bar></app-search-bar>
+
+  <!-- shipment-list -->
+  <div class="pt-4">
+    <!-- <app-loading></app-loading> -->
+    <!-- <app-all-shipment-list
     [sendedSelectedMenu]="selectedMenu"
   ></app-all-shipment-list> -->
-  @if (isLoading){
-  <app-loading
-    class="fixed overflow-hidden bg-white/60 w-full h-full z-20"
-  ></app-loading>
-  }
-  <div class="flex justify-between items-center">
-    <!-- search content -->
-    <div class="searchContent flex items-center gap-2">
-      <p class="text-sm text-blackColor/60">
-        Search from
-        <span class="font-bold">Aug 08, 2024 - Aug 08, 2024</span>. Including
-        “<span class="font-bold">THI2240231</span>”, Sort by
-        <span class="font-bold">new to old</span>.
-      </p>
-      <p
-        class="underline cursor-pointer text-blackColor/40 hover:text-blackColor/70"
-        style="width: fit-content; font-size: 0.875rem"
-      >
-        Clear all search content
-      </p>
+    @if (isLoading){
+    <app-loading
+      class="fixed overflow-hidden bg-white/60 w-full h-full z-20"
+    ></app-loading>
+    }
+    <div class="flex justify-between items-center">
+      <!-- search content -->
+      <div class="searchContent flex items-center gap-2">
+        <p class="text-sm text-blackColor/60">
+          Search from
+          <span class="font-bold">Aug 08, 2024 - Aug 08, 2024</span>. Including
+          “<span class="font-bold">THI2240231</span>”, Sort by
+          <span class="font-bold">new to old</span>.
+        </p>
+        <p
+          class="underline cursor-pointer text-blackColor/40 hover:text-blackColor/70"
+          style="width: fit-content; font-size: 0.875rem"
+        >
+          Clear all search content
+        </p>
+      </div>
+      <!-- Pagination -->
+      <app-pagination
+        [length]="totalItems"
+        [pageSize]="itemsPerPage"
+        [pageIndex]="currentPage"
+        [pageSizeOptions]="[5, 10, 50, 100, 200, 500, 1000]"
+        (page)="onPageChange($event)"
+      ></app-pagination>
     </div>
-    <!-- Pagination -->
-    <app-pagination
-      [length]="totalItems"
-      [pageSize]="itemsPerPage"
-      [pageIndex]="currentPage"
-      [pageSizeOptions]="[5, 10, 50, 100, 200, 500, 1000]"
-      (page)="onPageChange($event)"
-    ></app-pagination>
-  </div>
-  <!-- list -->
-  <div class="list">
-    <table class="w-full table-fixed border-b border-blackColor/30">
-      <thead>
-        <tr class="w-full bg-[#f5f5f5]">
-          <td width="3%" align="center"></td>
-          <td width="12%" align="left" class="py-3 px-1">
-            <p class="text-blackColor font-semibold">MAWB No.</p>
-          </td>
-          <td width="10%" align="left" class="py-3 px-1">
-            <p class="text-blackColor font-semibold">HAWB No.</p>
-          </td>
-          <td width="65%" align="left" class="py-3 px-1">
-            <p class="text-blackColor font-semibold">Milestones</p>
-          </td>
-          <td width="10%" align="left" class="py-3 px-1">
-            <p class="text-blackColor font-semibold"></p>
-          </td>
-        </tr>
-      </thead>
+    <!-- list -->
+    <div class="list">
+      <table class="w-full table-fixed border-b border-blackColor/30">
+        <thead>
+          <tr class="w-full bg-[#f5f5f5]">
+            <td width="3%" align="center"></td>
+            <td width="12%" align="left" class="py-3 px-1">
+              <p class="text-blackColor font-semibold">MAWB No.</p>
+            </td>
+            <td width="10%" align="left" class="py-3 px-1">
+              <p class="text-blackColor font-semibold">HAWB No.</p>
+            </td>
+            <td width="65%" align="left" class="py-3 px-1">
+              <p class="text-blackColor font-semibold">Milestones</p>
+            </td>
+            <td width="10%" align="left" class="py-3 px-1">
+              <p class="text-blackColor font-semibold"></p>
+            </td>
+          </tr>
+        </thead>
 
-      <tbody>
-        @for (item of pagedItems; track $index) {
-        <tr class="border-b border-blackColor/20">
-          <td class="py-3 px-1 text-gray-400 text-sm">
-            {{ currentPage * itemsPerPage + $index + 1 }}
-          </td>
-          <td class="py-3 px-1">
-            <p class="breack-words break-all">{{ item.MAWB_No }}</p>
-          </td>
-          <td class="py-3 px-1">
-            <p class="breack-words break-all">{{ item.HAWB_No }}</p>
-          </td>
-          <td class="py-3 px-1" align="left">
-            <div class="frame w-full">
-              <div class="process">
-                <div class="text flex flex-col items-left">
-                  <div class="status flex justify-between py-3 pt-5">
-                    <!-- ------ -->
-                    <!-- Booked -->
-                    <!-- ------ -->
-                    <div class="booked w-full">
-                      <div class="processLine flex items-center relative pb-3">
+        <tbody>
+          @for (item of pagedItems; track $index) {
+          <tr class="border-b border-blackColor/20">
+            <td class="py-3 px-1 text-gray-400 text-sm">
+              {{ currentPage * itemsPerPage + $index + 1 }}
+            </td>
+            <td class="py-3 px-1">
+              <p class="breack-words break-all">{{ item.MAWB_No }}</p>
+            </td>
+            <td class="py-3 px-1">
+              <p class="breack-words break-all">{{ item.HAWB_No }}</p>
+            </td>
+            <td class="py-3 px-1" align="left">
+              <div class="frame w-full">
+                <div class="process">
+                  <div class="text flex flex-col items-left">
+                    <div class="status flex justify-between py-3 pt-5">
+                      <!-- ------ -->
+                      <!-- Booked -->
+                      <!-- ------ -->
+                      <div class="booked w-full">
                         <div
-                          [class]="
-                            lastStatus(item.processes) === 'Booked'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
-                          "
-                          class="point absolute min-w-[15px] h-[15px] rounded-full"
-                        ></div>
-                        @if(lastStatus(item.processes) === 'Booked'){
-                        <p
-                          class="flightIcon absolute bg-white z-10 rounded-full"
+                          class="processLine flex items-center relative pb-3"
                         >
-                          <span class="material-symbols-outlined text-primary">
-                            travel
-                          </span>
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="point absolute min-w-[15px] h-[15px] rounded-full"
+                          ></div>
+                          @if(lastStatus(item.processes) === 'Booked'){
+                          <p
+                            class="flightIcon absolute bg-white z-10 rounded-full"
+                          >
+                            <span
+                              class="material-symbols-outlined text-primary"
+                            >
+                              travel
+                            </span>
+                          </p>
+                          }
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="line absolute w-[110%] h-[2px]"
+                          ></div>
+                        </div>
+                        <p class="font-medium text-primary">Booked</p>
+                        <p class="text-[12px] text-blackColor/60">
+                          {{ item.processes[0].formattedDate }}
                         </p>
-                        }
+                      </div>
+                      <!-- ------ -->
+                      <!-- ETD -->
+                      <!-- ------ -->
+                      <div class="ETD w-full">
                         <div
+                          class="processLine flex items-center relative pb-3"
+                        >
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="point absolute min-w-[15px] h-[15px] rounded-full"
+                          ></div>
+                          @if(lastStatus(item.processes) === 'ETD'){
+                          <p
+                            class="flightIcon absolute bg-white z-10 rounded-full"
+                          >
+                            <span
+                              class="material-symbols-outlined text-primary"
+                            >
+                              travel
+                            </span>
+                          </p>
+                          }
+
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="line absolute w-[110%] h-[2px]"
+                          ></div>
+                        </div>
+                        <p
                           [class]="
                             lastStatus(item.processes) === 'Booked'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
+                              ? 'text-gray-300'
+                              : 'text-primary'
                           "
-                          class="line absolute w-[110%] h-[2px]"
-                        ></div>
+                          class="font-medium"
+                        >
+                          ETD
+                        </p>
+                        <p class="text-[12px] text-blackColor/60">
+                          {{ item.processes[1].formattedDate }}
+                        </p>
                       </div>
-                      <p class="font-medium text-primary">Booked</p>
-                      <p class="text-[12px] text-blackColor/60">
-                        {{ item.processes[0].formattedDate }}
-                      </p>
-                    </div>
-                    <!-- ------ -->
-                    <!-- ETD -->
-                    <!-- ------ -->
-                    <div class="ETD w-full">
-                      <div class="processLine flex items-center relative pb-3">
+                      <!-- ------ -->
+                      <!-- ATD -->
+                      <!-- ------ -->
+
+                      <div class="ATD w-full">
                         <div
+                          class="processLine flex items-center relative pb-3"
+                        >
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD' ||
+                              lastStatus(item.processes) === 'ATD'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="point absolute min-w-[15px] h-[15px] rounded-full"
+                          ></div>
+                          @if(lastStatus(item.processes) === 'ATD'){
+                          <p
+                            class="flightIcon absolute bg-white z-10 rounded-full"
+                          >
+                            <span
+                              class="material-symbols-outlined text-primary"
+                            >
+                              travel
+                            </span>
+                          </p>
+                          }
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD' ||
+                              lastStatus(item.processes) === 'ATD'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="line absolute w-[110%] h-[2px]"
+                          ></div>
+                        </div>
+
+                        <p
                           [class]="
                             lastStatus(item.processes) === 'Booked' ||
                             lastStatus(item.processes) === 'ETD'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
+                              ? 'text-gray-300'
+                              : 'text-primary'
                           "
-                          class="point absolute min-w-[15px] h-[15px] rounded-full"
-                        ></div>
-                        @if(lastStatus(item.processes) === 'ETD'){
-                        <p
-                          class="flightIcon absolute bg-white z-10 rounded-full"
+                          class="font-medium"
                         >
-                          <span class="material-symbols-outlined text-primary">
-                            travel
-                          </span>
+                          ATD
                         </p>
-                        }
-
-                        <div
-                          [class]="
-                            lastStatus(item.processes) === 'Booked' ||
-                            lastStatus(item.processes) === 'ETD'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
-                          "
-                          class="line absolute w-[110%] h-[2px]"
-                        ></div>
+                        <p class="text-[12px] text-blackColor/60">
+                          {{ item.processes[2].formattedDate }}
+                        </p>
                       </div>
-                      <p
-                        [class]="
-                          lastStatus(item.processes) === 'Booked'
-                            ? 'text-gray-300'
-                            : 'text-primary'
-                        "
-                        class="font-medium"
-                      >
-                        ETD
-                      </p>
-                      <p class="text-[12px] text-blackColor/60">
-                        {{ item.processes[1].formattedDate }}
-                      </p>
-                    </div>
-                    <!-- ------ -->
-                    <!-- ATD -->
-                    <!-- ------ -->
-
-                    <div class="ATD w-full">
-                      <div class="processLine flex items-center relative pb-3">
+                      <!-- ------ -->
+                      <!-- ETA -->
+                      <!-- ------ -->
+                      <div class="ETA w-full">
                         <div
+                          class="processLine flex items-center relative pb-3"
+                        >
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD' ||
+                              lastStatus(item.processes) === 'ATD' ||
+                              lastStatus(item.processes) === 'ETA'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="point absolute min-w-[15px] h-[15px] rounded-full"
+                          ></div>
+                          @if(lastStatus(item.processes) === 'ETA'){
+                          <p
+                            class="flightIcon absolute bg-white z-10 rounded-full"
+                          >
+                            <span
+                              class="material-symbols-outlined text-primary"
+                            >
+                              travel
+                            </span>
+                          </p>
+                          }
+
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD' ||
+                              lastStatus(item.processes) === 'ATD' ||
+                              lastStatus(item.processes) === 'ETA'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="line absolute w-[110%] h-[2px]"
+                          ></div>
+                        </div>
+                        <p
                           [class]="
                             lastStatus(item.processes) === 'Booked' ||
                             lastStatus(item.processes) === 'ETD' ||
                             lastStatus(item.processes) === 'ATD'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
+                              ? 'text-gray-300'
+                              : 'text-primary'
                           "
-                          class="point absolute min-w-[15px] h-[15px] rounded-full"
-                        ></div>
-                        @if(lastStatus(item.processes) === 'ATD'){
-                        <p
-                          class="flightIcon absolute bg-white z-10 rounded-full"
+                          class="font-medium"
                         >
-                          <span class="material-symbols-outlined text-primary">
-                            travel
-                          </span>
+                          ETA
                         </p>
-                        }
-                        <div
-                          [class]="
-                            lastStatus(item.processes) === 'Booked' ||
-                            lastStatus(item.processes) === 'ETD' ||
-                            lastStatus(item.processes) === 'ATD'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
-                          "
-                          class="line absolute w-[110%] h-[2px]"
-                        ></div>
+                        <p class="text-[12px] text-blackColor/60">
+                          {{ item.processes[3].formattedDate }}
+                        </p>
                       </div>
-
-                      <p
-                        [class]="
-                          lastStatus(item.processes) === 'Booked' ||
-                          lastStatus(item.processes) === 'ETD'
-                            ? 'text-gray-300'
-                            : 'text-primary'
-                        "
-                        class="font-medium"
-                      >
-                        ATD
-                      </p>
-                      <p class="text-[12px] text-blackColor/60">
-                        {{ item.processes[2].formattedDate }}
-                      </p>
-                    </div>
-                    <!-- ------ -->
-                    <!-- ETA -->
-                    <!-- ------ -->
-                    <div class="ETA w-full">
-                      <div class="processLine flex items-center relative pb-3">
+                      <!-- ------ -->
+                      <!-- ATA -->
+                      <!-- ------ -->
+                      <div class="ATA w-full">
                         <div
-                          [class]="
-                            lastStatus(item.processes) === 'Booked' ||
-                            lastStatus(item.processes) === 'ETD' ||
-                            lastStatus(item.processes) === 'ATD' ||
-                            lastStatus(item.processes) === 'ETA'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
-                          "
-                          class="point absolute min-w-[15px] h-[15px] rounded-full"
-                        ></div>
-                        @if(lastStatus(item.processes) === 'ETA'){
-                        <p
-                          class="flightIcon absolute bg-white z-10 rounded-full"
+                          class="processLine flex items-center relative pb-3"
                         >
-                          <span class="material-symbols-outlined text-primary">
-                            travel
-                          </span>
-                        </p>
-                        }
-
-                        <div
-                          [class]="
-                            lastStatus(item.processes) === 'Booked' ||
-                            lastStatus(item.processes) === 'ETD' ||
-                            lastStatus(item.processes) === 'ATD' ||
-                            lastStatus(item.processes) === 'ETA'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
-                          "
-                          class="line absolute w-[110%] h-[2px]"
-                        ></div>
-                      </div>
-                      <p
-                        [class]="
-                          lastStatus(item.processes) === 'Booked' ||
-                          lastStatus(item.processes) === 'ETD' ||
-                          lastStatus(item.processes) === 'ATD'
-                            ? 'text-gray-300'
-                            : 'text-primary'
-                        "
-                        class="font-medium"
-                      >
-                        ETA
-                      </p>
-                      <p class="text-[12px] text-blackColor/60">
-                        {{ item.processes[3].formattedDate }}
-                      </p>
-                    </div>
-                    <!-- ------ -->
-                    <!-- ATA -->
-                    <!-- ------ -->
-                    <div class="ATA w-full">
-                      <div class="processLine flex items-center relative pb-3">
-                        <div
-                          [class]="
-                            lastStatus(item.processes) === 'Booked' ||
-                            lastStatus(item.processes) === 'ETD' ||
-                            lastStatus(item.processes) === 'ATD' ||
-                            lastStatus(item.processes) === 'ETA'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
-                          "
-                          class="point absolute min-w-[15px] h-[15px] rounded-full"
-                        ></div>
-                        <!-- @if(flightTo(item)==='ATA'){
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD' ||
+                              lastStatus(item.processes) === 'ATD' ||
+                              lastStatus(item.processes) === 'ETA'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="point absolute min-w-[15px] h-[15px] rounded-full"
+                          ></div>
+                          <!-- @if(flightTo(item)==='ATA'){
                       <p class="flightIcon absolute bg-white z-10 rounded-full">
                         <span class="material-symbols-outlined text-primary">
                           travel
@@ -315,85 +339,90 @@
                       </p>
                       } -->
 
-                        <div
+                          <div
+                            [class]="
+                              lastStatus(item.processes) === 'Booked' ||
+                              lastStatus(item.processes) === 'ETD' ||
+                              lastStatus(item.processes) === 'ATD' ||
+                              lastStatus(item.processes) === 'ETA'
+                                ? 'bg-gray-300'
+                                : 'bg-primary'
+                            "
+                            class="line absolute w-[110%] h-[2px]"
+                          ></div>
+                        </div>
+                        <p
                           [class]="
                             lastStatus(item.processes) === 'Booked' ||
                             lastStatus(item.processes) === 'ETD' ||
                             lastStatus(item.processes) === 'ATD' ||
                             lastStatus(item.processes) === 'ETA'
-                              ? 'bg-gray-300'
-                              : 'bg-primary'
+                              ? 'text-gray-300'
+                              : 'text-primary'
                           "
-                          class="line absolute w-[110%] h-[2px]"
-                        ></div>
-                      </div>
-                      <p
-                        [class]="
-                          lastStatus(item.processes) === 'Booked' ||
-                          lastStatus(item.processes) === 'ETD' ||
-                          lastStatus(item.processes) === 'ATD' ||
-                          lastStatus(item.processes) === 'ETA'
-                            ? 'text-gray-300'
-                            : 'text-primary'
-                        "
-                        class="font-medium"
-                      >
-                        ATA
-                      </p>
-                      <p class="text-[12px] text-blackColor/60">
-                        {{ item.processes[4].formattedDate }}
-                      </p>
-                    </div>
-                    <!-- ------ -->
-                    <!-- Completed -->
-                    <!-- ------ -->
-                    <div class="completed">
-                      <div class="processLine flex items-center relative pb-3">
-                        @if(lastStatus(item.processes) === 'ATA'){
-                        <p
-                          class="flightIcon absolute bg-white z-10 rounded-full"
+                          class="font-medium"
                         >
-                          <span class="material-symbols-outlined text-primary">
-                            travel
-                          </span>
+                          ATA
                         </p>
-                        }
-                        <div
-                          class="point bg-gray-300 absolute min-w-[15px] h-[15px] rounded-full"
-                        ></div>
+                        <p class="text-[12px] text-blackColor/60">
+                          {{ item.processes[4].formattedDate }}
+                        </p>
                       </div>
-                      <p
-                        [class]="
-                          lastStatus(item.processes) === 'Booked' ||
-                          lastStatus(item.processes) === 'ETD' ||
-                          lastStatus(item.processes) === 'ATD' ||
-                          lastStatus(item.processes) === 'ETA'
-                            ? 'text-gray-300'
-                            : 'text-primary'
-                        "
-                        class="font-medium relative right-7"
-                      >
-                        Completed
-                      </p>
+                      <!-- ------ -->
+                      <!-- Completed -->
+                      <!-- ------ -->
+                      <div class="completed">
+                        <div
+                          class="processLine flex items-center relative pb-3"
+                        >
+                          @if(lastStatus(item.processes) === 'ATA'){
+                          <p
+                            class="flightIcon absolute bg-white z-10 rounded-full"
+                          >
+                            <span
+                              class="material-symbols-outlined text-primary"
+                            >
+                              travel
+                            </span>
+                          </p>
+                          }
+                          <div
+                            class="point bg-gray-300 absolute min-w-[15px] h-[15px] rounded-full"
+                          ></div>
+                        </div>
+                        <p
+                          [class]="
+                            lastStatus(item.processes) === 'Booked' ||
+                            lastStatus(item.processes) === 'ETD' ||
+                            lastStatus(item.processes) === 'ATD' ||
+                            lastStatus(item.processes) === 'ETA'
+                              ? 'text-gray-300'
+                              : 'text-primary'
+                          "
+                          class="font-medium relative right-7"
+                        >
+                          Completed
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-          <td class="py-3 px-1" align="center">
-            <p
-              routerLink="/shipment-list/details"
-              matRipple
-              class="btn-outline text-nowrap"
-              style="width: fit-content"
-            >
-              View Details
-            </p>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
+            </td>
+            <td class="py-3 px-1" align="center">
+              <p
+                routerLink="/shipment-list/details"
+                matRipple
+                class="btn-outline text-nowrap"
+                style="width: fit-content"
+              >
+                View Details
+              </p>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

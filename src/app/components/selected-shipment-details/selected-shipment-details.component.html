@@ -1,3 +1,19 @@
-<div class="bg-blackColor/5 h-full">
-  <p>selected-shipment-details works!</p>
+<div class="py-3 w-fit h-fit flex items-center cursor-pointer group">
+  <mat-icon
+    class="cursor-pointer text-blackColor group-hover:text-primary group-hover:font-bold transition-all"
+    >arrow_back</mat-icon
+  >
+  <p
+    routerLink="/shipment-list/all-shipment"
+    class="cursor-pointer text-blackColor text-lg pl-2 group-hover:text-primary group-hover:font-bold transition-all"
+  >
+    Back to list
+  </p>
+</div>
+<div class="frame rounded-md pb-[100px] mb-[100px]">
+  @if (selectedtrackingNumber) {
+  <!-- <app-tracking-details [details]="searchResult"></app-tracking-details>
+  <app-other-details></app-other-details> -->
+
+  }
 </div>

@@ -11,27 +11,22 @@
 >
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- greetings -->
-    <div class="greeting py-3">
-      <p class="font-semibold text-3xl text-blackColor">
-        Hello {{ username }},
-      </p>
-      <p class="text-blackColor">View all of your shipment list.</p>
-    </div>
+
     <!-- frame -->
-    <div class="frame bg-white rounded-md p-10 pb-[100px] mb-[100px]">
-      <router-outlet></router-outlet>
-      <!-- upToTop -->
-      <div
-        (click)="scrollToTop()"
-        [class]="
-          isShow
-            ? 'opacity-100 translate-y-[200px] bg-primary text-white cursor-pointer'
-            : 'opacity-0 cursor-default'
-        "
-        class="upToTop z-10 transition-all duration-200 fixed bottom-[250px] right-1/2 -translate-x-1/2 drop-shadow-xl h-[60px] w-[60px] p-[18px] rounded-full hover:scale-[1.2]"
-      >
-        <mat-icon>arrow_upward</mat-icon>
-      </div>
+    <!-- <div class="frame bg-white rounded-md p-10 pb-[100px] mb-[100px]"> -->
+    <router-outlet></router-outlet>
+    <!-- upToTop -->
+    <div
+      (click)="scrollToTop()"
+      [class]="
+        isShow
+          ? 'opacity-100 translate-y-[200px] bg-primary text-white cursor-pointer'
+          : 'opacity-0 cursor-default'
+      "
+      class="upToTop z-10 transition-all duration-200 fixed bottom-[250px] right-1/2 -translate-x-1/2 drop-shadow-xl h-[60px] w-[60px] p-[18px] rounded-full hover:scale-[1.2]"
+    >
+      <mat-icon>arrow_upward</mat-icon>
     </div>
+    <!-- </div> -->
   </div>
 </div>

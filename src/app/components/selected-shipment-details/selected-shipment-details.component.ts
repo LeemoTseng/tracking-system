@@ -1,11 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { FooterComponent } from '../footer/footer.component';
+import { TrackingDetailsComponent } from '../tracking-details/tracking-details.component';
+import { OtherDetailsComponent } from '../other-details/other-details.component';
 
 @Component({
   selector: 'app-selected-shipment-details',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, MatIconModule,FooterComponent,
+    TrackingDetailsComponent,OtherDetailsComponent,RouterLink
+  ],
   templateUrl: './selected-shipment-details.component.html',
 })
 export class SelectedShipmentDetailsComponent {
@@ -14,6 +20,9 @@ export class SelectedShipmentDetailsComponent {
   isShow = false;
   username: string = '';
   isLoading = true;
+
+  selectedtrackingNumber = '1234567890';
+  searchResult:any = [];
 
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AllShipmentListComponent } from "../../components/all-shipment-list/all-shipment-list.component";
 import { MatRippleModule } from '@angular/material/core';
@@ -24,7 +24,7 @@ import { SelectedShipmentDetailsComponent } from '../../components/selected-ship
     MatMenuModule, 
     MatButtonModule, 
     CommonModule,
-  RouterOutlet  ],
+  RouterOutlet,  ],
   templateUrl: './shipment-list.component.html',
   styles: [`
     .search input,
@@ -101,4 +101,6 @@ export class ShipmentListComponent {
   scrollToTop() {
     window.scrollTo(0, 0);
   }
+
+  
 }

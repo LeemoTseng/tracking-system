@@ -4,6 +4,7 @@
   class="fixed overflow-hidden bg-white/60 w-fit h-fit -z-10"
 ></app-loading>
 } -->
+<button (click)="test()">aaaaaaaaaa</button>
 <div class="bg-blackColor/5">
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- search -->
@@ -14,10 +15,14 @@
     <!-- trackingDetails -->
     @if (isValidTrackingNumber) {
     <!-- [sendDetails]="searchResult" -->
-    <app-tracking-details [details]="searchResult"></app-tracking-details>
+    <!-- [details]="searchResult" -->
+    <app-tracking-details
+      [isCompleted]="isShipmentCompleted"
+      [processList]="processList"
+    ></app-tracking-details>
     <app-other-details></app-other-details>
     }@else {
-    <div class="h-full">
+    <div class="h-[100vh]">
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center"
       >
