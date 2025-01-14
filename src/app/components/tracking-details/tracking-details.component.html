@@ -4,7 +4,6 @@
   class="fixed overflow-hidden bg-white/60 w-[100vw] h-[100vh] z-10"
 ></app-loading>
 }
-<button (click)="test()">測試測試</button>
 <div class="trackingDetails">
   <div class="bg-white rounded-md">
     <!-- mainInfo -->
@@ -13,19 +12,19 @@
     >
       <div id="HAWBno">
         <p class="text-blackColor/50 font-medium">HAWB No.</p>
-        <p class="text-3xl font-semibold">THI012403610</p>
+        <p class="text-3xl font-semibold">{{ General_Info[0]["value"] }}</p>
       </div>
       <div id="HAWBno">
         <p class="text-blackColor/50 font-medium">MAWB No.</p>
-        <p class="text-3xl font-semibold">{{ processList }}</p>
+        <p class="text-3xl font-semibold">{{ General_Info[1]["value"] }}</p>
       </div>
       <div id="origin">
         <p class="text-blackColor/50 font-medium">Origin</p>
-        <p class="font-medium">TPE <br />TAIPEI, TAIWAN</p>
+        <p class="font-medium">{{ Route_Info[0]["value"] }}</p>
       </div>
       <div id="destination">
         <p class="text-blackColor/50 font-medium">Destination</p>
-        <p class="font-medium">ORD <br />CHICAGO ORD, UNITED STATES</p>
+        <p class="font-medium">{{ Route_Info[1]["value"] }}</p>
       </div>
     </div>
     <!-- Process -->

@@ -1,7 +1,6 @@
 import { Component, inject, Input, input, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MainInterfaceService, processItems } from '../../interfaces/main-interface.service';
-import { MainServiceService } from '../../services/main-service.service';
+import { processItems } from '../../interfaces/main-interface.service';
 import { MatRippleModule } from '@angular/material/core';
 import { LoadingComponent } from '../loading/loading.component';
 
@@ -16,30 +15,25 @@ export class TrackingDetailsComponent {
 
   rippleColor = 'rgba(0,0,0,0.05)';
   isLoading = false;
-  // sendDetails:processItems[] =[]
 
-  // get data from shipment-summary
-  // isCompleted = input<boolean>();
-  // processList = input<processItems[]>();
+  // processes contents
 
   @Input() isCompleted!: boolean;
   @Input() processList: processItems[] = [];
-
-  // details = input({ generalInfo: {}, packageInfo: {}, routeInfo: {}, shipperInfo: {}, status: [], consigneeInfo: {} });
-  // @Input() details: { generalInfo?: any, packageInfo?: any, routeInfo?: any, shipperInfo?: any, status?: any[], consigneeInfo?: any } = {};
-
+  @Input() nowStatus: string = '';
+  @Input() milestones: any[] = [];
+  @Input() General_Info: any[] = [];
+  @Input() Route_Info: any[] = [];
 
   ngOnInit(): void {
     this.onLoading();
-    // this.getProcessData();
-    // console.log('isCompleted', this.isCompleted);
-
+    console.log(this.milestones)
   }
 
   test() {
-    console.log('isCompleted', this.isCompleted);
-    console.log('processList', this.processList);
-    // console.log('res', this.sendDetails);
+    // console.log('isCompleted', this.isCompleted);
+    // console.log('processList', this.processList);
+    // console.log('nowStatus', this.nowStatus);
   }
 
   // loading

@@ -12,6 +12,7 @@ import { FooterComponent } from "../../components/footer/footer.component";
 import { RouterOutlet } from '@angular/router';
 import { MainInterfaceService, processItems } from '../../interfaces/main-interface.service';
 import { MainServiceService } from '../../services/main-service.service';
+import { milestonesInterface } from '../../all-interface';
 
 @Component({
   selector: 'app-shipment-summary',
@@ -32,7 +33,7 @@ export class ShipmentSummaryComponent {
   searchResult: any = [];
   alertMessage: string = '';
 
-  // get data
+  // Get process data
 
   processService = inject(MainServiceService);
   processInterface = inject(MainInterfaceService);
@@ -42,20 +43,91 @@ export class ShipmentSummaryComponent {
   processList: processItems[] = [];
   nowStatus: string = 'Booking Creation';
 
-  // get generalInfo() { return this.details?.generalInfo || {}; }
-  // get packageInfo() { return this.details?.packageInfo || {}; }
-  // get routeInfo() { return this.details?.routeInfo || {}; }
-  // get shipperInfo() { return this.details?.shipperInfo || {}; }
-  // get statusList() { return this.details?.status || []; }
-  // get consigneeInfo() { return this.details?.consigneeInfo || {}; }
-test(){
-  // console.log('this.processList',this.processList);
-  // console.log('this.isShipmentCompleted',this.isShipmentCompleted);
-}
+  // get shipment details
+
+  mainService = inject(MainServiceService);
+  processItems = inject(MainInterfaceService);
+
+  milestones: milestonesInterface[] = [];
+  milestonesColumns: any[] = [];
+
+  flights: any[] = [];
+  flightsColumns: any[] = [];
+
+  columns: any[] = [];
+  ImgDataSource: any[] = [];
+  fileDataSource: any[] = [];
+
+  getSelectedMenu(menu: string) {
+    // console.log('menu:', menu);
+    if (menu === 'Milestones') {
+      this.getMilestoneData();
+      this.getFlightsData();
+    } else if (menu === 'Files') {
+      this.getFilesData();
+      // console.log('this.flights',this.flights)
+      // console.log('this.flightsColumns',this.flightsColumns)
+    } else {
+      // this.clearData();
+    }
+  }
+
+  getFlightsData(): void {
+    const column = ['Order', 'Flight No.', 'From', 'To', 'ETD', 'ATD', 'ETA', 'ATA']
+    this.flightsColumns = column;
+    this.mainService.getFlightsData().subscribe({
+      next: (res) => {
+        this.flights = res.flights;
+        // console.log('getFlightsData',res.flights);
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    })
+  }
+
+  getMilestoneData(): void {
+    const column = ['Order', 'Milestone', 'Date and Time', 'Files']
+    this.milestonesColumns = column;
+    this.mainService.getMilestoneData().subscribe({
+      next: (res) => {
+        this.milestones = res.milestones;
+        // console.log(this.milestones);
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    })
+  }
+
+  getFilesData(): void {
+    const column = ['Id', 'Type', 'Name', 'Download']
+    this.columns = column;
+    this.mainService.getFilesData().subscribe({
+      next: (res) => {
+        // console.log(res.Documents);
+        this.fileDataSource = res.Documents;
+        this.ImgDataSource = res.Images;
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+
+    })
+  }
+
+  clearData(): void {
+    this.milestones = [];
+    this.flights = [];
+    this.milestonesColumns = [];
+    this.flightsColumns = [];
+  }
+
+
+  test() {
+    // console.log('this.processList',this.processList);
+    // console.log('this.isShipmentCompleted',this.isShipmentCompleted);
+  }
 
   //Send Data
   isShipmentCompleted: boolean = false;
-
 
   // loading
   onLoading(): void {
@@ -69,7 +141,7 @@ test(){
     this.onLoading();
     this.getTrackingNumberFromSession();
     this.getProcessData();
-
+    this.getShipmentDetailsData()
   }
 
   // Header -> this component
@@ -147,7 +219,8 @@ test(){
           };
         });
         this.nowStatus = this.getClosestStatus();
-        console.log('processList:', this.processList);
+        // console.log('nowStatus:', this.nowStatus);
+        // console.log('processList:', this.processList);
       },
       error: (err) => { console.log(err) },
       complete: () => { }
@@ -206,4 +279,33 @@ test(){
     this.isShipmentCompleted = false;
     return false;
   }
+
+  // Get shipment details
+
+  [key: string]: any;
+
+  General_Info: any[] = [];
+  Package_Info?: any[] = [];
+  Route_Info: any[] = [];
+  Shipper_Info?: any[] = [];
+  Consignee_Info?: any[] = [];
+
+  getShipmentDetailsData() {
+    this.mainService.getShipmentDetailsData().subscribe({
+      next: (res) => {
+        this.General_Info = res.General_Info.map((item: any) => ({ ...item, isCopied: false }));
+        this.Package_Info = res.Package_Info.map((item: any) => ({ ...item, isCopied: false }));
+        this.Route_Info = res.Route_Info.map((item: any) => ({ ...item, isCopied: false }));
+        this.Shipper_Info = res.Shipper_Info.map((item: any) => ({ ...item, isCopied: false }));
+        this.Consignee_Info = res.Consignee_Info.map((item: any) => ({ ...item, isCopied: false }));
+      },
+      error: (err) => { console.log(err) },
+      complete: () => { }
+    })
+  }
+
+
+
+
+
 }

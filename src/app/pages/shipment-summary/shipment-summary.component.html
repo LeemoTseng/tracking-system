@@ -4,7 +4,6 @@
   class="fixed overflow-hidden bg-white/60 w-fit h-fit -z-10"
 ></app-loading>
 } -->
-<button (click)="test()">aaaaaaaaaa</button>
 <div class="bg-blackColor/5">
   <div class="container mx-auto max-w-screen-xl p-3">
     <!-- search -->
@@ -16,11 +15,30 @@
     @if (isValidTrackingNumber) {
     <!-- [sendDetails]="searchResult" -->
     <!-- [details]="searchResult" -->
+    <!-- [sendDetails]="searchResult"[] -->
     <app-tracking-details
+      [General_Info]="General_Info"
+      [Route_Info]="Route_Info"
+      [milestones]="milestones"
+      [nowStatus]="nowStatus"
       [isCompleted]="isShipmentCompleted"
       [processList]="processList"
     ></app-tracking-details>
-    <app-other-details></app-other-details>
+    <app-other-details
+      [General_Info]="General_Info"
+      [Package_Info]="Package_Info"
+      [Route_Info]="Route_Info"
+      [Shipper_Info]="Shipper_Info"
+      [Consignee_Info]="Consignee_Info"
+      (sendSelectedMenu)="getSelectedMenu($event)"
+      [milestones]="milestones"
+      [milestonesColumns]="milestonesColumns"
+      [flights]="flights"
+      [flightsColumns]="flightsColumns"
+      [fileDataSource]="fileDataSource"
+      [ImgDataSource]="ImgDataSource"
+      [columns]="columns"
+    ></app-other-details>
     }@else {
     <div class="h-[100vh]">
       <div

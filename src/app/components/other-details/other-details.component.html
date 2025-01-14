@@ -28,14 +28,20 @@
     <div class="min-h-[600px]">
       <!-- table: Shipment Details -->
       @if (selectedMenu === 'Shipment Details') {
-      <app-shipment-detail></app-shipment-detail>
+      <app-shipment-detail
+        [General_Info]="General_Info"
+        [Package_Info]="Package_Info"
+        [Route_Info]="Route_Info"
+        [Shipper_Info]="Shipper_Info"
+        [Consignee_Info]="Consignee_Info"
+      ></app-shipment-detail>
       }
       <!-- table: Files -->
       @if (selectedMenu === 'Files') {
-      <app-table-template
-        [dataSource]="fileDataSource"
-        [displayedColumns]="columns"
-      ></app-table-template>
+      <!-- <app-table-template
+        [dataSource]="flights"
+        [displayedColumns]="flightsColumns"
+      ></app-table-template> -->
       <app-table-template
         [dataSource]="ImgDataSource"
         [displayedColumns]="columns"
@@ -47,6 +53,8 @@
         [dataSource]="milestones"
         [displayedColumns]="milestonesColumns"
       ></app-table-template>
+
+      <div style="padding-top: 20px"></div>
       <app-table-template
         [dataSource]="flights"
         [displayedColumns]="flightsColumns"
