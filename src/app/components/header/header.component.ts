@@ -3,13 +3,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { LoginPopupComponent } from '../login-popup/login-popup.component';
+import { PopupLogoutComponent } from '../popup-logout/popup-logout.component';
 
 
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, RouterLink, LoginPopupComponent, MatIconModule],
+  imports: [MatIconModule, RouterLink, LoginPopupComponent,
+    MatIconModule, PopupLogoutComponent],
   templateUrl: './header.component.html',
 
 })
@@ -17,6 +19,11 @@ export class HeaderComponent implements OnInit {
 
   // constructor
   constructor(private router: Router) { }
+
+  isLogOutPopupShow: boolean = false;
+  // Login status : 
+  isLogin: boolean = false; // is the user logged in
+  username: string = ''; // username
 
   // menu list
   menuList: any[] = [
@@ -50,9 +57,6 @@ export class HeaderComponent implements OnInit {
     // console.log('sendLoginStatus', isLogin);
   }
 
-  // Login status : 
-  isLogin: boolean = false; // is the user logged in
-  username: string = ''; // username
 
   // Get login status from popup
   getIsLoginFromPopup(isLogin: boolean) {
@@ -92,17 +96,23 @@ export class HeaderComponent implements OnInit {
 
   // Find the URL of the current page
   findUrl(currentUrl: string) {
-    const matchedMenu = this.menuList.find
-      (menu => menu.routerLink === currentUrl
-        || menu.routerLink === currentUrl.includes(menu.routerLink));
-    this.selectedMenu = matchedMenu ? matchedMenu.name : '';
+    const matchedMenu = this.menuList.find(menu =>
+      menu.routerLink === currentUrl || currentUrl.includes(menu.routerLink)
+    );
+
+    // 如果找到匹配的選單，且名稱為 "Shipment List"，設置 selectedMenu
+    this.selectedMenu = matchedMenu
+      ? (matchedMenu.routerLink === '/shipment-list' || currentUrl.includes('/shipment-list')
+        ? 'Shipment List'
+        : matchedMenu.name)
+      : '';
   }
 
   // get close the popup
   isOpenPopup: boolean = false;
   getOpenPopup(v: boolean) {
     this.isOpenPopup = v;
-    console.log('getOpenPopup', v);
+    // console.log('getOpenPopup', v);
   }
 
   // open the popup
@@ -114,21 +124,17 @@ export class HeaderComponent implements OnInit {
 
   // logout function
   logout() {
-    this.isLogin = false;
-  // 清除所有相關 Cookie，確保包括不同的 Path
-  document.cookie = "isLoggedIn=; path=/; max-age=0";
-  document.cookie = "isLoggedIn=; path=/shipment-list; max-age=0";
-  document.cookie = "username=; path=/; max-age=0";
-  document.cookie = "username=; path=/shipment-list; max-age=0";
-  document.cookie = "trackingNumber=; path=/; max-age=0";
-    alert('Logout successful!');
-    this.router.navigate(['/login']);
-    // window.location.reload();
+    this.isLogOutPopupShow = true;
   }
+
+  getIsLogOutPopupShow(e: boolean) {
+    this.isLogOutPopupShow = e;
+  }
+
   toggleLogout: boolean = false;
   showLogout() {
     this.toggleLogout = !this.toggleLogout;
-    console.log(this.toggleLogout);
+    // console.log(this.toggleLogout);
   }
   // Click outside the logout menu to close it
   @HostListener('document:click', ['$event'])

@@ -221,9 +221,9 @@ export class AllShipmentListComponent implements OnInit {
         return process.status; // 找到最後一個 true 的項目，返回 status
       }
     }
-
     return 'Unknown'; // 如果沒有找到符合條件的項目
   }
+
   formatDate(dateString: string): string {
     if (!dateString) {
       return '-'; // Fallback for empty dates

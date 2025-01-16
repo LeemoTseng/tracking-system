@@ -139,6 +139,7 @@ export class ShipmentSummaryComponent {
 
   ngOnInit(): void {
     this.onLoading();
+    this.checkLoginStatus();
     this.getTrackingNumberFromSession();
     this.getProcessData();
     this.getShipmentDetailsData()
@@ -303,6 +304,8 @@ export class ShipmentSummaryComponent {
       complete: () => { }
     })
   }
+
+
 
 
 

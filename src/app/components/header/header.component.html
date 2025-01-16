@@ -62,17 +62,19 @@
             [class]="isLogin ? '' : 'cursor-pointer'"
             >account_circle</mat-icon
           >
+
           @if (isLogin) {
           <p class="pl-1 cursor-pointer hover:text-blackColor/90">
             {{ username }}
           </p>
+
           <!-- Log out -->
           @if (toggleLogout) {
           <div
-            (click)="logout()"
             class="absolute top-10 rounded-md -right-5 border bg-white text-nowrap p-[2px]"
           >
             <p
+              (click)="logout()"
               class="cursor-pointer hover:bg-blackColor/5 px-4 py-1 text-center m-0"
             >
               Logout
@@ -103,3 +105,10 @@
     </div>
   </div>
 </div>
+
+<!-- logout popup -->
+<app-popup-logout
+  (isLogOutPopupShowSent)="getIsLogOutPopupShow($event)"
+  [isLogOutPopupShow]="isLogOutPopupShow"
+>
+</app-popup-logout>

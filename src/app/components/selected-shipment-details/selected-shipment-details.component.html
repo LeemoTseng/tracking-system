@@ -12,8 +12,28 @@
 </div>
 <div class="frame rounded-md pb-[100px] mb-[100px]">
   @if (selectedtrackingNumber) {
-  <!-- <app-tracking-details [details]="searchResult"></app-tracking-details>
-  <app-other-details></app-other-details> -->
-
+  <app-tracking-details
+    [General_Info]="General_Info"
+    [Route_Info]="Route_Info"
+    [milestones]="milestones"
+    [nowStatus]="nowStatus"
+    [isCompleted]="isShipmentCompleted"
+    [processList]="processList"
+  ></app-tracking-details>
+  <app-other-details
+    [General_Info]="General_Info"
+    [Package_Info]="Package_Info"
+    [Route_Info]="Route_Info"
+    [Shipper_Info]="Shipper_Info"
+    [Consignee_Info]="Consignee_Info"
+    (sendSelectedMenu)="getSelectedMenu($event)"
+    [milestones]="milestones"
+    [milestonesColumns]="milestonesColumns"
+    [flights]="flights"
+    [flightsColumns]="flightsColumns"
+    [fileDataSource]="fileDataSource"
+    [ImgDataSource]="ImgDataSource"
+    [columns]="columns"
+  ></app-other-details>
   }
 </div>
