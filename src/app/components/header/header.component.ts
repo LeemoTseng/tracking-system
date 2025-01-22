@@ -4,6 +4,7 @@ import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
 import { LoginPopupComponent } from '../login-popup/login-popup.component';
 import { PopupLogoutComponent } from '../popup-logout/popup-logout.component';
+import { LanguageSelectedComponent } from '../language-selected/language-selected.component';
 
 
 
@@ -11,7 +12,7 @@ import { PopupLogoutComponent } from '../popup-logout/popup-logout.component';
   selector: 'app-header',
   standalone: true,
   imports: [MatIconModule, RouterLink, LoginPopupComponent,
-    MatIconModule, PopupLogoutComponent],
+    MatIconModule, PopupLogoutComponent, LanguageSelectedComponent],
   templateUrl: './header.component.html',
 
 })
